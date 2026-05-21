@@ -227,14 +227,14 @@
 \section*{Resumen}
 
 \noindent
-\textbf{Antecedentes:} La proliferaci\'{o}n de c\'{a}maras de vigilancia
+\textbf{Antecedentes:} La proliferaci\'{o}n del uso de c\'{a}maras de vigilancia
 en entornos urbanos e industriales ha generado una demanda sostenida de
 algoritmos capaces de localizar personas con alta precisi\'{o}n bajo
 condiciones que degradan la calidad visual, como la oclusi\'{o}n entre
 individuos u objetos y los escenarios con escasa iluminaci\'{o}n o
 condiciones meteorol\'{o}gicas adversas.
 \textbf{Objetivo:} Sintetizar los modelos y t\'{e}cnicas documentados en
-la literatura cient\'{i}fica reciente orientados a la detecci\'{o}n
+la literatura cient\'{i}fica actual orientados a la detecci\'{o}n
 autom\'{a}tica de personas en situaciones de obstrucci\'{o}n visual y
 baja visibilidad dentro de plataformas de videovigilancia, e identificar
 los conjuntos de datos, m\'{e}tricas, limitaciones y brechas de
@@ -242,7 +242,7 @@ conocimiento predominantes.
 \textbf{M\'{e}todo:} Se ejecut\'{o} una \RSL{} siguiendo el protocolo de
 Kitchenham y Charters, con b\'{u}squedas en tres
 bases de datos indexadas: Scopus, ScienceDirect y Web of Science,
-acotadas al per\'{i}odo 2022--2026. La selecci\'{o}n de estudios se
+acotadas al per\'{i}odo 2022--2026. La selecci\'{o}n de estos estudios se
 realiz\'{o} en cuatro pasos aplicando criterios de inclusi\'{o}n y
 exclusi\'{o}n predefinidos.
 \textbf{Resultados:} De 956 registros recuperados, se retuvieron 30
@@ -315,7 +315,7 @@ pedestrian detection.
 La vigilancia autom\'{a}tica mediante c\'{a}maras constituye hoy un
 componente central en la gesti\'{o}n de la seguridad p\'{u}blica, el
 control de accesos y el monitoreo de infraestructuras
-cr\'{i}ticas~\cite{E05, E16}. La detecci\'{o}n de personas en tiempo real
+cr\'{i}ticas~\cite{E05, E16}. La identificaci\'{o}n de personas en tiempo real
 dentro de estos sistemas es el requisito m\'{a}s exigente, pues condiciona
 la utilidad de cualquier plataforma inteligente de alerta
 temprana~\cite{E17, E28}.
@@ -466,7 +466,7 @@ PRISMA 2020~\cite{Page2021}.
 Elemento & Descripci\'{o}n \\
 \midrule
 Poblaci\'{o}n    & Sistemas de detecci\'{o}n de personas, sistemas de videovigilancia, 
-                    sistemas de detecci\'{o}n de peatones. \\
+                    sistemas de la  detecci\'{o}n de  los peatones. \\
 Intervenci\'{o}n & Modelos de detecci\'{o}n, modelos de aprendizaje profundo, 
                     algoritmos de visi\'{o}n por computadora, t\'{e}cnicas de detecci\'{o}n de objetos, 
                     m\'{e}todos de manejo de oclusi\'{o}n, m\'{e}todos de detecci\'{o}n en baja visibilidad. \\
@@ -699,7 +699,7 @@ Web of Science & 302 & 123 & 58  & 58  & 3  \\
 %-------------------------------------------------------------
 
 Cada estudio primario se evalu\'{o} mediante la lista de verificaci\'{o}n
-de calidad adaptada a la escala de Rouhani ~\cite{Redmon2016}, con escala: S\'{i}~=~1 /
+de calidad adaptada a la escala de Rouhani~\cite{rouhani2015systematic}, con escala: S\'{i}~=~1 /
 Parcialmente~=~0{,}5 / No~=~0. La Tabla~\ref{tab:calidad} detalla los
 \'{i}tems considerados.
 
@@ -753,7 +753,7 @@ Tabla~\ref{tab:extraccion}:
 ID                        & Identificador \'{u}nico (E01, E02, \ldots, E30) \\
 T\'{i}tulo del art\'{i}culo & T\'{i}tulo completo del estudio \\
 Autor(es)                 & Apellidos y nombres de los autores \\
-A\~{n}o de publicaci\'{o}n & A\~{n}o de publicaci\'{o}n del art\'{i}culo \\
+A\~{n}o de publicaci\'{o}n & A\~{n}o de la publicaci\'{o}n del art\'{i}culo \\
 Fuente de publicaci\'{o}n  & Revista o conferencia de publicaci\'{o}n \\
 Tipo de publicaci\'{o}n    & Art\'{i}culo de revista / Art\'{i}culo de
                              conferencia / Revisi\'{o}n \\
@@ -783,7 +783,7 @@ Calidad del estudio (CQI)  & Puntuaci\'{o}n sobre 5{,}0 \\
 \subsection{Descripci\'{o}n General de los Estudios}
 %-------------------------------------------------------------
 
-El proceso de selecci\'{o}n redujo los 956 registros iniciales a
+El proceso de la selecci\'{o}n redujo los 956 registros iniciales a
 \textbf{30 estudios primarios} cubriendo el per\'{i}odo 2022--2026.
 ScienceDirect aport\'{o} la mayor proporci\'{o}n de estudios (16 de 30,
 53{,}3\%), seguida de Scopus (11 de 30, 36{,}7\%) y Web of Science
@@ -1035,7 +1035,7 @@ robustas~\cite{E14, E17}.
 
 \textbf{Eficiencia para dispositivos embebidos.} Se demanda el dise\~{n}o
 de arquitecturas que mantengan alta precisi\'{o}n con bajo consumo
-computacional, habilitando el procesamiento en el borde de la red
+computacional, habilitando el procesamiento cuando se encuentre en el borde de la red
 (\textit{edge computing})~\cite{E03, E11}.
 
 \textbf{Evaluaci\'{o}n en escenarios de alta densidad.} La detecci\'{o}n
@@ -1095,12 +1095,12 @@ Mejora de imagen previa al detector
 
 \subsection{Interpretaci\'{o}n de los Resultados}
 
-Los hallazgos de esta revisi\'{o}n son coherentes con la tendencia general
+Los hallazgos tras la realizacion de esta revisi\'{o}n son coherentes con la tendencia general
 documentada en trabajos previos sobre detecci\'{o}n peatonal~\cite{Dollar2012,
 Brunetti2018}: la calidad del detector depende cr\'{i}ticamente de la
 riqueza y disponibilidad de informaci\'{o}n visual. Cuando la iluminaci\'{o}n
 o la visibilidad se ven comprometidas, la incorporaci\'{o}n de canales
-espectrales adicionales emerge como la estrategia m\'{a}s efectiva porque
+espectrales adicionales surge como la estrategia m\'{a}s efectiva porque
 proporciona una se\~{n}al complementaria no degradada por las mismas
 condiciones que afectan al canal visible.
 
@@ -1108,7 +1108,7 @@ La predominancia de variantes YOLO refleja la presi\'{o}n industrial por
 soluciones capaces de operar en tiempo real con hardware accesible.
 Arquitecturas como NP-YOLO~\cite{E20} y PYOLO~\cite{E26} demuestran que
 es posible adaptar detectores de una etapa para condiciones adversas sin
-sacrificar velocidad de inferencia, lo que los hace atractivos para
+alterar la velocidad de inferencia, lo que los hace atractivos para
 despliegues en c\'{a}maras IP con capacidad de c\'{o}mputo embebido.
 
 La distribuci\'{o}n de estudios por base de datos muestra que ScienceDirect
@@ -1120,14 +1120,14 @@ de avances en este campo espec\'{i}fico.
 \subsection{Brechas de Investigaci\'{o}n y Trabajo Futuro}
 
 Las cinco brechas identificadas en la RQ6 configuran una agenda de
-investigaci\'{o}n clara. La m\'{a}s urgente es la ausencia de benchmarks
+investigaci\'{o}n clara. La m\'{a}s apremiante es la ausencia de benchmarks
 que combinen simult\'{a}neamente oclusi\'{o}n densa y condiciones
 meteorol\'{o}gicas adversas. Los conjuntos existentes (Caltech, KAIST,
-FLIR) abordan estas dimensiones de forma separada, lo que impide la
+FLIR) abordan estas dimensiones de forma separada, lo cual impide la
 validaci\'{o}n cruzada de modelos que pretendan ser robustos ante ambas
 condiciones.
 
-La segunda brecha, relativa a la adaptaci\'{o}n de dominio, cobra
+La segunda brecha, vinculada a la adaptaci\'{o}n de dominio, cobra
 especial relevancia en el contexto latinoamericano, donde las
 condiciones de infraestructura tecnol\'{o}gica y los patrones de
 comportamiento peatonal pueden diferir significativamente de los
@@ -1135,17 +1135,17 @@ contextos estudiados en los art\'{i}culos revisados.
 
 \subsection{Amenazas a la Validez}
 
-Las principales amenazas a la validez de esta revisi\'{o}n se clasifican
+Las principales amenazas significativas a la validez de esta revisi\'{o}n se clasifican
 de acuerdo con~\cite{Wohlin2012}:
 
 \begin{itemize}
-  \item \textbf{Validez de construcci\'{o}n:} la cadena de b\'{u}squeda
+  \item \textbf{Validez de la construcci\'{o}n:} la cadena de b\'{u}squeda
         puede no recuperar estudios que usen terminolog\'{i}a alternativa
         para describir oclusi\'{o}n o baja visibilidad. Esta amenaza se
-        mitig\'{o} mediante la inclusi\'{o}n de sin\'{o}nimos y la
+        disminuy\'{o} mediante la inclusi\'{o}n de sin\'{o}nimos y la
         validaci\'{o}n iterativa de la cadena contra un conjunto de
         art\'{i}culos conocidos.
-  \item \textbf{Validez interna:} la selecci\'{o}n y evaluaci\'{o}n de
+  \item \textbf{Validez interna:} la selecci\'{o}n y an\'{a}lisis de
         calidad de los estudios fueron realizadas por el equipo
         investigador, lo que introduce riesgo de sesgo de inclusi\'{o}n.
         Se mitig\'{o} mediante la aplicaci\'{o}n sistem\'{a}tica de los
@@ -1170,7 +1170,7 @@ modelos para la detecci\'{o}n autom\'{a}tica de personas bajo condiciones
 de oclusi\'{o}n y baja visibilidad en sistemas de videovigilancia, a
 partir de 30 estudios primarios identificados en Scopus, ScienceDirect
 y Web of Science, siguiendo el protocolo de Kitchenham y
-Charters~\cite{Kitchenham2007}.
+Charters.
 
 Respecto a los modelos existentes (RQ1), la fusi\'{o}n multiespectral
 RGB-infrarrojo/t\'{e}rmico y las redes con m\'{o}dulos de atenci\'{o}n
@@ -1191,7 +1191,7 @@ Las contribuciones originales de esta revisi\'{o}n son: (i) una
 taxonom\'{i}a de los enfoques de detecci\'{o}n bajo condiciones adversas
 acotada al per\'{i}odo 2022--2026; (ii) un mapa de evidencia que cruza
 enfoques con preguntas de investigaci\'{o}n; y (iii) la identificaci\'{o}n
-sistem\'{a}tica de cinco brechas de conocimiento que orientan la agenda
+sistem\'{a}tica de cinco vacios de conocimiento que orientan la agenda
 de investigaci\'{o}n futura en el contexto de videovigilancia inteligente.
 
 Para la pr\'{a}ctica, los resultados sugieren que los equipos de desarrollo
@@ -1216,7 +1216,7 @@ embebidos.
 
 \section{Protocolo de Revisi\'{o}n Sistem\'{a}tica}
 
-La cadena de b\'{u}squeda espec\'{i}fica empleada en cada base de datos
+La cadena de b\'{u}squeda espec\'{i}fica empleada en cada una de las bases de datos
 fue la siguiente:
 
 \begin{itemize}
@@ -1293,7 +1293,7 @@ E30 & Dao et al.          & Noise-aware DL for multispectral pedestrian detectio
 
 \section{Formularios de Extracci\'{o}n de Datos}
 
-Los formularios de extracci\'{o}n individuales de cada estudio primario
+Losssss formularios de extracci\'{o}n individuales de cada uno de los estudios primarios
 recogen los campos definidos en la Tabla~\ref{tab:extraccion} de la
 Secci\'{o}n~\ref{sec:metodo}: identificador, t\'{i}tulo, autor(es),
 a\~{n}o de publicaci\'{o}n, fuente, tipo de publicaci\'{o}n, base de
@@ -1303,12 +1303,5 @@ evaluaci\'{o}n, conjunto de datos empleado, resultados principales,
 limitaciones reportadas, vac\'{i}os y trabajo futuro, dominio de
 aplicaci\'{o}n y puntuaci\'{o}n de calidad (CQI). Los formularios
 completos est\'{a}n disponibles como material suplementario.
-
-Parte 2 — Evidencia de que la pregunta aún no ha sido abordada
-Si bien existen propuestas que abordan la oclusión de forma aislada —como las redes anchor-free con predicción bi-central~\cite{E10}— y otras que tratan la baja visibilidad mediante fusión multiespectral RGB-infrarrojo~\cite{E08, E30}—, la revisión sistemática ejecutada sobre 956 registros de Scopus, ScienceDirect y Web of Science (período 2022–2026) evidenció que ninguno de los 30 estudios primarios seleccionados propone un modelo unificado capaz de gestionar simultáneamente ambas condiciones adversas. Asimismo, no existe un benchmark estandarizado que combine oclusión densa con condiciones de baja iluminación para evaluar comparativamente estos modelos. Esta brecha fue identificada de forma recurrente como trabajo futuro en el 53 % de los estudios revisados.
-
-Parte 3 — Importancia de abordar este problema
-La detección de personas bajo condiciones adversas tiene impacto directo en aplicaciones críticas como la vigilancia nocturna en puertos e infraestructuras industriales~\cite{E21}, la detección de caídas en obras de construcción con oclusión~\cite{E09} y el monitoreo de multitudes en espacios públicos~\cite{E19}. La incapacidad de los modelos actuales para operar de forma robusta en estas condiciones genera falsos negativos que comprometen la seguridad de los usuarios finales. Resolver esta brecha permitiría orientar el desarrollo de sistemas de videovigilancia inteligente más efectivos, especialmente en contextos con recursos computacionales limitados como los dispositivos embebidos de borde (edge computing).
-
 
 \end{document}
