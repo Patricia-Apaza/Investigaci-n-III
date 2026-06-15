@@ -16,6 +16,10 @@
 \usepackage{setspace}
 \onehalfspacing
 \usepackage[top=3cm, bottom=2.5cm, left=3cm, right=2.5cm]{geometry}
+
+% Solución para evitar que los párrafos se separen excesivamente
+\raggedbottom 
+
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
@@ -138,7 +142,8 @@ conocimiento predominantes en este campo.
 Literatura siguiendo el protocolo de Kitchenham y
 Charters, con b\'{u}squedas en cuatro bases de
 datos indexadas: ACM Digital Library, Scopus, ScienceDirect y Web of
-Science, acotadas al per\'{i}odo 2022--2026. La selecci\'{o}n de estos
+Science, acotadas al per\'{i}odo 2022--2026.
+La selecci\'{o}n de estos
 estudios se realiz\'{o} en cuatro pasos aplicando criterios de
 inclusi\'{o}n y exclusi\'{o}n predefinidos.
 \textbf{Resultados:} De 1\,107 registros recuperados, se retuvieron
@@ -146,21 +151,21 @@ inclusi\'{o}n y exclusi\'{o}n predefinidos.
 arquitecturas de detecci\'{o}n basadas en fusi\'{o}n multiespectral
 (RGB + infrarrojo o t\'{e}rmico), las redes con m\'{o}dulos de
 atenci\'{o}n y las variantes compactas de YOLO optimizadas para tiempo
-real. Las m\'{e}tricas predominantes son la precisi\'{o}n media
+real.
+Las m\'{e}tricas predominantes son la precisi\'{o}n media
 (\textit{mAP}), la tasa de error de detecci\'{o}n y los fotogramas
 por segundo (\textit{FPS}).
 \textbf{Conclusiones:} La fusi\'{o}n multimodal y los mecanismos de
 atenci\'{o}n son las estrategias con el mayor respaldo emp\'{i}rico
-para gestionar la oclusi\'{o}n y la baja iluminaci\'{o}n; sin embargo,
+para gestionar la oclusi\'{o}n y la baja iluminaci\'{o}n;
+sin embargo,
 persisten carencias en la generalizaci\'{o}n a escenarios reales y en
 la disponibilidad de conjuntos de datos que combinen ambas condiciones
 adversas simult\'{a}neamente.
-
 \vspace{0.4em}
 \noindent\textbf{Palabras clave:} detecci\'{o}n de personas,
 videovigilancia, oclusi\'{o}n, baja visibilidad, aprendizaje profundo,
 redes neuronales convolucionales, detecci\'{o}n de peatones.
-
 \vspace{0.4em}\noindent\rule{\linewidth}{0.4pt}
 
 %-------------------------------------------------------------
@@ -189,20 +194,20 @@ and exclusion criteria.
 were retained. The most frequent approaches involve detection
 architectures based on multispectral fusion (RGB + infrared or
 thermal), attention-augmented networks, and compact YOLO variants
-optimized for real-time performance. The predominant evaluation metrics
+optimized for real-time performance.
+The predominant evaluation metrics
 are mean average precision (\textit{mAP}), miss rate, and frames per
 second (\textit{FPS}).
 \textbf{Conclusions:} Multimodal fusion and attention mechanisms
 represent the strategies with the strongest empirical support for
-handling occlusion and low illumination; however, shortcomings persist
+handling occlusion and low illumination;
+however, shortcomings persist
 in generalization to real-world scenarios and in the availability of
 datasets that simultaneously combine both adverse conditions.
-
 \vspace{0.4em}
 \noindent\textbf{Keywords:} person detection, video surveillance,
 occlusion, low visibility, deep learning, convolutional neural
 networks, pedestrian detection.
-
 \noindent\rule{\linewidth}{1pt}
 \vspace{1em}
 
@@ -213,51 +218,54 @@ networks, pedestrian detection.
 La vigilancia autom\'{a}tica mediante c\'{a}maras constituye hoy un
 componente central en la gesti\'{o}n de la seguridad p\'{u}blica, el
 control de accesos y el monitoreo de infraestructuras
-cr\'{i}ticas~\cite{E24, E32}. La identificaci\'{o}n de personas en
+cr\'{i}ticas~\cite{E24, E32}.
+La identificaci\'{o}n de personas en
 tiempo real dentro de estos sistemas es el requisito m\'{a}s exigente,
 pues condiciona la utilidad de cualquier plataforma inteligente de
 alerta temprana~\cite{E12, E09}.
-
 No obstante, el desempe\~{n}o de los detectores modernos se ve
 comprometido cuando las condiciones de captura se alejan de lo
-\'{o}ptimo. La oclusi\'{o}n ---entendida como la obstrucci\'{o}n
+\'{o}ptimo.
+La oclusi\'{o}n ---entendida como la obstrucci\'{o}n
 parcial o total de un individuo por otro objeto o persona--- y la baja
 visibilidad ---originada por escasa iluminaci\'{o}n, niebla, lluvia o
 condiciones meteorol\'{o}gicas adversas--- son los factores m\'{a}s
 citados en la literatura como fuentes de degradaci\'{o}n del
-rendimiento de los detectores~\cite{Dollar2012, E27, E11}. Aunque
+rendimiento de los detectores~\cite{Dollar2012, E27, E11}.
+Aunque
 arquitecturas como YOLO~\cite{Redmon2016} y Faster
 R-CNN~\cite{Ren2015} han alcanzado resultados destacados en condiciones
 controladas, la evidencia emp\'{i}rica muestra que su efectividad
 disminuye sensiblemente ante estos escenarios adversos.
-
 La comunidad cient\'{i}fica ha explorado diversas respuestas a esta
 problem\'{a}tica: la incorporaci\'{o}n de canales espectrales
 adicionales ---im\'{a}genes infrarrojas o t\'{e}rmicas--- para reducir
-la dependencia de la luz visible~\cite{E35, E31, E19, E26}; el
+la dependencia de la luz visible~\cite{E35, E31, E19, E26};
+el
 dise\~{n}o de m\'{o}dulos de atenci\'{o}n que prioricen las regiones
-parcialmente visibles~\cite{E25, E32, E23}; y el desarrollo de
+parcialmente visibles~\cite{E25, E32, E23};
+y el desarrollo de
 arquitecturas compactas orientadas a la inferencia en tiempo real sobre
-hardware con recursos limitados~\cite{E21, E23}. Sin embargo, no
+hardware con recursos limitados~\cite{E21, E23}.
+Sin embargo, no
 existe a la fecha una s\'{i}ntesis estructurada de estos avances
 espec\'{i}ficamente acotada al contexto de videovigilancia con
 oclusi\'{o}n y baja visibilidad de forma simult\'{a}nea.
-
 Esta Revisi\'{o}n Sistem\'{a}tica de Literatura realiza las siguientes
 contribuciones: (i) identifica y clasifica los modelos de detecci\'{o}n
 de personas publicados entre 2022 y 2026 bajo condiciones de
-oclusi\'{o}n y baja visibilidad; (ii) sistematiza los conjuntos de
+oclusi\'{o}n y baja visibilidad;
+(ii) sistematiza los conjuntos de
 datos, m\'{e}tricas y resultados reportados; y (iii) mapea las
 limitaciones y brechas de conocimiento que orientan la investigaci\'{o}n
 futura.
-
 El resto del documento se organiza de la siguiente manera: la
 Secci\'{o}n~\ref{sec:marco} establece los conceptos fundamentales; la
-Secci\'{o}n~\ref{sec:metodo} describe el proceso metodol\'{o}gico; la
+Secci\'{o}n~\ref{sec:metodo} describe el proceso metodol\'{o}gico;
+la
 Secci\'{o}n~\ref{sec:resultados} presenta los resultados; la
 Secci\'{o}n~\ref{sec:discusion} ofrece la discusi\'{o}n; y la
 Secci\'{o}n~\ref{sec:conclusiones} cierra con las conclusiones.
-
 \subsection*{Pregunta de Investigaci\'{o}n}
 
 \textbf{Preguntas de investigaci\'{o}n (RQ):}
@@ -296,11 +304,12 @@ Un sistema de videovigilancia integra dispositivos de captura de
 imagen o video, infraestructura de transmisi\'{o}n de datos y
 m\'{o}dulos de an\'{a}lisis computacional orientados a la
 detecci\'{o}n autom\'{a}tica de eventos relevantes en el \'{a}rea
-monitoreada~\cite{E24, E32}. Su evoluci\'{o}n hacia arquitecturas de
+monitoreada~\cite{E24, E32}.
+Su evoluci\'{o}n hacia arquitecturas de
 procesamiento en tiempo real, impulsada por el aprendizaje profundo, ha
 ampliado su aplicabilidad desde la seguridad perimetral hasta la
-gesti\'{o}n del flujo peatonal en espacios p\'{u}blicos~\cite{E12,
-E09}. Indicadores como la velocidad de inferencia, la precisi\'{o}n de
+gesti\'{o}n del flujo peatonal en espacios p\'{u}blicos~\cite{E12, E09}.
+Indicadores como la velocidad de inferencia, la precisi\'{o}n de
 detecci\'{o}n y la robustez ante condiciones ambientales variables son
 los factores que determinan la utilidad pr\'{a}ctica de estos
 sistemas~\cite{Brunetti2018}.
@@ -310,10 +319,12 @@ sistemas~\cite{Brunetti2018}.
 La localizaci\'{o}n autom\'{a}tica de individuos en im\'{a}genes o
 secuencias de video constituye una tarea de detecci\'{o}n de objetos
 cuyo resultado es un conjunto de cuadros delimitadores que encierran a
-cada persona identificada~\cite{Dollar2012}. Los detectores modernos se
+cada persona identificada~\cite{Dollar2012}.
+Los detectores modernos se
 agrupan en dos familias: los de dos etapas, que primero generan
 propuestas de regi\'{o}n y luego las clasifican ---siendo Faster
-R-CNN~\cite{Ren2015} el representante m\'{a}s citado---; y los de una
+R-CNN~\cite{Ren2015} el representante m\'{a}s citado---;
+y los de una
 etapa, que realizan ambas operaciones de forma conjunta para lograr
 mayor velocidad, con YOLO~\cite{Redmon2016} como exponente principal.
 La elecci\'{o}n entre estas familias involucra un compromiso entre
@@ -324,10 +335,12 @@ aplicaciones de vigilancia en tiempo real~\cite{E25, E23}.
 
 La oclusi\'{o}n aparece cuando un individuo queda parcial o totalmente
 encubierto por otro objeto, persona o elemento arquitect\'{o}nico del
-entorno que est\'{a} en el mismo \'{a}rea~\cite{E30}. Se distinguen
+entorno que est\'{a} en el mismo \'{a}rea~\cite{E30}.
+Se distinguen
 dos formas: la oclusi\'{o}n parcial, en la que solo una fracci\'{o}n
 del cuerpo permanece visible ---situaci\'{o}n habitual en pasillos
-concurridos o multitudes de gente~\cite{E28, E29}---; y la oclusi\'{o}n
+concurridos o multitudes de gente~\cite{E28, E29}---;
+y la oclusi\'{o}n
 total, en la que el individuo desaparece completamente del plano visual
 de la c\'{a}mara, caso extremo que representa el mayor reto para los
 algoritmos que existen actualmente~\cite{E27, E11}.
@@ -336,12 +349,15 @@ algoritmos que existen actualmente~\cite{E27, E11}.
 
 El t\'{e}rmino baja visibilidad congrega las condiciones del entorno
 que reducen la fidelidad de la se\~{n}al de la imagen captada por el
-sensor. Entre sus causas se encuentran la escasez de iluminaci\'{o}n
+sensor.
+Entre sus causas se encuentran la escasez de iluminaci\'{o}n
 ambiental nocturna, la presencia de aerosoles como niebla o humo, y
-las precipitaciones intensas~\cite{E21, E12, E13}. Para afrontar estas
+las precipitaciones intensas~\cite{E21, E12, E13}.
+Para afrontar estas
 limitaciones se han explorado dos l\'{i}neas complementarias: el empleo
 de sensores t\'{e}rmicos o infrarrojos, que generan se\~{n}ales
-robustas ante cambios de iluminaci\'{o}n~\cite{E34, E35, E14}; y las
+robustas ante cambios de iluminaci\'{o}n~\cite{E34, E35, E14};
+y las
 t\'{e}cnicas de mejora de imagen que incrementan el contraste antes de
 aplicar el detector~\cite{E21}.
 
@@ -358,7 +374,7 @@ a videovigilancia, y sigue los lineamientos de reporte PRISMA
 
 \subsection{Protocolo de Revisi\'{o}n (PICOC)}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Marco PICOC de la revisi\'{o}n sistem\'{a}tica.}
 \label{tab:picoc}
@@ -418,7 +434,7 @@ OR ``deep learning'' OR ``neural network'')
 En la Tabla~\ref{tab:busqueda} se presentan los resultados de la
 b\'{u}squeda por base de datos y las cadenas espec\'{i}ficas empleadas.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Resultados de la b\'{u}squeda por base de datos.}
 \label{tab:busqueda}
@@ -442,7 +458,8 @@ OR ``surveillance'' OR ``CCTV'' OR ``security camera'' OR ``monitoring'')
 AND (``occlusion'' OR ``low visibility'' OR ``low illumination'' OR
 ``nighttime'' OR ``fog'' OR ``rain'') AND (``deep learning'' OR ``neural
 network'' OR ``convolutional'' OR ``object detection'' OR ``feature
-extraction'')) AND PUBYEAR $>$ 2021 AND DOCTYPE IN (``ar'',``cp'') AND
+extraction'')) AND PUBYEAR $>$ 2021 AND 
+DOCTYPE IN (``ar'',``cp'') AND
 LANGUAGE IN (``English'',``Spanish'')
 & 162 \\
 \midrule
@@ -467,7 +484,7 @@ OR ``low visibility'' OR ``low illumination'') AND (``deep learning'' OR
 
 \subsection{Criterios de Inclusi\'{o}n y Exclusi\'{o}n}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Criterios de selecci\'{o}n de estudios primarios.}
 \label{tab:criterios}
@@ -522,7 +539,7 @@ del protocolo propuesto por Kitchenham~\cite{Kitchenham2007}:
 
 La Figura~\ref{fig:prisma} ilustra el flujo completo del proceso.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
   fase/.style={draw=azulPrincipal, fill=azulPrincipal, text=white,
@@ -533,7 +550,7 @@ La Figura~\ref{fig:prisma} ilustra el flujo completo del proceso.
               rounded corners=2pt},
   arr/.style={-Stealth, thick, color=azulPrincipal}
 ]
-  \node[fase] (f1)        {FASE 1\\Planificaci\'{o}n};
+  \node[fase] (f1) {FASE 1\\Planificaci\'{o}n};
   \node[act,  below=0.3cm of f1]  (p1)    {Necesidad de la revisi\'{o}n};
   \node[act,  below=0.2cm of p1]  (p2)    {Elaborar protocolo};
   \node[act,  below=0.2cm of p2]  (p3)    {Evaluar protocolo};
@@ -547,6 +564,7 @@ La Figura~\ref{fig:prisma} ilustra el flujo completo del proceso.
   \node[act,  below=0.3cm of f3]  (d1)    {Redactar informe RSL};
   \node[act,  below=0.2cm of d1]  (d2)    {Validar informe};
   \node[act,  below=0.2cm of d2]  (d3)    {Publicar informe};
+  
   \foreach \a/\b in {f1/p1, p1/p2, p2/p3, p3/f2,
                      f2/e1, e1/e2, e2/e3, e3/e4, e4/e5, e5/f3,
                      f3/d1, d1/d2, d2/d3}
@@ -560,7 +578,7 @@ La Tabla~\ref{tab:pasos} muestra los criterios aplicados en cada paso
 y la Tabla~\ref{tab:seleccion} presenta los resultados cuantitativos
 por base de datos.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Procedimientos y criterios de selecci\'{o}n.}
 \label{tab:pasos}
@@ -576,7 +594,7 @@ Paso 4 & CI-1, CI-2 \\
 \end{tabularx}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Resultados del proceso de selecci\'{o}n de estudios.}
 \label{tab:seleccion}
@@ -604,33 +622,21 @@ Rouhani~\cite{Kitchenham2013}, con escala: S\'{i}~=~1 / Parcialmente
 =~0{,}5 / No~=~0. La Tabla~\ref{tab:calidad} detalla los \'{i}tems
 considerados.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Instrumento de evaluaci\'{o}n de calidad (CQI).}
 \label{tab:calidad}
-\begin{tabularx}{\linewidth}{cl>{\raggedright\arraybackslash}X}
+\begin{tabularx}{\linewidth}{c >{\raggedright\arraybackslash}X c}
 \toprule
 \textbf{\'{I}tem} & \textbf{Criterio} & \textbf{Escala} \\
 \midrule
-CQ-1 & \textquestiondown El m\'{e}todo o modelo de detecci\'{o}n de
-       personas ha sido documentado apropiadamente?
-     & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
-CQ-2 & \textquestiondown El estudio eval\'{u}a el modelo en condiciones
-       de oclusi\'{o}n y/o baja visibilidad de manera expl\'{i}cita?
-     & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
-CQ-3 & \textquestiondown Se han documentado las limitaciones del
-       estudio de manera clara?
-     & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
-CQ-4 & \textquestiondown Los aportes del estudio para la comunidad
-       cient\'{i}fica, acad\'{e}mica o para la industria han sido
-       descritos?
-     & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
-CQ-5 & \textquestiondown Los resultados han contribuido a responder las
-       preguntas de investigaci\'{o}n planteadas?
-     & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
+CQ-1 & \textquestiondown El m\'{e}todo o modelo de detecci\'{o}n de personas ha sido documentado apropiadamente? & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
+CQ-2 & \textquestiondown El estudio eval\'{u}a el modelo en condiciones de oclusi\'{o}n y/o baja visibilidad de manera expl\'{i}cita? & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
+CQ-3 & \textquestiondown Se han documentado las limitaciones del estudio de manera clara? & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
+CQ-4 & \textquestiondown Los aportes del estudio para la comunidad cient\'{i}fica, acad\'{e}mica o para la industria han sido descritos? & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
+CQ-5 & \textquestiondown Los resultados han contribuido a responder las preguntas de investigaci\'{o}n planteadas? & S\'{i} (1) / Parcial (0{,}5) / No (0) \\
 \midrule
-\multicolumn{2}{l}{\textbf{Puntuaci\'{o}n m\'{i}nima de inclusi\'{o}n}}
-     & $\geq 2{,}5$ / 5{,}0 \\
+\multicolumn{2}{l}{\textbf{Puntuaci\'{o}n m\'{i}nima de inclusi\'{o}n}} & $\geq 2{,}5$ / 5{,}0 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -640,7 +646,7 @@ CQ-5 & \textquestiondown Los resultados han contribuido a responder las
 Los datos de cada estudio primario se extrajeron en el formulario de
 la Tabla~\ref{tab:extraccion}:
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Formulario de extracci\'{o}n de datos.}
 \label{tab:extraccion}
@@ -651,17 +657,13 @@ la Tabla~\ref{tab:extraccion}:
 ID                       & Identificador \'{u}nico (E01\ldots E35) \\
 T\'{i}tulo del art\'{i}culo & T\'{i}tulo completo del estudio \\
 Autor(es)                & Apellidos y nombres de los autores \\
-A\~{n}o de publicaci\'{o}n & A\~{n}o de publicaci\'{o}n del
-                             art\'{i}culo \\
+A\~{n}o de publicaci\'{o}n & A\~{n}o de publicaci\'{o}n del art\'{i}culo \\
 Fuente de publicaci\'{o}n & Revista o conferencia de publicaci\'{o}n \\
-Tipo de publicaci\'{o}n  & Art\'{i}culo de revista / Art\'{i}culo de
-                           conferencia / Revisi\'{o}n \\
-Base de datos de origen  & ACM / Scopus / ScienceDirect /
-                           Web of Science \\
+Tipo de publicaci\'{o}n  & Art\'{i}culo de revista / Art\'{i}culo de conferencia / Revisi\'{o}n \\
+Base de datos de origen  & ACM / Scopus / ScienceDirect / Web of Science \\
 Modelo/t\'{e}cnica       & Denominaci\'{o}n y familia del detector \\
 Tipo de oclusi\'{o}n     & Parcial / Total / Ambas / No especifica \\
-Condici\'{o}n de visibilidad & Baja iluminaci\'{o}n / Niebla / Lluvia
-                               / Nocturno / Varias / No especifica \\
+Condici\'{o}n de visibilidad & Baja iluminaci\'{o}n / Niebla / Lluvia / Nocturno / Varias / No especifica \\
 M\'{e}tricas utilizadas  & mAP, miss rate, F1-score, FPS, etc. \\
 Conjunto de datos        & Benchmark(s) empleado(s) \\
 Resultados principales   & Valores obtenidos en las m\'{e}tricas \\
@@ -686,16 +688,29 @@ ACM Digital Library aport\'{o} 8 estudios (22{,}9\%), Scopus 12
 (34{,}3\%), ScienceDirect 12 (34{,}3\%) y Web of Science 3 (8{,}6\%).
 La Tabla~\ref{tab:estudios} resume los estudios seleccionados.
 
-\begin{table}[H]
-\centering
-\caption{Resumen de estudios primarios seleccionados.}
-\label{tab:estudios}
+{
 \small
-\begin{tabularx}{\linewidth}{clXccl}
+\begin{longtable}{c l >{\raggedright\arraybackslash}p{6cm} c c l}
+\caption{Resumen de estudios primarios seleccionados.}
+\label{tab:estudios} \\
 \toprule
-\textbf{ID} & \textbf{Ref.} & \textbf{Enfoque principal} &
-\textbf{A\~{n}o} & \textbf{CQI} & \textbf{RQ} \\
+\textbf{ID} & \textbf{Ref.} & \textbf{Enfoque principal} & \textbf{A\~{n}o} & \textbf{CQI} & \textbf{RQ} \\
 \midrule
+\endfirsthead
+
+\caption[]{Resumen de estudios primarios seleccionados (continuaci\'{o}n).} \\
+\toprule
+\textbf{ID} & \textbf{Ref.} & \textbf{Enfoque principal} & \textbf{A\~{n}o} & \textbf{CQI} & \textbf{RQ} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{6}{r}{\footnotesize\textit{Contin\'{u}a en la siguiente p\'{a}gina}} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
 E01 & \cite{E01} & Ataque adversarial infrarrojo nocturno (ACM) & 2023 & 4.0 & RQ1,RQ2 \\
 E02 & \cite{E02} & Fusi\'{o}n sem\'{a}ntica visible-infrarrojo (ACM) & 2025 & 4.5 & RQ1,RQ2,RQ4 \\
 E03 & \cite{E03} & Detecci\'{o}n peatonal oclusi\'{o}n cruzada (ACM) & 2024 & 4.0 & RQ1,RQ2 \\
@@ -731,9 +746,8 @@ E32 & \cite{E32} & PFEL-Net multiescala ligero & 2024 & 4.0 & RQ1,RQ3 \\
 E33 & \cite{E33} & ML video transporte vigilancia & 2026 & 3.5 & RQ1,RQ3 \\
 E34 & \cite{E34} & Faster R-CNN + SSD t\'{e}rmico a\'{e}reo & 2022 & 4.5 & RQ1,RQ4 \\
 E35 & \cite{E35} & Multiespectral DL una etapa & 2022 & 4.5 & RQ1,RQ2,RQ4 \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{longtable}
+}
 
 \subsection{Resultados por Pregunta de Investigaci\'{o}n}
 
@@ -901,7 +915,6 @@ descentralizadas~\cite{E32,E23}.
 La anotaci\'{o}n de im\'{a}genes con oclusi\'{o}n densa, niebla o
 lluvia es costosa y los conjuntos existentes no cubren adecuadamente
 estas situaciones~\cite{E31,E07}.
-
 \begin{hallazgo}[]
   La brecha entre rendimiento en benchmark y rendimiento en entorno real
   es la limitaci\'{o}n m\'{a}s citada en los estudios revisados
@@ -924,7 +937,8 @@ oclusi\'{o}n, baja iluminaci\'{o}n y fen\'{o}menos meteorol\'{o}gicos,
 para entrenar modelos m\'{a}s robustos~\cite{E31,E07}.
 \textbf{Modelos unificados para oclusi\'{o}n y baja visibilidad.} La
 mayor\'{i}a de las propuestas actuales abordan cada condici\'{o}n por
-separado; existe una brecha en arquitecturas capaces de gestionar ambas
+separado;
+existe una brecha en arquitecturas capaces de gestionar ambas
 de forma conjunta~\cite{E20,E26}.
 \textbf{Adaptaci\'{o}n de dominio.} Los detectores entrenados en un
 entorno espec\'{i}fico presentan degradaci\'{o}n al aplicarse en
@@ -938,7 +952,6 @@ red (\textit{edge computing})~\cite{E32,E23}.
 detecci\'{o}n en muchedumbres donde la oclusi\'{o}n mutua entre
 personas es intensa requiere m\'{e}tricas y protocolos de
 evaluaci\'{o}n m\'{a}s espec\'{i}ficos~\cite{E28,E09}.
-
 \begin{hallazgo}[]
   La demanda de datasets combinados y la necesidad de modelos unificados
   capaces de afrontar oclusi\'{o}n y baja visibilidad de forma
@@ -949,7 +962,7 @@ evaluaci\'{o}n m\'{a}s espec\'{i}ficos~\cite{E28,E09}.
 
 \subsection{Mapa de Evidencia}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Mapa de evidencia: t\'{e}cnicas vs.\ preguntas de
 investigaci\'{o}n.}
@@ -1002,9 +1015,7 @@ Arquitecturas como NP-YOLO~\cite{E12} y PYOLO~\cite{E18} demuestran
 que es posible adaptar detectores de una etapa para condiciones
 adversas sin alterar la velocidad de inferencia, lo que los hace
 atractivos para despliegues en c\'{a}maras IP con capacidad de
-c\'{o}mputo embebido.
-
-La distribuci\'{o}n de estudios por base de datos muestra que ACM
+c\'{o}mputo embebido. La distribuci\'{o}n de estudios por base de datos muestra que ACM
 Digital Library y Scopus aportan conjuntamente el 57{,}1\,\% de los
 estudios seleccionados, lo que confirma que las conferencias
 especializadas en visi\'{o}n por computadora y multimedia constituyen
@@ -1066,9 +1077,7 @@ detecci\'{o}n autom\'{a}tica de personas bajo condiciones considerables
 de oclusi\'{o}n y baja visibilidad en sistemas de videovigilancia, a
 partir de 35 estudios primarios identificados en ACM Digital Library,
 Scopus, ScienceDirect y Web of Science, siguiendo el protocolo de
-Kitchenham y Charters.
-
-Respecto a los modelos existentes (RQ1), la fusi\'{o}n multiespectral
+Kitchenham y Charters. Respecto a los modelos existentes (RQ1), la fusi\'{o}n multiespectral
 RGB-infrarrojo/t\'{e}rmico y las redes con m\'{o}dulos de atenci\'{o}n
 constituyen los enfoques dominantes, seguidos por variantes compactadas
 de YOLO y estrategias multi-vista basadas en transformers. En cuanto a
@@ -1082,7 +1091,6 @@ dependencia de hardware especializado, la fragilidad ante oclusi\'{o}n
 severa y la brecha de generalizaci\'{o}n. Las principales brechas (RQ6)
 apuntan a la necesidad de datasets combinados y modelos unificados
 capaces de gestionar ambas condiciones de forma simult\'{a}nea.
-
 Las contribuciones originales de esta revisi\'{o}n son: (i) una
 taxonom\'{i}a de los enfoques de detecci\'{o}n bajo condiciones de
 visi\'{o}n adversas acotada al per\'{i}odo 2022--2026 con cobertura
@@ -1090,9 +1098,7 @@ de cuatro bases de datos indexadas; (ii) un mapa de evidencia que
 cruza enfoques con preguntas de investigaci\'{o}n; y (iii) la
 identificaci\'{o}n sistem\'{a}tica de cinco vac\'{i}os de conocimiento
 que orientan la agenda de investigaci\'{o}n futura en ambientes de
-videovigilancia inteligente.
-
-Para la pr\'{a}ctica, los resultados sugieren que los equipos de
+videovigilancia inteligente. Para la pr\'{a}ctica, los resultados sugieren que los equipos de
 desarrollo de sistemas de vigilancia deben priorizar arquitecturas de
 fusi\'{o}n multiespectral cuando el presupuesto lo permita, y
 m\'{o}dulos de atenci\'{o}n como alternativa de bajo coste ante
@@ -1110,12 +1116,10 @@ suficiente para su despliegue en dispositivos embebidos.
 
 \noindent\textbf{Conflicto de intereses:} Los autores declaran no tener
 conflicto de intereses relacionado con esta investigaci\'{o}n.
-
 \noindent\textbf{Financiamiento:} Esta investigaci\'{o}n no cont\'{o}
 con financiamiento externo. Fue desarrollada en el marco del curso de
 Investigaci\'{o}n~III de la Escuela Profesional de Ingenier\'{i}a de
 Sistemas de la Universidad Peruana Uni\'{o}n, Juliaca, Per\'{u}.
-
 \noindent\textbf{Contribuciones de autor\'{i}a} (CRediT):\\
 Celia Patricia Apaza Hilasaca: Conceptualizaci\'{o}n, proceso
 metodol\'{o}gico, redacci\'{o}n del borrador original.\\
@@ -1166,7 +1170,9 @@ calidad, s\'{i}ntesis de resultados.
 
 \section{Lista Completa de Estudios Primarios}
 
-\begin{longtable}{clp{5.5cm}cc}
+{
+\small
+\begin{longtable}{c l >{\raggedright\arraybackslash}p{6cm} c >{\raggedright\arraybackslash}p{3.8cm}}
 \caption{Estudios primarios incluidos en la revisi\'{o}n.
 \label{tab:ap_estudios}}\\
 \toprule
@@ -1174,47 +1180,58 @@ calidad, s\'{i}ntesis de resultados.
 \textbf{A\~{n}o} & \textbf{Fuente} \\
 \midrule
 \endfirsthead
-\midrule
+
+\caption[]{Estudios primarios incluidos en la revisi\'{o}n (continuaci\'{o}n).} \\
+\toprule
 \textbf{ID} & \textbf{Autores} & \textbf{T\'{i}tulo} &
 \textbf{A\~{n}o} & \textbf{Fuente} \\
 \midrule
-\endhead\endfoot\bottomrule\endlastfoot
-E01 & Niu et al.       & Physics-based adversarial attack on NIR human detector & 2023 & ACM MM \\
-E02 & Li et al.        & SAM-guided semantic knowledge fusion VIS-IR & 2025 & ACM ICMR \\
-E03 & Zhang et al.     & Occluded pedestrian detection cross-modal attention & 2024 & ACM ICIGP \\
-E04 & Wang et al.      & Thermal-RGB fusion adverse weather surveillance & 2023 & ACM IVSP \\
-E05 & Liu et al.       & Attention-based occlusion person detection crowds & 2022 & ACM MMAsia \\
-E06 & Park et al.      & Real-time pedestrian low-light multispectral CCTV & 2024 & ACM IVSP \\
-E07 & Chen et al.      & Occluded pedestrian visible-infrared feature align & 2024 & ACM ICMVA \\
-E08 & Zhao et al.      & Nighttime person detection infrared-guided & 2025 & ACM IVSP \\
-E09 & Li et al.        & Multi-view pedestrian detection residual mask fusion & 2026 & Future Gen. Comput. Syst. \\
-E10 & Qi et al.        & LF-DETR aerial RGB-infrared pedestrian detection & 2026 & Remote Sensing \\
-E11 & Tang et al.      & Adaptive pedestrian detection occlusion-aware & 2026 & Pattern Recognit. \\
-E12 & Huang \& Liu     & NP-YOLO nighttime pedestrian video surveillance & 2025 & CVAA Conf. \\
-E13 & Zhang et al.     & Enhanced SlowFast nighttime port surveillance & 2025 & Conf. Proc. \\
-E14 & Li, W.           & Enhanced thermal imaging human detection & 2025 & IAECST Conf. \\
-E15 & Connan et al.    & Real-time gun and person detection surveillance & 2025 & ACM SAC \\
+\endhead
+
+\midrule
+\multicolumn{5}{r}{\footnotesize\textit{Contin\'{u}a en la siguiente p\'{a}gina}} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+E01 & Niu et al. & Physics-based adversarial attack on NIR human detector & 2023 & ACM MM \\
+E02 & Li et al. & SAM-guided semantic knowledge fusion VIS-IR & 2025 & ACM ICMR \\
+E03 & Zhang et al. & Occluded pedestrian detection cross-modal attention & 2024 & ACM ICIGP \\
+E04 & Wang et al. & Thermal-RGB fusion adverse weather surveillance & 2023 & ACM IVSP \\
+E05 & Liu et al. & Attention-based occlusion person detection crowds & 2022 & ACM MMAsia \\
+E06 & Park et al. & Real-time pedestrian low-light multispectral CCTV & 2024 & ACM IVSP \\
+E07 & Chen et al. & Occluded pedestrian visible-infrared feature align & 2024 & ACM ICMVA \\
+E08 & Zhao et al. & Nighttime person detection infrared-guided & 2025 & ACM IVSP \\
+E09 & Li et al. & Multi-view pedestrian detection residual mask fusion & 2026 & Future Gen. Comput. Syst. \\
+E10 & Qi et al. & LF-DETR aerial RGB-infrared pedestrian detection & 2026 & Remote Sensing \\
+E11 & Tang et al. & Adaptive pedestrian detection occlusion-aware & 2026 & Pattern Recognit. \\
+E12 & Huang \& Liu & NP-YOLO nighttime pedestrian video surveillance & 2025 & CVAA Conf. \\
+E13 & Zhang et al. & Enhanced SlowFast nighttime port surveillance & 2025 & Conf. Proc. \\
+E14 & Li, W. & Enhanced thermal imaging human detection & 2025 & IAECST Conf. \\
+E15 & Connan et al. & Real-time gun and person detection surveillance & 2025 & ACM SAC \\
 E16 & Mudavath \& Niranjan & Person detection thermal images YOLOv8 & 2025 & Earth Sci. Inform. \\
-E17 & He et al.        & Cross-modality differential multispectral detection & 2025 & Conf. Proc. \\
-E18 & Hu et al.        & PYOLO plus YOLO occlusion pedestrian detection & 2025 & CCDC Conf. \\
-E19 & Gupta \& Batra   & Multispectral pedestrian CNN channel fusion & 2025 & WCONF Conf. \\
-E20 & Vu et al.        & Block-recurrent transformer thermal imaging & 2025 & Mach. Vis. Appl. \\
-E21 & Dai et al.       & Multi-exposure YOLO nighttime pedestrian & 2026 & Signal Process.: Image Commun. \\
-E22 & Guo et al.       & Pedestrian detection vision-language semantics & 2025 & Pattern Recognit. Lett. \\
-E23 & Zhang et al.     & Enhanced lightweight YOLOv8s small-scale & 2025 & Digit. Signal Process. \\
-E24 & Andrade et al.   & SUSAN violence detection surveillance & 2025 & Expert Syst. Appl. \\
-E25 & Huang et al.     & Ms-VLPD multi-scale pedestrian detection & 2025 & Expert Syst. Appl. \\
-E26 & Shen et al.      & EAFF-Net dual-modality pedestrian detection & 2025 & Infrared Phys. Technol. \\
-E27 & Kim et al.       & Skeleton AI fall detection occlusions & 2025 & Autom. Constr. \\
-E28 & Gao et al.       & Ranking-based DETRs crowded pedestrian & 2025 & Neurocomputing \\
-E29 & Gao et al.       & RC-DETR crowded pedestrian contrastive & 2025 & Neural Networks \\
-E30 & Qiu et al.       & PPM boolean optimizer multi-view pedestrian & 2024 & Pattern Recognit. \\
-E31 & Deng et al.      & Lightweight cross-modal multispectral pedestrian & 2024 & Comput. Mater. Contin. \\
-E32 & Tang et al.      & PFEL-Net lightweight multi-scale pedestrian & 2024 & J. King Saud Univ. \\
-E33 & Kolluri et al.   & Surveillance video pedestrian transport ML & 2026 & Discov. Appl. Sci. \\
-E34 & Akshatha et al.  & Human detection aerial thermal Faster R-CNN + SSD & 2022 & Electronics \\
-E35 & Dao et al.       & Noise-aware DL multispectral pedestrian & 2022 & J. Electron. Imaging \\
+E17 & He et al. & Cross-modality differential multispectral detection & 2025 & Conf. Proc. \\
+E18 & Hu et al. & PYOLO plus YOLO occlusion pedestrian detection & 2025 & CCDC Conf. \\
+E19 & Gupta \& Batra & Multispectral pedestrian CNN channel fusion & 2025 & WCONF Conf. \\
+E20 & Vu et al. & Block-recurrent transformer thermal imaging & 2025 & Mach. Vis. Appl. \\
+E21 & Dai et al. & Multi-exposure YOLO nighttime pedestrian & 2026 & Signal Process.: Image Commun. \\
+E22 & Guo et al. & Pedestrian detection vision-language semantics & 2025 & Pattern Recognit. Lett. \\
+E23 & Zhang et al. & Enhanced lightweight YOLOv8s small-scale & 2025 & Digit. Signal Process. \\
+E24 & Andrade et al. & SUSAN violence detection surveillance & 2025 & Expert Syst. Appl. \\
+E25 & Huang et al. & Ms-VLPD multi-scale pedestrian detection & 2025 & Expert Syst. Appl. \\
+E26 & Shen et al. & EAFF-Net dual-modality pedestrian detection & 2025 & Infrared Phys. Technol. \\
+E27 & Kim et al. & Skeleton AI fall detection occlusions & 2025 & Autom. Constr. \\
+E28 & Gao et al. & Ranking-based DETRs crowded pedestrian & 2025 & Neurocomputing \\
+E29 & Gao et al. & RC-DETR crowded pedestrian contrastive & 2025 & Neural Networks \\
+E30 & Qiu et al. & PPM boolean optimizer multi-view pedestrian & 2024 & Pattern Recognit. \\
+E31 & Deng et al. & Lightweight cross-modal multispectral pedestrian & 2024 & Comput. Mater. Contin. \\
+E32 & Tang et al. & PFEL-Net lightweight multi-scale pedestrian & 2024 & J. King Saud Univ. \\
+E33 & Kolluri et al. & Surveillance video pedestrian transport ML & 2026 & Discov. Appl. Sci. \\
+E34 & Akshatha et al. & Human detection aerial thermal Faster R-CNN + SSD & 2022 & Electronics \\
+E35 & Dao et al. & Noise-aware DL multispectral pedestrian & 2022 & J. Electron. Imaging \\
 \end{longtable}
+}
 
 \section{Formularios de Extracci\'{o}n de Datos}
 
@@ -1230,4 +1247,4 @@ futuro, dominio de aplicaci\'{o}n y puntuaci\'{o}n de calidad (CQI).
 Los formularios completos est\'{a}n disponibles como material
 suplementario.
 
-\end{document}
+\end{document}l
