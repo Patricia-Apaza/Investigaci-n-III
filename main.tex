@@ -124,45 +124,45 @@
 %-------------------------------------------------------------
 \section*{Resumen}
 \noindent
-\textbf{Antecedentes:} La proliferaci\'{o}n del uso de c\'{a}maras de
-vigilancia en entornos urban\'{i}sticos e industriales ha generado una
-demanda considerablemente sostenida de algoritmos capaces de localizar
-personas con alta precisi\'{o}n bajo condiciones que degradan la calidad
-visual en las im\'{a}genes, como la oclusi\'{o}n entre individuos u
-objetos y los escenarios con poca iluminaci\'{o}n o condiciones
-meteorol\'{o}gicas adversas.
-\textbf{Objetivo:} Sintetizar los models y t\'{e}cnicas documentados
-en la literatura cient\'{i}fica actual orientados a la detecci\'{o}n
-autom\'{a}tica de personas en situaciones de obstrucci\'{o}n visual y
-baja visibilidad dentro de plataformas de videovigilancia, e identificar
-los conjuntos de datos, m\'{e}tricas, limitaciones y brechas de
-conocimiento predominantes en este campo.
-\textbf{M\'{e}trico:} Se ejecut\'{o} una Revisi\'{o}n Sistem\'{a}tica de
+\textbf{Antecedentes:} El continuo aumento del uso de cámaras en la
+vigilancia de entornos urbanos e industriales ha generado una
+demanda constante y sostenida de algoritmos capaces de localizar
+personas con alta precisión bajo condiciones que degradan la calidad
+visual en las imágenes provenientes de las cámaras, como la oclusión entre individuos u
+objetos y los escenarios con poca iluminación o condiciones
+meteorológicas que son inusuales y que a la vez dificultan su lectura e interpretación por la tecnología usada.
+\textbf{Objetivo:} Sintetizar los modelos y técnicas documentados
+en la literatura científica actual orientados a la detección
+automática de personas bajo situaciones de obstrucción visual y
+baja visibilidad dentro de plataformas de videovigilancia existentes en su área, e identificar
+los conjuntos de datos así como las métricas, limitaciones y vacíos de
+conocimiento predominantes en este campo de la tecnología.
+\textbf{Metodología:} Se ejecutó una Revisión Sistemática de
 Literatura siguiendo el protocolo de Kitchenham y
-Charters, con b\'{u}squedas en cuatro bases de
+Charters, con búsquedas en cuatro bases de
 datos indexadas: ACM Digital Library, Scopus, ScienceDirect y Web of
-Science, acotadas al per\'{i}odo 2022--2026. La selecci\'{o}n de estos
-estudios se realiz\'{o} en cuatro pasos aplicando criterios de
-inclusi\'{o}n y exclusi\'{o}n predefinidos.
+Science, acotadas al período 2022--2026. La selección de estos
+estudios se realizó en cuatro pasos aplicando criterios de
+inclusión y exclusión predefinidos previamente.
 \textbf{Resultados:} De 1\,107 registros recuperados, se retuvieron
-35 estudios primarios. Los enfoques m\'{a}s frecuentes son las
-arquitecturas de detecci\'{o}n basadas en fusi\'{o}n multiespectral
-(RGB + infrarrojo o t\'{e}rmico), las redes con m\'{o}dulos de
-atenci\'{o}n y las variantes compactas de YOLO optimizadas para tiempo
-real. Las m\'{e}tricas predominantes son la precisi\'{o}n media
-(\textit{mAP}), la tasa de error de detecci\'{o}n y los fotogramas
+35 estudios primarios. Los enfoques visiblemente más frecuentes son las
+arquitecturas de detección basadas en fusión multiespectral
+(RGB + infrarrojo o térmico), las redes con módulos de
+atención y las variantes compactas de YOLO optimizadas para trabajar en tiempo
+real. Las métricas predominantes son la precisión media
+(\textit{mAP}), la tasa de error de detección y los fotogramas
 por segundo (\textit{FPS}).
-\textbf{Conclusiones:} La fusi\'{o}n multimodal y los mecanismos de
-atenci\'{o}n son las estrategias con el mayor respaldo emp\'{i}rico
-para gestionar la oclusi\'{o}n y la baja iluminaci\'{o}n; sin embargo,
-persisten carencias en la generalizaci\'{o}n a escenarios reales y en
+\textbf{Conclusiones:} La fusión multimodal y los mecanismos de
+atención son las estrategias con más respaldo empírico 
+para gestionar la oclusión y la baja iluminación; sin embargo, aún
+persisten carencias en la generalización cuando se trata de escenarios reales y en
 la disponibilidad de conjuntos de datos que combinen ambas condiciones
-adversas simult\'{a}neamente.
+adversas simultáneamente en el mismo área.
 
 \vspace{0.4em}
-\noindent\textbf{Palabras clave:} detecci\'{o}n de personas,
-videovigilancia, oclusi\'{o}n, baja visibilidad, aprendizaje profundo,
-redes neuronales convolucionales, detecci\'{o}n de peatones.
+\noindent\textbf{Palabras clave:} detección de personas,
+videovigilancia, oclusión, baja visibilidad, aprendizaje profundo,
+redes neuronales convolucionales, detección de peatones.
 
 \vspace{0.4em}\noindent\rule{\linewidth}{0.4pt}
 
@@ -171,35 +171,37 @@ redes neuronales convolucionales, detecci\'{o}n de peatones.
 %-------------------------------------------------------------
 \section*{Abstract}
 \noindent
-\textbf{Background:} The widespread deployment of surveillance cameras
-in urban and industrial settings has driven sustained demand for
-algorithms capable of locating individuals accurately under conditions
-that degrade visual quality, such as mutual occlusion among people or
-objects, and scenarios with insufficient illumination or adverse
-weather.
+\textbf{Background:} The continuous increase in the use of cameras for
+surveillance in urban and industrial environments has generated a
+constant and sustained demand for algorithms capable of locating
+people with high precision under conditions that degrade the visual quality
+of camera images, such as occlusion between individuals or
+objects, and scenarios with low illumination or unusual weather conditions
+that simultaneously hinder their reading and interpretation by the technology used.
 \textbf{Objective:} To synthesize the models and techniques documented
-in recent scientific literature for the automatic detection of persons
-in situations of visual obstruction and low visibility within video
-surveillance platforms, and to identify prevailing datasets, metrics,
-limitations, and knowledge gaps.
-\textbf{Method:} A Systematic Literature Review was conducted following
-the Kitchenham and Charters protocol, with
-searches in four indexed databases: ACM Digital Library, Scopus,
-ScienceDirect, and Web of Science, restricted to the period 2022--2026.
-Study selection was carried out in four steps using predefined inclusion
+in the current scientific literature oriented toward the automatic detection
+of people under situations of visual obstruction and low visibility
+within video surveillance platforms existing in their field, and to identify
+the datasets as well as the metrics, limitations, and predominant knowledge
+gaps in this technological field.
+\textbf{Methodology:} A Systematic Literature Review was executed following
+the Kitchenham and Charters protocol, with searches in four indexed
+databases: ACM Digital Library, Scopus, ScienceDirect, and Web of
+Science, limited to the 2022--2026 period. The selection of these
+studies was carried out in four steps applying previously predefined inclusion
 and exclusion criteria.
-\textbf{Results:} From 1\,107 retrieved records, 35 primary studies
-were retained. The most frequent approaches involve detection
-architectures based on multispectral fusion (RGB + infrared or
-thermal), attention-augmented networks, and compact YOLO variants
-optimized for real-time performance. The predominant evaluation metrics
-are mean average precision (\textit{mAP}), miss rate, and frames per
+\textbf{Results:} From 1,107 retrieved records, 35 primary studies
+were retained. The visibly most frequent approaches are detection
+architectures based on multispectral fusion (RGB + infrared or thermal),
+networks with attention modules, and compact variants of YOLO optimized to work in
+real time. The predominant metrics are mean average precision
+(\textit{mAP}), the detection miss rate, and frames per
 second (\textit{FPS}).
-\textbf{Conclusiones:} Multimodal fusion and attention mechanisms
-represent the strategies with the strongest empirical support for
-handling occlusion and low illumination; however, shortcomings persist
-in generalization to real-world scenarios and in the availability of
-datasets that simultaneously combine both adverse conditions.
+\textbf{Conclusions:} Multimodal fusion and attention mechanisms are
+the strategies with the most empirical support for managing occlusion
+and low illumination; however, shortcomings still persist in generalization
+when dealing with real-world scenarios and in the availability of datasets that
+combine both adverse conditions simultaneously in the same area.
 
 \vspace{0.4em}
 \noindent\textbf{Keywords:} person detection, video surveillance,
@@ -213,45 +215,45 @@ networks, pedestrian detection.
 \section{Introducci\'{o}n}
 %=============================================================
 
-La vigilancia autom\'{a}tica mediante c\'{a}maras constituye hoy un
-componente central en la gesti\'{o}n de la seguridad p\'{u}blica, el
+La vigilancia autom\'{a}tica a traves de c\'{a}maras significa hoy un
+componente central en la gesti\'{o}n de la seguridad de las personas, el
 control de accesos y el monitoreo de infraestructuras
 cr\'{i}ticas~\cite{E24, E32}. La identificaci\'{o}n de personas en
-tiempo real dentro de estos sistemas es el requisito m\'{a}s exigente,
-pues condiciona la utilidad de cualquier plataforma inteligente de
+tiempo real dentro de estos sistemas existentes es el requisito m\'{a}s exigente,
+ya que condiciona la utilidad de cualquier plataforma de software inteligente de
 alerta temprana~\cite{E12, E09}.
 
-No obstante, el desempe\~{n}o de los detectores modernos se ve
+Sin embargo, el desempe\~{n}o de los detectores modernos se ve
 comprometido cuando las condiciones de captura se alejan de lo
-\'{o}ptimo. La oclusi\'{o}n ---entendida como la obstrucci\'{o}n
+\'{o}ptimo e ideal. La oclusi\'{o}n ---entendida como la obstrucci\'{o}n
 parcial o total de un individuo por otro objeto o persona--- y la baja
-visibilidad ---originada por escasa iluminaci\'{o}n, niebla, lluvia o
-condiciones meteorol\'{o}gicas adversas--- son los factores m\'{a}s
+visibilidad ---propisiada por escasa iluminaci\'{o}n, niebla, lluvia o
+condiciones meteorol\'{o}gicas que desfavorecen el trabajo de la tecnologia--- son los factores m\'{a}s
 citados en la literatura como fuentes de degradaci\'{o}n del
 rendimiento de los detectores~\cite{Dollar2012, E27, E11}. Aunque
 arquitecturas como YOLO~\cite{Redmon2016} y Faster
 R-CNN~\cite{Ren2015} han alcanzado resultados destacados en condiciones
 controladas, la evidencia emp\'{i}rica muestra que su efectividad
-disminuye sensiblemente ante estos escenarios adversos.
+disminuye sensiblemente cuando esta ante estos escenarios adversos.
 
-La comunidad cient\'{i}fica ha explorado diversas respuestas a esta
+La comunidad cient\'{i}fica ha explorado diversas respuestas ante esta
 problem\'{a}tica: la incorporaci\'{o}n de canales espectrales
-adicionales ---im\'{a}genes infrarrojas o t\'{e}rmicas--- para reducir
+adicionales ---im\'{a}genes infrarrojas  o t\'{e}rmicas--- para reducir
 la dependencia de la luz visible~\cite{E35, E31, E19, E26}; el
-dise\~{n}o de m\'{o}dulos de atenci\'{o}n que prioricen las regiones
+dise\~{n}o de m\'{o}dulos de atenci\'{o}n que antepongan las regiones
 parcialmente visibles~\cite{E25, E32, E23}; y el desarrollo de
 arquitecturas compactas orientadas a la inferencia en tiempo real sobre
 hardware con recursos limitados~\cite{E21, E23}. Sin embargo, no
-existe a la fecha una s\'{i}ntesis estructurada de estos avances
+existe a la fecha actual una s\'{i}ntesis estructurada de estos avances
 espec\'{i}ficamente acotada al contexto de videovigilancia con
-oclusi\'{o}n y baja visibilidad de forma simult\'{a}nea.
+oclusi\'{o}n y baja visibilidad que trabajen de forma simult\'{a}nea.
 
 Esta Revisi\'{o}n Sistem\'{a}tica de Literatura realiza las siguientes
 contribuciones: (i) identifica y clasifica los modelos de detecci\'{o}n
-de personas publicados entre 2022 y 2026 bajo condiciones de
+de individuos publicados entre el a\~{n}o 2022 y el a\~{n}o 2026 bajo condiciones considerables de
 oclusi\'{o}n y baja visibilidad; (ii) sistematiza los conjuntos de
 datos, m\'{e}tricas y resultados reportados; y (iii) mapea las
-limitaciones y brechas de conocimiento que orientan la investigaci\'{o}n
+limitaciones y vacios de conocimiento que orientan la investigaci\'{o}n
 futura.
 
 El resto del documento se organiza de la siguiente manera: la
@@ -328,17 +330,17 @@ aplicaciones de vigilancia en tiempo real~\cite{E25, E23}.
 La oclusi\'{o}n aparece cuando un individuo queda parcial o totalmente
 encubierto por otro objeto, persona o elemento arquitect\'{o}nico del
 entorno que est\'{a} en el mismo \'{a}rea~\cite{E30}. Se distinguen
-dos formas: la oclusi\'{o}n parcial, en la que solo una fracci\'{o}n
-del cuerpo permanece visible ---situaci\'{o}n habitual en pasillos
+dos formas: la oclusi\'{o}n parcial, en la que solo una parte
+del cuerpo permanece visible desde la perspectiva de la camara ---situaci\'{o}n habitual en pasillos
 concurridos o multitudes de gente~\cite{E28, E29}---; y la oclusi\'{o}n
 total, en la que el individuo desaparece completamente del plano visual
-de la c\'{a}mara, caso extremo que representa el mayor reto para los
-algoritmos que existen actualmente~\cite{E27, E11}.
+de la c\'{a}mara, cuyo caso representa el mayor reto para los
+algoritmos que existen en la actualidad~\cite{E27, E11}.
 
-\subsection{Baja Visibilidad en Videovigilancia}
+\subsection{Baja Visibilidad en Videovigilancia }
 
-El t\'{e}rmino baja visibilidad congrega las condiciones del entorno
-que reducen la fidelidad de la se\~{n}al de la imagen captada por el
+El t\'{e}rmino baja visibilidad abarca las condiciones del entorno
+que reducen la confiabilidad de la se\~{n}al de la imagen captada por el
 sensor. Entre sus causas se encuentran la escasez de iluminaci\'{o}n
 ambiental nocturna, la presencia de aerosoles como niebla o humo, y
 las precipitaciones intensas~\cite{E21, E12, E13}. Para afrontar estas
@@ -369,7 +371,7 @@ a videovigilancia, y sigue los lineamientos de reporte PRISMA
 \toprule
 Elemento & Descripci\'{o}n \\
 \midrule
-Poblaci\'{o}n    & Sistemas de detecci\'{o}n de personas, sistemas de
+Poblaci\'{o}n    & Sistemas de detecci\'{o}n e indentificacion de personas, sistemas usados de
                    videovigilancia, sistemas de detecci\'{o}n de peatones. \\
 Intervenci\'{o}n & Modelos de detecci\'{o}n, modelos de aprendizaje
                    profundo, algoritmos de visi\'{o}n por computadora,
@@ -397,7 +399,7 @@ Contexto         & Entornos de videovigilancia, sistemas de monitoreo
 
 \subsection{Cadena de B\'{u}squeda}
 
-La cadena de b\'{u}squeda se construy\'{o} a partir de los
+La cadena de b\'{u}squeda se construy\'{o} a partiendo de los
 t\'{e}rminos PICOC y sus sin\'{o}nimos, conectados con operadores
 booleanos.
 
@@ -481,24 +483,24 @@ CI-1 & Se aceptar\'{a}n art\'{i}culos que propongan o eval\'{u}en modelos
        baja visibilidad en sistemas de videovigilancia. \\
 CI-2 & Se considerar\'{a}n todos los art\'{i}culos publicados entre
        2022 y 2026. \\
-CI-3 & Se consideran todos los art\'{i}culos provenientes de bases de
+CI-3 & Se consideran todos los art\'{i}culos que provenienen de bases de
        datos digitales indexadas. \\
-CI-4 & Los art\'{i}culos deben provenir del \'{a}rea de visi\'{o}n por
+CI-4 & Los art\'{i}culos deben pertenecer al \'{a}rea de visi\'{o}n por
        computadora, aprendizaje profundo o sistemas de videovigilancia. \\
-CI-5 & Se aceptar\'{a}n art\'{i}culos provenientes de revistas
+CI-5 & Se aceptar\'{a}n art\'{i}culos que provengan de revistas
        cient\'{i}ficas y conferencias indexadas. \\
 \midrule
 \multicolumn{2}{l}{\cellcolor{red!10}\textbf{Exclusi\'{o}n}} \\
-CE-1 & Ser\'{a}n excluidos los art\'{i}culos duplicados. \\
-CE-2 & Ser\'{a}n excluidos los art\'{i}culos cuyo t\'{i}tulo no tenga
+CE-1 & Van a ser excluidos los art\'{i}culos duplicados. \\
+CE-2 & Van a ser excluidos los art\'{i}culos cuyo t\'{i}tulo no tenga
        relaci\'{o}n con el objeto de estudio de la revisi\'{o}n. \\
-CE-3 & Ser\'{a}n excluidos los estudios secundarios, estudios terciarios,
+CE-3 & Van a ser excluidos los estudios secundarios, estudios terciarios,
        revisiones narrativas sin evaluaci\'{o}n emp\'{i}rica y
        res\'{u}menes. \\
-CE-4 & Ser\'{a}n rechazados los art\'{i}culos que no se encuentren en
+CE-4 & Van a ser rechazados los art\'{i}culos que no se encuentren en
        idioma ingl\'{e}s o espa\~{n}ol. \\
-CE-5 & Ser\'{a}n rechazados los art\'{i}culos de contenido similar,
-       qued\'{a}ndose solo los que tengan el contenido m\'{a}s
+CE-5 & Van a ser rechazados los art\'{i}culos de contenido similar,
+       qued\'{a}ndose unicamente con los que tengan el contenido m\'{a}s
        completo. \\
 \bottomrule
 \end{tabularx}
@@ -511,10 +513,10 @@ del protocolo propuesto por Kitchenham~\cite{Kitchenham2007}:
 
 \begin{enumerate}
   \item \textbf{Fase 1 --- Planificaci\'{o}n:} identificaci\'{o}n de
-        la necesidad de la revisi\'{o}n, elaboraci\'{o}n y
+        la considerable necesidad de la revisi\'{o}n, elaboraci\'{o}n y
         evaluaci\'{o}n del protocolo.
   \item \textbf{Fase 2 --- Ejecuci\'{o}n:} identificaci\'{o}n de
-        estudios, selecci\'{o}n, evaluaci\'{o}n de calidad,
+        estudios, selecci\'{o}n, evaluaci\'{o}n de la calidad,
         extracci\'{o}n y s\'{i}ntesis de datos.
   \item \textbf{Fase 3 --- Documentaci\'{o}n:} redacci\'{o}n,
         validaci\'{o}n y publicaci\'{o}n del informe de revisi\'{o}n.
@@ -678,7 +680,7 @@ Calidad del estudio (CQI) & Puntuaci\'{o}n sobre 5{,}0 \\
 
 \subsection{Descripci\'{o}n General de los Estudios}
 
-El proceso de selecci\'{o}n redujo los 1\,107 registros iniciales a
+El proceso de la selecci\'{o}n redujo los 1\,107 registros iniciales a
 \textbf{35 estudios primarios} cubriendo el per\'{i}odo 2022--2026.
 ACM Digital Library aport\'{o} 8 estudios (22{,}9\%), Scopus 12
 (34{,}3\%), ScienceDirect 12 (34{,}3\%) y Web of Science 3 (8{,}6\%).
@@ -768,12 +770,12 @@ entre personas~\cite{E09, E30, E10}.
 
 \begin{hallazgo}[]
   Los modelos de fusi\'{o}n multiespectral (RGB + IR/t\'{e}rmico) y las
-  variantes existentes de YOLO constituyen los enfoques con mayor
+  versiones existentes de YOLO constituyen los enfoques con mayor
   presencia en la literatura revisada, identificados en el 63\,\% de
   los estudios primarios. La fusi\'{o}n multimodal es la estrategia
-  dominante para obtener mejores resultados ante la baja visibilidad
-  nocturna, mientras que los m\'{o}dulos de atenci\'{o}n son la
-  respuesta preferida ante la oclusi\'{o}n
+  predominante para obtener los mejores resultados ante la baja visibilidad
+  en horas de la noche, mientras que los m\'{o}dulos de atenci\'{o}n son la
+  respuesta principalmente elejida ante la oclusi\'{o}n
   parcial~\cite{E35, E31, E17, E19, E07, E26}.
 \end{hallazgo}
 
@@ -781,25 +783,24 @@ entre personas~\cite{E09, E30, E10}.
 se utilizan para manejar la oclusi\'{o}n parcial y total en la
 detecci\'{o}n de personas dentro de sistemas de videovigilancia?}
 
-Los estudios primarios documentan cinco estrategias complementarias
+Los estudios primarios documentan estas cinco estrategias complementarias
 para el manejo de la oclusi\'{o}n:
 \begin{enumerate}
-  \item \textbf{Predicci\'{o}n de partes corporales visibles:} el
-        detector genera cuadros parciales sobre las regiones expuestas
-        (cabeza, abdomen) e infiere la posici\'{o}n global a partir de
+  \item \textbf{Predicci\'{o}n de partes anatomicas corporales visibles:} el
+        detector genera cuadros parciales sobre las regiones expuestas ante la camara
+        (cabeza, abdomen) y supone la posici\'{o}n global a partir de
         ellas~\cite{E27}.
   \item \textbf{Estimaci\'{o}n de pose mediante esqueletos:} la
-        reconstrucci\'{o}n del esqueleto corporal permite inferir
-        eficazmente la postura incluso cuando parte del cuerpo
-        est\'{a} ocluida~\cite{E27}.
+        reconstrucci\'{o}n del esqueleto corporal permite inferir de manera eficar la postura incluso cuando parte del cuerpo
+        est\'{a} porcentualmente ocluida~\cite{E27}.
   \item \textbf{Supresi\'{o}n de no m\'{a}ximos adaptada (NMS):}
-        variantes dise\~{n}adas para preservar detecciones de peatones
-        solapados en escenas densas~\cite{E29, E28, E11}.
+        variantes que an sido dise\~{n}adas para preservar detecciones de peatones
+        solapados en escenas densas que dificultan la vision~\cite{E29, E28, E11}.
   \item \textbf{Fusi\'{o}n de perspectivas m\'{u}ltiples:} el uso
-        simult\'{a}neo de varias c\'{a}maras resuelve las oclusiones que
+        simult\'{a}neo de una significativa cantidad de c\'{a}maras resuelve las oclusiones que
         aparecen en una sola vista~\cite{E09, E30, E10}.
   \item \textbf{M\'{o}dulos de atenci\'{o}n cruzada:} mecanismos que
-        ponderan las regiones parcialmente visibles y aten\'{u}an el
+        ponderan las regiones parcialmente visibles y disminuyen el
         ruido de fondo~\cite{E31, E17, E14}.
 \end{enumerate}
 
@@ -890,15 +891,15 @@ primarios revela cinco categor\'{i}as recurrentes:
 \textbf{Dependencia de hardware especializado.} Los modelos que
 integran sensores infrarrojos o t\'{e}rmicos requieren equipamiento
 adicional que eleva el coste de implementaci\'{o}n~\cite{E14, E26}.
-\textbf{Fragilidad ante oclusi\'{o}n severa.} Cuando m\'{a}s del
-70\,\% de la silueta corporal queda ocluida, la mayor\'{i}a de los
-detectores reportan una ca\'{i}da significativa en la tasa de
+\textbf{Fragilidad ante oclusi\'{o}n considerablemente alta.} Cuando m\'{a}s del
+70\,\% de la silueta corporal queda totalmente ocluida, la mayor\'{i}a de los
+detectores indican una ca\'{i}da significativa en la tasa de
 detecci\'{o}n~\cite{E27, E11}.
-\textbf{Brecha entre banco de pruebas y entorno real.} Los modelos
-optimizados sobre benchmarks controlados no mantienen sus niveles de
+\textbf{Brecha entre banco de pruebas con condiciones ideales y entorno real.} Los modelos
+optimizados sobre benchmarks controlados no mantienen continuamente sus niveles de
 rendimiento habituales al ser desplegados en escenarios con condiciones
 variables no presentes en el conjunto de
-entrenamiento~\cite{E33, E23}.
+entrenamiento anteriormente usado~\cite{E33, E23}.
 \textbf{Latencia computacional.} Los detectores de mayor precisi\'{o}n
 suelen demandar recursos que superan la capacidad de los dispositivos
 embebidos, limitando su aplicabilidad en redes de vigilancia
@@ -933,20 +934,20 @@ mayor\'{i}a de las propuestas actuales abordan cada condici\'{o}n por
 separado; existe una brecha en arquitecturas capaces de gestionar ambas
 de forma conjunta~\cite{E20, E26}.
 \textbf{Adaptaci\'{o}n de dominio.} Los detectores entrenados en un
-entorno espec\'{i}fico presentan degradaci\'{o}n al aplicarse en
-contextos distintos; se necesitan estrategias de transferencia m\'{a}s
+entorno espec\'{i}fico presentan una caida de eficacia al aplicarse en
+contextos distintos; se necesitan estrategias de transferencia considerablemente m\'{a}s
 robustas~\cite{E09, E30}.
-\textbf{Eficiencia para dispositivos embebidos.} Se demanda el
+\textbf{Eficiencia para dispositivos embebidos.} Se requiere el
 dise\~{n}o de arquitecturas que mantengan alta precisi\'{o}n con bajo
-consumo computacional, habilitando el procesamiento en el borde de la
+consumo de hardaware computacional, haciendo posible el procesamiento en el borde de la
 red (\textit{edge computing})~\cite{E32, E23}.
 \textbf{Evaluaci\'{o}n en escenarios de alta densidad.} La
-detecci\'{o}n en muchedumbres donde la oclusi\'{o}n mutua entre
-personas es intensa requiere m\'{e}tricas y protocolos de
+detecci\'{o}n en multitudes concentradas de individuos donde la oclusi\'{o}n mutua entre
+personas es intensa y por ende requiere m\'{e}tricas y protocolos de
 evaluaci\'{o}n m\'{a}s espec\'{i}ficos~\cite{E28, E09}.
 
 \begin{hallazgo}[]
-  La demanda de datasets combinados y la necesidad de modelos unificados
+  La necesidad de datasets combinados y la demanda nesesitada de modelos unificados
   capaces de afrontar oclusi\'{o}n y baja visibilidad de forma
   simult\'{a}nea constituyen las brechas m\'{a}s frecuentemente
   citadas, apareciendo en el 53\,\% de los estudios primarios
@@ -993,28 +994,28 @@ Mejora de imagen previa al detector
 
 \subsection{Interpretaci\'{o}n de los Resultados}
 
-Los hallazgos tras la realizaci\'{o}n de esta revisi\'{o}n son
-coherentes con la tendencia general documentada en trabajos previos
+Los hallazgos posteriores tras la realizaci\'{o}n de esta revisi\'{o}n son
+consecuentes con la tendencia general documentada en trabajos previos
 sobre detecci\'{o}n peatonal~\cite{Brunetti2018, Dollar2012}: la
-calidad del detector depende cr\'{i}ticamente de la riqueza y
-disponibilidad de informaci\'{o}n visual. Cuando la iluminaci\'{o}n o
-la visibilidad se ven comprometidas, la incorporaci\'{o}n de canales
-espectrales adicionales surge como la estrategia m\'{a}s efectiva
-porque proporciona una se\~{n}al complementaria no degradada por las
-mismas condiciones que afectan al canal visible. La predominancia de
-variantes de YOLO refleja la presi\'{o}n industrial por soluciones
-capaces de operar en tiempo real con hardware eficiente accesible.
+calidad del detector usado depende cr\'{i}ticamente de la riqueza y
+disponibilidad de informaci\'{o}n visual obetenida. Cuando la iluminaci\'{o}n o
+la visibilidad se ven afectadas, la incorporaci\'{o}n de canales
+espectrales añadidos aparece como la estrategia m\'{a}s efectiva
+ya que proporciona una se\~{n}al complementaria no degradada por las
+mismas condiciones que afectan al canal visible trabajado. La predominancia de
+variantes de YOLO refleja la presi\'{o}n industrial por la nesesidad de soluciones
+capaces de operar en tiempo real con hardware que sea  eficiente y a la ves accesible.
 Arquitecturas como NP-YOLO~\cite{E12} y PYOLO~\cite{E18} demuestran
-que es posible adaptar detectores de una etapa para condiciones
-adversas sin alterar la velocidad de inferencia, lo que los hace
+que es factible adaptar detectores de una etapa para condiciones
+adversas sin cambiar la velocidad de inferencia, lo que los hace
 atractivos para despliegues en c\'{a}maras IP con capacidad de
 c\'{o}mputo embebido.
 
 La distribuci\'{o}n de estudios por base de datos muestra que ACM
 Digital Library y Scopus aportan conjuntamente el 57{,}1\,\% de los
-estudios seleccionados, lo que confirma que las conferencias
+estudios seleccionados, lo cual confirma que las conferencias
 especializadas en visi\'{o}n por computadora y multimedia constituyen
-una fuente relevante de difusi\'{o}n de avances en este campo.
+una fuente altamente relevante de difusi\'{o}n de avances en este campo de la tecnologia.
 ScienceDirect concentra el 34{,}3\,\% restante a trav\'{e}s de
 revistas de Elsevier, mientras que Web of Science aporta estudios
 complementarios de alto impacto.
@@ -1022,17 +1023,17 @@ complementarios de alto impacto.
 \subsection{Brechas de Investigaci\'{o}n y Trabajo Futuro}
 
 Las cinco brechas de conocimiento identificadas en la RQ6 configuran
-una agenda de investigaci\'{o}n clara. La m\'{a}s apremiante es la
+una agenda de investigaci\'{o}n clara. La que posee mas urgencia es la
 falta considerable de benchmarks que combinen simult\'{a}neamente
-oclusi\'{o}n densa y condiciones meteorol\'{o}gicas adversas. Los
+oclusi\'{o}n densa y condiciones meteorol\'{o}gicas dificiles. Los
 conjuntos existentes (Caltech, KAIST, FLIR) abordan estas dimensiones
-de forma separada, lo que impide la validaci\'{o}n cruzada de modelos
-que pretendan ser robustos ante ambas condiciones. La segunda brecha,
-vinculada a la adaptaci\'{o}n de dominio, cobra especial relevancia en
-el contexto latinoamericano, donde las condiciones de infraestructura
-tecnol\'{o}gica y los patrones de comportamiento peatonal pueden
+de forma separada, lo cual impide la validaci\'{o}n cruzada de modelos
+que pretendan ser robustos ante ambas condiciones cuando estan en simultaneo. La segunda brecha,
+vinculada a la adaptaci\'{o}n de dominio, cobra alta relevancia en
+el contexto y situaciones del area de latinoamerica, donde las condiciones de infraestructura de hardware
+tecnol\'{o}gico y los patrones de comportamiento peatonal pueden
 diferir significativamente de los contextos estudiados en los
-art\'{i}culos revisados.
+art\'{i}culos revisados conjuntamente.
 
 \subsection{Amenazas a la Validez}
 
@@ -1041,24 +1042,24 @@ se clasifican de acuerdo con~\cite{Wohlin2012}:
 
 \begin{itemize}
   \item \textbf{Validez de la construcci\'{o}n:} la cadena de
-        b\'{u}squeda puede no recuperar estudios que usen terminolog\'{i}a
-        alternativa para describir oclusi\'{o}n o baja visibilidad. Esta
+        b\'{u}squeda tiene la posiblidad existente de no recuperar estudios que usen terminolog\'{i}a
+        alternativa para describir oclusi\'{o}n o baja visibilidad en las camaras usadas. Esta
         amenaza se disminuy\'{o} mediante la inclusi\'{o}n de
         sin\'{o}nimos y la validaci\'{o}n iterativa de la cadena contra
         un conjunto de art\'{i}culos conocidos.
   \item \textbf{Validez interna:} la selecci\'{o}n y an\'{a}lisis de
-        calidad de los estudios fueron realizadas por el equipo
+        calidad de los estudios fueron realizadas en conjunto por el equipo
         investigador, lo que introduce riesgo de sesgo de
-        inclusi\'{o}n. Se mitig\'{o} mediante la aplicaci\'{o}n
+        inclusi\'{o}n. Se mitig\'{o} mediante la adecuada aplicaci\'{o}n
         sistem\'{a}tica de los criterios definidos en el protocolo.
   \item \textbf{Validez externa:} los resultados se limitan al
         per\'{i}odo 2022--2026 y a las cuatro bases de datos
         consultadas; estudios en otras fuentes o en idiomas distintos
         del ingl\'{e}s y espa\~{n}ol quedaron excluidos.
   \item \textbf{Validez de conclusi\'{o}n:} la heterogeneidad de
-        m\'{e}tricas y grupos de datos reportados dificulta la
-        comparaci\'{o}n quantitative directa entre modelos, por lo que
-        la s\'{i}ntesis se realiz\'{o} de manera narrativa.
+        m\'{e}tricas y grupos de datos reportados dificulta significativamente la
+        comparaci\'{o}n quantitativa directa entre los modelos, por lo que
+        la s\'{i}ntesis del tema se realiz\'{o} de manera narrativa.
 \end{itemize}
 
 %=============================================================
@@ -1066,30 +1067,30 @@ se clasifican de acuerdo con~\cite{Wohlin2012}:
 %=============================================================
 
 Esta Revisi\'{o}n Sistem\'{a}tica de Literatura sintetiz\'{o} la
-evidencia publicada entre 2022 y 2026 sobre los modelos para la
+evidencia publicada entre 2022 y 2026 sobre los modelos existentes para la
 detecci\'{o}n autom\'{a}tica de personas bajo condiciones considerables
-de oclusi\'{o}n y baja visibilidad en sistemas de videovigilancia, a
+de oclusi\'{o}n y baja visibilidad en sistemas de videovigilancia de individuos, a
 partir de 35 estudios primarios identificados en ACM Digital Library,
-Scopus, ScienceDirect y Web of Science, siguiendo el protocolo de
+Scopus, ScienceDirect y Web of Science, se siguio el protocolo de
 Kitchenham y Charters.
 
 Respecto a los modelos existentes (RQ1), la fusi\'{o}n multiespectral
 RGB-infrarrojo/\allowbreak t\'{e}rmico y las redes con m\'{o}dulos de atenci\'{o}n
-constituyen los enfoques dominantes, seguidos por variantes compactadas
-de YOLO y estrategias multi-vista basadas en transformers. En cuanto a
+constituyen los enfoques mas dominantes, seguidos por variantes compactas
+de YOLO y estrategias  principalmente de multi-vista basadas en transformers. En cuanto a
 las t\'{e}cnicas de manejo de la oclusi\'{o}n (RQ2), la fusi\'{o}n de
-perspectivas m\'{u}ltiples y los mecanismos de atenci\'{o}n cruzada
+perspectivas m\'{u}ltiples a traves de varias camaras y las tecnicas de atenci\'{o}n cruzada
 reportan las mejoras m\'{a}s consistentes. Las m\'{e}tricas m\'{a}s
 utilizadas (RQ3) son mAP, tasa de error logar\'{i}tmica y FPS, mientras
-que los benchmarks de mayor uso (RQ4) son KAIST, FLIR Thermal, Caltech
+que los benchmarks de mas uso (RQ4) son KAIST, FLIR Thermal, Caltech
 y CityPersons. Las limitaciones predominantes (RQ5) incluyen la
-dependencia de hardware especializado, la fragilidad ante oclusi\'{o}n
+dependencia constante de hardware especializado, la fragilidad ante oclusi\'{o}n
 severa y la brecha de generalizaci\'{o}n. Las principales brechas (RQ6)
-apuntan a la necesidad de datasets combinados y modelos unificados
+nos señalan la necesidad de datasets combinados y modelos unificados
 capaces de gestionar ambas condiciones de forma simult\'{a}nea.
 
 Las contribuciones originales de esta revisi\'{o}n son: (i)~una
-taxonom\'{i}a de los enfoques de detecci\'{o}n bajo condiciones de
+taxonom\'{i}a general de los enfoques de detecci\'{o}n bajo condiciones de
 visi\'{o}n adversas acotada al per\'{i}odo 2022--2026 con cobertura
 de cuatro bases de datos indexadas; (ii)~un mapa de evidencia que
 cruza enfoques con preguntas de investigaci\'{o}n; y (iii)~la
@@ -1098,16 +1099,16 @@ que orientan la agenda de investigaci\'{o}n futura en ambientes de
 videovigilancia inteligente.
 
 Para la pr\'{a}ctica, los resultados sugieren que los equipos de
-desarrollo de sistemas de vigilancia deben priorizar arquitecturas de
+desarrollo de sistemas de vigilancia deben darle prioridad a las arquitecturas de
 fusi\'{o}n multiespectral cuando el presupuesto lo permita, y
 m\'{o}dulos de atenci\'{o}n como alternativa de bajo coste ante
-hardware restringido. Como l\'{i}neas de investigaci\'{o}n futura se
+hardware restringido y limitado. Como l\'{i}neas de investigaci\'{o}n futura se
 propone: (1)~desarrollar un benchmark estandarizado que combine
-oclusi\'{o}n y condiciones meteorol\'{o}gicas adversas; (2)~explorar
+oclusi\'{o}n y condiciones meteorol\'{o}gicas adversamente dificiles de leer; (2)~explorar
 t\'{e}cnicas de adaptaci\'{o}n de dominio para mejorar la
 generalizaci\'{o}n; y (3)~dise\~{n}ar arquitecturas unificadas capaces
-de gestionar simult\'{a}neamente ambas condiciones con eficiencia
-suficiente para su despliegue en dispositivos embebidos.
+de gestionar simult\'{a}neamente ambas condiciones con una eficiencia
+suficientemente alta para su despliegue y uso en dispositivos embebidos.
 
 %=============================================================
 \section*{Declaraciones}
