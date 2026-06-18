@@ -1,0 +1,341 @@
+% capitulos/1planteamiento.tex
+\section{Planteamiento del Problema}
+
+\subsection{Identificaci\'on del Problema}
+
+Los sistemas de videovigilancia autom\'atica en entornos urbanos e
+industriales dependen de la localizaci\'on precisa y en tiempo real de
+individuos para asegurar el correcto funcionamiento de plataformas
+inteligentes de alerta temprana. Aunque los detectores modernos de una
+y dos etapas como YOLO~\cite{Redmon2016} y Faster
+R-CNN~\cite{Ren2015} ofrecen resultados sobresalientes en
+condiciones controladas, su efectividad disminuye de forma dr\'astica
+ante factores ambientales adversos como la oclusi\'on (obstrucci\'on
+parcial o total de la silueta corporal) y la baja visibilidad (causada
+por iluminaci\'on nocturna escasa, niebla o lluvia).
+
+Utilizando una declaraci\'on de insuficiencia te\'orica, la brecha del
+conocimiento radica en que los enfoques y algoritmos actuales abordan
+estas dos limitaciones visuales de manera fragmentada e independiente.
+Los detectores multispectrales se enfocan en la baja iluminaci\'on,
+los m\'odulos de atenci\'on en la oclusi\'on parcial y las variantes
+compactas de YOLO en optimizar el tiempo real, pero ninguno integra
+las tres necesidades simult\'aneamente. Existe una carencia cr\'itica
+de arquitecturas unificadas y de bancos de pruebas estandarizados
+capaces de gestionar y evaluar simult\'aneamente tanto la oclusi\'on
+severa como la baja visibilidad en entornos operativos
+reales~\cite{Deng2024, He2025, Qi2026}.
+
+Para fundamentar rigurosamente el vac\'io detectado, se contrasta la
+brecha directamente con el estado del arte reciente (per\'iodo
+2022--2026). El an\'alisis de 35 estudios primarios identificados en
+ACM Digital Library, Scopus, ScienceDirect y Web of Science demuestra
+que la comunidad cient\'ifica responde a los problemas de forma
+separada. Los conjuntos de datos predominantes en el \'area se enfocan
+exclusivamente en una sola condici\'on: KAIST Multispectral Pedestrian
+Dataset y FLIR Thermal Dataset se especializan en baja visibilidad,
+mientras que Caltech Pedestrian Dataset y CityPersons se centran en
+niveles de oclusi\'on urbana. Investigadores clave como Deng et
+al.~(2024)~\cite{Deng2024}, He et al.~(2025)~\cite{He2025}, Qi et
+al.~(2026)~\cite{Qi2026} y Shen et al.~(2025)~\cite{Shen2025}
+ratifican en sus manuscritos que ning\'un dataset p\'ublico combina
+simult\'aneamente oclusi\'on severa y meteorolog\'ia adversa. Al
+carecer de este enfoque unificado, los modelos sufren una marcada
+brecha de generalizaci\'on y disminuyen su fiabilidad al migrar de
+los laboratorios al despliegue en escenarios reales.
+
+Actualmente, los detectores reportan ca\'idas severas de rendimiento
+cuando la silueta humana se obstruye m\'as del 70\,\%, u optan por
+incorporar modelos pesados de alta demanda computacional que superan
+los recursos de hardware disponibles en redes de c\'amaras
+descentralizadas~\cite{Kim2025, Tang2026}. Esta situaci\'on compromete
+la viabilidad de los sistemas de seguridad en infraestructuras
+cr\'iticas tales como puertos, obras de construcci\'on y espacios
+p\'ublicos nocturnos.
+
+\bigskip
+\noindent\textbf{Pregunta de investigaci\'on:}
+
+\begin{quote}
+\textit{?`En qu\'e medida el dise\~no de una arquitectura unificada
+de aprendizaje profundo y la integraci\'on de benchmarks multimodales
+combinados mitigan la degradaci\'on de la precisi\'on media (mAP) en
+la detecci\'on de personas, bajo condiciones simult\'aneas de
+oclusi\'on severa y baja visibilidad en sistemas de videovigilancia en
+tiempo real?}
+\end{quote}
+
+%---------------------------------------------------------------
+\subsection{Justificaci\'on}
+%---------------------------------------------------------------
+
+\textbf{Justificaci\'on te\'orica.}
+La revisi\'on sistem\'atica de literatura ejecutada (1\,107 registros de cuatro bases de datos, periodo 2022--2026) confirma que ning\'un estudio
+publicado propone un modelo unificado capaz de gestionar
+simult\'aneamente la oclusi\'on severa y la baja visibilidad. Esta
+brecha genera una laguna conceptual en el campo de la visi\'on por
+computadora aplicada a videovigilancia: los marcos te\'oricos actuales
+no ofrecen un paradigma integrador que permita evaluar y comparar
+arquitecturas bajo ambas condiciones de forma conjunta. La presente
+investigaci\'on aportar\'a un nuevo cuerpo de conocimiento que
+sistematiza los enfoques existentes, clasifica sus limitaciones y
+propone criterios para el dise\~no de arquitecturas
+unificadas~\cite{Kitchenham2007}.
+
+\textbf{Justificaci\'on pr\'actica.}
+La detecci\'on de personas es el requisito m\'as exigente y cr\'itico
+de la videovigilancia automatizada. Si un detector es incapaz de
+operar ante individuos parcialmente encubiertos en escenarios oscuros
+o con niebla, la utilidad pr\'actica de la plataforma de monitoreo de
+infraestructuras cr\'iticas se ve completamente comprometida. Resolver
+esta brecha conceptual permitir\'a el dise\~no de arquitecturas
+unificadas y eficientes que habiliten el procesamiento en el borde de
+la red (\textit{edge computing}) sobre dispositivos embebidos
+econ\'omicos, ampliando el acceso a sistemas de vigilancia robustos en
+contextos con recursos limitados como el peruano~\cite{Zhang2025,
+Kim2025}.
+
+\textbf{Justificaci\'on metodol\'ogica.}
+Esta investigaci\'on aplica una Revisi\'on Sistem\'atica de Literatura
+siguiendo el protocolo consolidado de Kitchenham y
+Charters~\cite{Kitchenham2007}, adaptado al \'area de visi\'on por
+computadora. La RSL ejecutada sobre cuatro bases de datos indexadas
+(ACM Digital Library, Scopus, ScienceDirect, Web of Science)
+constituye en s\'i misma una contribuci\'on metodol\'ogica al proveer,
+por primera vez, una s\'intesis estructurada y reproducible del estado
+del arte en detecci\'on de personas bajo condiciones adversas
+combinadas para el per\'iodo 2022--2026. El protocolo PICOC definido,
+los criterios de inclusi\'on/exclusi\'on y el instrumento de
+evaluaci\'on de calidad (CQI) podr\'an ser reutilizados y extendidos
+por futuros investigadores.
+
+%---------------------------------------------------------------
+\subsection{Estado del Arte}
+%---------------------------------------------------------------
+
+La detecci\'on autom\'atica de personas ha sido ampliamente estudiada
+desde la aparici\'on de los detectores cl\'asicos basados en
+histogramas de gradientes orientados (HOG) hasta las arquitecturas
+profundas modernas. Doll\'ar et al.~\cite{Dollar2012} establecieron el
+benchmark de referencia para detecci\'on peatonal urbana el Caltech
+Pedestrian Dataset y demostraron formalmente que la oclusi\'on es
+el factor que mayor degradaci\'on produce en el rendimiento de los
+detectores. Con la consolidaci\'on del aprendizaje profundo, Ren et
+al.~\cite{Ren2015} introdujeron Faster R-CNN, mientras que Redmon et
+al.~\cite{Redmon2016} propusieron YOLO como el paradigma de detecci\'on
+en una \'unica pasada orientado a la velocidad en tiempo real.
+
+La revisi\'on sistem\'atica ejecutada en el presente trabajo
+identific\'o cuatro l\'ineas de investigaci\'on activas en el per\'iodo
+2022--2026 para afrontar la oclusi\'on y la baja visibilidad en
+videovigilancia:
+
+\begin{enumerate}
+
+\item \textbf{Fusi\'on multiespectral (RGB + infrarrojo/t\'ermico).}
+Dao et al.~\cite{Dao2022} propusieron una red de detecci\'on en una
+etapa con supresi\'on de ruido multiespectral; Deng et
+al.~\cite{Deng2024} presentaron un m\'odulo de atenci\'on espacial
+cruzada ligero para detecci\'on peatonal; Qi et al.~\cite{Qi2026}
+desarrollaron LF-DETR para detecci\'on a\'erea RGB-infrarrojo; y Shen
+et al.~\cite{Shen2025} propusieron EAFF-Net con fusi\'on dual. Estos
+trabajos demuestran que la incorporaci\'on de canales espectrales
+infrarrojos o t\'ermicos reduce significativamente la dependencia de
+la iluminaci\'on ambiental, con mejoras de hasta 12 puntos en mAP
+nocturno respecto a detectores RGB puros.
+
+\item \textbf{Variantes ligeras de YOLO.} Zhang et al.~\cite{Zhang2025}
+propusieron un YOLOv8s compacto para objetos de peque\~na escala; Hu
+et al.~\cite{Hu2025} desarrollaron PYOLO espec\'ificamente para
+oclusi\'on peatonal; y Huang \& Liu~\cite{Huang2025} dise\~naron
+NP-YOLO para vigilancia nocturna. Estas arquitecturas priorizan el
+equilibrio entre precisi\'on (mAP) y velocidad de inferencia (FPS)
+para despliegues en hardware embebido.
+
+\item \textbf{Redes con m\'odulos de atenci\'on y transformers.} Guo et
+al.~\cite{Guo2025} integraron sem\'antica visual-ling\"u\'istica con
+ajuste global de atenci\'on; Gao et al.~\cite{Gao2025a} desarrollaron
+RC-DETR con aprendizaje contrastivo para multitudes; y He et
+al.~\cite{He2025} propusieron interacci\'on diferencial entre
+modalidades espectrales. La incorporaci\'on de mecanismos de atenci\'on
+canal-espacial mejora la localizaci\'on de regiones parcialmente
+ocluidas.
+
+\item \textbf{Enfoques multi-vista.} Qiu et al.~\cite{Qiu2024a}
+propusieron PPM como optimizador booleano para asociaci\'on de datos
+en detecci\'on multi-c\'amara; y Li et al.~\cite{Li2026} desarrollaron
+una red de fusi\'on de m\'ascaras residuales para sistemas de
+videovigilancia multi-vista. Estos enfoques resuelven las
+ambig\"uedades generadas por la oclusi\'on mutua entre personas al
+combinar perspectivas de m\'ultiples c\'amaras simult\'aneas.
+
+\end{enumerate}
+
+Sin embargo, el an\'alisis conjunto de los 35 estudios primarios
+revela que ninguno propone una arquitectura unificada que gestione
+simult\'aneamente la oclusi\'on severa y la baja visibilidad, ni
+existe un benchmark que combine ambas condiciones de forma
+estandarizada. Esta es la brecha que motiva el presente trabajo de
+investigaci\'on.
+
+%---------------------------------------------------------------
+\subsection{Objetivos}
+%---------------------------------------------------------------
+
+\subsubsection{Objetivo General}
+
+Determinar la medida en que el dise\~no de una arquitectura unificada
+de aprendizaje profundo y la integraci\'on de benchmarks multimodales
+combinados mitigan la degradaci\'on de la precisi\'on media (mAP) en
+la detecci\'on de personas, bajo condiciones simult\'aneas de
+oclusi\'on severa y baja visibilidad en sistemas de videovigilancia en
+tiempo real.
+
+\subsubsection{Objetivos Espec\'ificos}
+
+\begin{enumerate}[label=OE\arabic*.]
+
+\item Identificar las soluciones y algoritmos actuales en el estado del
+      arte (2022--2026) que gestionan las problem\'aticas de oclusi\'on
+      y baja iluminaci\'on de manera fragmentada, mediante una
+      Revisi\'on Sistem\'atica de Literatura sobre cuatro bases de
+      datos indexadas: ACM Digital Library, Scopus, ScienceDirect y
+      Web of Science.
+
+\item Integrar un benchmark multimodal combinado, fusionando conjuntos
+      de datos actualmente polarizados KAIST Multispectral, FLIR
+      Thermal, Caltech y CityPersons de modo que incluya
+      simult\'aneamente condiciones de oclusi\'on severa (superior al
+      70\,\%) y meteorolog\'ia adversa (escasez de iluminaci\'on,
+      niebla, lluvia).
+
+\item Desarrollar una arquitectura unificada y optimizada de
+      aprendizaje profundo, basada en fusi\'on multiespectral y
+      mecanismos de atenci\'on cruzada, orientada a resolver ca\'idas
+      de rendimiento bajo obstrucciones de silueta mayores al 70\,\%
+      y escenarios de baja visibilidad simult\'aneos.
+
+\item Evaluar la capacidad de inferencia y la precisi\'on del modelo
+      midiendo la precisi\'on media (mAP) y los fotogramas por segundo
+      (FPS), comparando el modelo propuesto con los detectores de
+      referencia identificados en el estado del arte.
+
+\end{enumerate}
+
+%---------------------------------------------------------------
+\subsection{Hip\'otesis}
+%---------------------------------------------------------------
+
+\textbf{Hip\'otesis de trabajo (H1):}
+
+El dise\~no de una arquitectura unificada de aprendizaje profundo
+evaluada sobre benchmarks multimodales combinados logra una menor
+degradaci\'on de la precisi\'on media (mAP) que los enfoques
+algor\'itmicos fragmentados actuales (YOLO, Faster R-CNN aplicados de
+forma independiente), cuando se aplican a la detecci\'on de personas
+en sistemas de videovigilancia bajo condiciones simult\'aneas de
+oclusi\'on severa (mayor al 70\,\% de la silueta obstruida) y baja
+visibilidad (escenario nocturno o con niebla).
+
+\bigskip
+\textbf{Hip\'otesis nula (H0):}
+
+El dise\~no de una arquitectura unificada de aprendizaje profundo
+evaluada sobre benchmarks multimodales combinados produce una
+degradaci\'on de la precisi\'on media (mAP) igual o mayor a la de los
+enfoques fragmentados, cuando se aplican en videovigilancia bajo
+condiciones simult\'aneas de oclusi\'on severa y baja visibilidad.
+
+\bigskip
+\textbf{Sustento bibliogr\'afico de H1:}
+
+\begin{itemize}
+\item \textbf{Deng et al.~(2024)~\cite{Deng2024}} demuestran que la
+      fusi\'on de canales RGB e infrarrojo mediante atenci\'on espacial
+      cruzada supera a los detectores RGB puros en escenarios de baja
+      iluminaci\'on, reportando mejoras de hasta 8 puntos en mAP.
+      Justifica H1 al evidenciar el potencial de la fusi\'on multimodal
+      para reducir la degradaci\'on ante baja visibilidad.
+
+\item \textbf{Tang et al.~(2026)~\cite{Tang2026}} proponen un
+      razonamiento jer\'arquico adaptativo para oclusi\'on en multitudes
+      y reportan mejoras consistentes ante oclusi\'on severa. Los
+      autores declaran expl\'icitamente que ning\'un dataset p\'ublico
+      combina oclusi\'on severa y meteorolog\'ia adversa, respaldando
+      directamente la brecha que H1 busca resolver.
+
+\item \textbf{He et al.~(2025)~\cite{He2025}} demuestran que la
+      interacci\'on diferencial entre modalidades espectrales mejora la
+      robustez del detector ante variaciones de iluminaci\'on,
+      validando la integraci\'on multimodal como estrategia central
+      de H1.
+\end{itemize}
+
+%---------------------------------------------------------------
+\subsection{Variables}
+%---------------------------------------------------------------
+
+A continuaci\'on, se presenta de forma estructurada la operacionalizaci\'on de las variables que intervienen en el estudio, detallando su rol, naturaleza y escalas de medici\'on.
+
+\bigskip
+
+% Usamos [H] en mayúscula para obligar a la tabla a quedarse exactamente AQUÍ
+% Si no compila con H, asegúrate de tener \usepackage{float} en tu main.tex
+\begin{table}[h!]
+\centering
+\caption{Tabla de operacionalizaci\'on de variables}
+\label{tab:variables}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{3cm}|c|p{3.5cm}|p{3.5cm}|p{1.5cm}|}
+\hline
+\textbf{Variable} & \textbf{Rol} & \textbf{Definici\'on conceptual} &
+\textbf{Definici\'on operacional} & \textbf{Escala} \\
+\hline
+Arquitectura de aprendizaje profundo &
+VI &
+Tipo de modelo algor\'itmico empleado para la detecci\'on de personas
+en condiciones adversas. &
+Aplicaci\'on de arquitectura unificada vs.\ modelos fragmentados de 1
+o 2 etapas (YOLO, Faster R-CNN). &
+Nominal (Discreta) \\
+\hline
+Precisi\'on Media (mAP) &
+VD1 &
+M\'etrica est\'andar de exactitud del detector en detecci\'on de
+objetos. &
+C\'alculo del \'area bajo la curva Precision-Recall durante pruebas
+de inferencia sobre el benchmark combinado. &
+Raz\'on (Continua) \\
+\hline
+Fotogramas por Segundo (FPS) &
+VD2 &
+Tasa de procesamiento del modelo en tiempo real, cr\'itica para
+videovigilancia. &
+Cantidad de frames procesados y resueltos correctamente por segundo
+durante inferencia. &
+Raz\'on (Continua) \\
+\hline
+Escenarios simult\'aneos adversos &
+VC &
+Entorno de evaluaci\'on que combina condiciones de oclusi\'on severa
+y baja iluminaci\'on de forma simult\'anea. &
+Uso de benchmarks multimodales combinados con obstrucci\'on corporal
+superior al 70\,\% bajo iluminaci\'on nocturna o con niebla. &
+Ordinal (Discreta) \\
+\hline
+\end{tabular}
+\end{table}
+
+\bigskip
+\newpage % Colocamos un salto de página manual aquí para que las definiciones detalladas arranquen juntas y ordenadas en la siguiente hoja
+
+\noindent\textbf{Variable independiente (VI):} Arquitectura de aprendizaje profundo --- tipo de modelo algor\'itmico (unificado versus modelos fragmentados). Instrumento: c\'odigo fuente del modelo. Valores: \{Unificada, Aislada\}.
+
+\vspace{0.5cm}
+\noindent\textbf{Variable dependiente 1 (VD1):} Precisi\'on Media (mAP) --- c\'alculo del \'area bajo la curva Precision-Recall. Instrumento: evaluador de m\'etricas est\'andar (COCO API). Rango: $[0{,}0 - 1{,}0]$.
+
+\vspace{0.5cm}
+\noindent\textbf{Variable dependiente 2 (VD2):} Fotogramas por Segundo (FPS) --- cantidad de frames procesados por segundo. Instrumento: profiler de GPU (NVIDIA Nsight). Umbral m\'inimo: 30 FPS.
+
+\vspace{0.5cm}
+\noindent\textbf{Variable de control (VC):} Escenarios simult\'aneos adversos --- entorno con oclusi\'on mayor al 70\,\% y baja visibilidad. Instrumento: dataset combinado (benchmark propio). Valores: \{Ligera ($\leq$30\,\%), Moderada (31--69\,\%), Severa ($\geq$70\,\%)\}.

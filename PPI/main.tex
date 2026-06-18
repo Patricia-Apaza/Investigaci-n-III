@@ -1,0 +1,41 @@
+% main.tex
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-nodecimaldot]{babel}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{geometry}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{hyperref}
+\hypersetup{
+    hidelinks
+}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\geometry{letterpaper, margin=1in}
+\onehalfspacing
+
+\begin{document}
+
+% 1. Portada de la Universidad Peruana Unión
+\input{caratula}
+\newpage
+
+% 2. Tabla de contenidos automática
+\tableofcontents
+\newpage
+
+% 3. Secciones del Perfil del Proyecto de Investigación
+\input{capitulos/1planteamiento}
+\input{capitulos/2metodologia}
+\input{capitulos/3administracion}
+\input{capitulos/4referencias}
+
+\end{document}

@@ -1,0 +1,275 @@
+% capitulos/2metodologia.tex
+\section{Metodolog\'ia}
+
+\subsection{Dise\~no Metodol\'ogico}
+
+La presente investigaci\'on adopta un dise\~no de investigaci\'on
+secundaria de tipo Revisi\'on Sistem\'atica de Literatura (RSL),
+siguiendo el protocolo de Kitchenham y Charters~\cite{Kitchenham2007},
+adaptado al \'area de visi\'on por computadora aplicada a
+videovigilancia y complementado con los lineamientos de reporte PRISMA
+2020~\cite{Page2021}. Seg\'un Hern\'andez Sampieri \&
+Mendoza~\cite{Hernandez2018}, el enfoque es cuantitativo, de dise\~no
+no experimental y alcance descriptivo-exploratorio, dado que se
+sistematiza la evidencia existente sin manipular variables.
+
+El proceso metodol\'ogico comprende tres fases secuenciales:
+
+\begin{enumerate}
+  \item \textbf{Fase 1 --- Planificaci\'on:} formulaci\'on del protocolo
+        PICOC (Poblaci\'on, Intervenci\'on, Comparaci\'on, Resultado,
+        Contexto), definici\'on de preguntas de investigaci\'on (RQ1 a
+        RQ6) y criterios de selecci\'on.
+
+  \item \textbf{Fase 2 --- Ejecuci\'on:} b\'usqueda en cuatro bases de
+        datos indexadas (ACM Digital Library, Scopus, ScienceDirect y
+        Web of Science), selecci\'on en cuatro pasos aplicando criterios
+        de inclusi\'on y exclusi\'on, evaluaci\'on de calidad mediante
+        instrumento CQI (cinco criterios, escala 0--5) y extracci\'on
+        estructurada de datos.
+
+  \item \textbf{Fase 3 --- Documentaci\'on:} s\'intesis narrativa,
+        construcci\'on del mapa de evidencia, reporte de resultados y
+        redacci\'on del art\'iculo de revisi\'on.
+\end{enumerate}
+
+La RSL se complementar\'a con una fase experimental de validaci\'on de
+la arquitectura unificada propuesta, en la que se comparar\'a su
+desempe\~no (mAP y FPS) frente a los modelos de referencia bajo el
+benchmark multimodal combinado desarrollado en la investigaci\'on.
+
+\subsection{Dise\~no de la Construcci\'on de la Propuesta de Ingenier\'ia}
+
+La propuesta de ingenier\'ia consiste en el dise\~no e implementaci\'on
+de una \textbf{arquitectura unificada de aprendizaje profundo} capaz
+de gestionar simult\'aneamente la oclusi\'on severa y la baja
+visibilidad en sistemas de videovigilancia en tiempo real. La
+construcci\'on de la propuesta sigue las etapas descritas a
+continuaci\'on:
+
+\begin{enumerate}
+  \item \textbf{Selecci\'on de arquitectura base:} a partir de los
+        modelos identificados en la RSL, se seleccionan los detectores
+        de referencia (YOLOv8s, Faster R-CNN, LF-DETR) como l\'inea
+        de base para la comparaci\'on.
+
+  \item \textbf{Dise\~no del m\'odulo de fusi\'on multiespectral:}
+        integraci\'on de canales RGB e infrarrojo/t\'ermico mediante
+        mecanismos de atenci\'on cruzada canal-espacial inspirados en
+        EAFF-Net~\cite{Shen2025} y LF-DETR~\cite{Qi2026}.
+
+  \item \textbf{Integraci\'on del m\'odulo de manejo de oclusi\'on:}
+        incorporaci\'on de razonamiento jer\'arquico adaptativo para
+        escenas de alta densidad peatonal, basado en los hallazgos de
+        Tang et al.~\cite{Tang2026} y Kim et al.~\cite{Kim2025}.
+
+  \item \textbf{Optimizaci\'on para edge computing:} reducci\'on del
+        tama\~no del modelo mediante t\'ecnicas de poda y
+        cuantizaci\'on para garantizar una tasa de inferencia superior
+        a 30 FPS en dispositivos embebidos con GPU de bajo consumo.
+
+  \item \textbf{Construcci\'on del benchmark combinado:} creaci\'on de
+        un dataset est\'andar que fusione KAIST Multispectral, FLIR
+        Thermal, Caltech y CityPersons, a\~nadiendo anotaciones de
+        oclusi\'on severa y condiciones meteorol\'ogicas adversas
+        simult\'aneas.
+
+  \item \textbf{Evaluaci\'on experimental:} entrenamiento de la
+        arquitectura propuesta sobre el benchmark combinado y
+        comparaci\'on de m\'etricas (mAP, FPS, log-average miss rate)
+        frente a los modelos de referencia del estado del arte.
+\end{enumerate}
+
+\subsection{Dise\~no Muestral}
+
+\textbf{Universo:} conjunto de publicaciones cient\'ificas indexadas en
+ACM Digital Library, Scopus, ScienceDirect y Web of Science en el
+per\'iodo 2022--2026, relacionadas con detecci\'on de personas bajo
+condiciones de oclusi\'on y baja visibilidad en sistemas de
+videovigilancia.
+
+\bigskip
+
+\textbf{Muestra:} 35 estudios primarios seleccionados mediante muestreo
+no probabil\'istico por criterio, aplicando los protocolos de
+inclusi\'on y exclusi\'on del marco Kitchenham~\cite{Kitchenham2007}.
+La distribuci\'on por base de datos es la siguiente:
+
+\bigskip
+
+% Cambiamos la propiedad a [!htbp] para que el texto fluya de forma natural rodeando la tabla
+\begin{table}[!htbp]
+\centering
+\caption{Resultados del proceso de selecci\'on de estudios primarios}
+\label{tab:seleccion}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Base de datos} & \textbf{Inicial} & \textbf{P1} &
+\textbf{P2} & \textbf{P3} & \textbf{P4} \\
+\hline
+ACM Digital Library & 151 & 42 & 19 & 14 & 8 \\
+\hline
+Scopus              & 162 & 115 & 104 & 103 & 12 \\
+\hline
+ScienceDirect       & 492 & 344 & 198 & 198 & 12 \\
+\hline
+Web of Science      & 302 & 181 & 158 & 158 & 3 \\
+\hline
+\textbf{Total}      & \textbf{1\,107} & \textbf{682} &
+\textbf{479} & \textbf{473} & \textbf{35} \\
+\hline
+\end{tabular}
+\end{table}
+
+% REMOVIMOS EL \clearpage de aquí para evitar que parta la hoja de manera artificial. 
+% Ahora permitimos que la "Unidad de análisis" suba a llenar los espacios en blanco.
+
+\noindent \textbf{Unidad de an\'alisis:} art\'iculo cient\'ifico (revista o
+conferencia indexada) que proponga o eval\'ue modelos de detecci\'on de
+personas bajo condiciones adversas en sistemas de videovigilancia,
+publicado entre 2022 y 2026.
+
+\bigskip
+
+\textbf{Criterios de inclusi\'on:}
+\begin{itemize}
+  \item CI-1: Art\'iculos que propongan o eval\'uen modelos de
+        detecci\'on de personas bajo condiciones de oclusi\'on y/o baja
+        visibilidad en sistemas de videovigilancia.
+  \item CI-2: Art\'iculos publicados entre 2022 y 2026.
+  \item CI-3: Art\'iculos provenientes de bases de datos digitales
+        indexadas.
+  \item CI-4: Art\'iculos del \'area de visi\'on por computadora,
+        aprendizaje profundo o sistemas de videovigilancia.
+  \item CI-5: Art\'iculos provenientes de revistas cient\'ificas y
+        conferencias indexadas.
+\end{itemize}
+
+\textbf{Criterios de exclusi\'on:}
+\begin{itemize}
+  \item CE-1: Art\'iculos duplicados.
+  \item CE-2: Art\'iculos cuyo t\'itulo no guarda relaci\'on con el
+        objeto de estudio.
+  \item CE-3: Estudios secundarios, revisiones narrativas sin
+        evaluaci\'on emp\'irica y res\'umenes.
+  \item CE-4: Art\'iculos en idioma distinto al ingl\'es o espa\~nol.
+  \item CE-5: Art\'iculos de contenido similar; se conserva el de
+        mayor completitud.
+\end{itemize}
+
+\subsection{T\'ecnicas de Recolecci\'on de Datos}
+
+La recolecci\'on de datos se realiz\'o mediante b\'usqueda
+automatizada en cuatro bases de datos electr\'onicas indexadas,
+utilizando las siguientes cadenas de b\'usqueda:
+
+\begin{itemize}
+  \item \textbf{ACM Digital Library:}
+        [[Title: ``person detection''] OR [Title: ``pedestrian
+        detection''] OR [Title: ``human detection'']] AND
+        [[Abstract: ``surveillance''] OR [Abstract: ``occlusion''] OR
+        [Abstract: ``low visibility''] OR [Abstract: ``infrared''] OR
+        [Abstract: ``nighttime'']] AND Publication Date:
+        (01/01/2022 TO 12/31/2026) --- \textbf{151 registros}.
+
+  \item \textbf{Scopus:}
+        TITLE-ABS-KEY((``person detection'' OR ``pedestrian detection''
+        OR ``human detection'' OR ``people detection'') AND (``video
+        surveillance'' OR ``surveillance'' OR ``CCTV'' OR ``security
+        camera'' OR ``monitoring'') AND (``occlusion'' OR ``low
+        visibility'' OR ``low illumination'' OR ``nighttime'' OR
+        ``fog'' OR ``rain'') AND (``deep learning'' OR ``neural
+        network'' OR ``convolutional'' OR ``object detection'' OR
+        ``feature extraction'')) AND PUBYEAR $>$ 2021 AND DOCTYPE IN
+        (``ar'',``cp'') AND LANGUAGE IN (``English'',``Spanish'') ---
+        \textbf{162 registros}.
+
+  \item \textbf{ScienceDirect:}
+        (``pedestrian detection'' OR ``person detection'') AND (``video
+        surveillance'' OR ``CCTV'') AND (``occlusion'' OR ``low
+        visibility'') AND (``deep learning'' OR ``neural network'') ---
+        \textbf{492 registros}.
+
+  \item \textbf{Web of Science:}
+        TS=((``person detection'' OR ``pedestrian detection'' OR
+        ``human detection'') AND (``video surveillance'' OR ``CCTV'')
+        AND (``occlusion'' OR ``low visibility'' OR ``low
+        illumination'') AND (``deep learning'' OR ``neural network'')
+        AND (``real-time'' OR ``accuracy'' OR ``performance'')) AND
+        PY=(2022--2026) --- \textbf{302 registros}.
+\end{itemize}
+
+Los registros fueron exportados en formato BibTeX, consolidados y
+procesados en cuatro pasos secuenciales: Paso~1 (CI-3, CI-4, CI-5,
+CE-1, CE-3), Paso~2 (CE-2, CE-3, CE-4), Paso~3 (CE-3, CE-5) y
+Paso~4 (CI-1, CI-2). El instrumento de evaluaci\'on de calidad (CQI)
+asign\'o puntuaciones de 0 a 5 a cada estudio primario, con umbral
+m\'inimo de 2{,}5 para inclusi\'on final.
+
+Para la fase experimental, los datos de entrenamiento y evaluaci\'on
+se obtendr\'an de los benchmarks p\'ublicos KAIST Multispectral
+Pedestrian Dataset, FLIR Thermal Dataset, Caltech Pedestrian Dataset
+y CityPersons, fusionados en un nuevo benchmark combinado de elaboraci\'on
+propia.
+
+\subsection{T\'ecnicas Estad\'isticas para el Procesamiento de la Informaci\'on}
+
+La s\'intesis de los datos extra\'idos de la RSL se realiz\'o mediante
+s\'intesis narrativa estructurada, siguiendo el marco de Popay et al.~\cite{Popay2006}. Para la fase experimental de validaci\'on de la arquitectura
+propuesta se emplear\'an las siguientes t\'ecnicas estad\'isticas:
+
+\begin{itemize}
+  \item \textbf{Prueba \textit{t} de Student (muestras independientes):} para comparar las distribuciones de mAP entre
+        la arquitectura unificada y los modelos de referencia (Faster
+        R-CNN, YOLOv8s), con nivel de significancia $\alpha = 0{,}05$.
+        Se emplear\'a el software Python (scipy.stats) o R.
+
+  \item \textbf{An\'alisis de varianza (ANOVA):} para comparar el
+        rendimiento entre tres niveles de severidad de oclusi\'on
+        (ligera, moderada, severa) y entre tres condiciones de
+        visibilidad (diurna, crep\'uscular, nocturna), con
+        post-hoc Tukey HSD cuando se detecten diferencias
+        significativas.
+
+  \item \textbf{Intervalo de confianza al 95\,\%:} para reportar la
+        incertidumbre en las estimaciones de mAP y FPS.
+
+  \item \textbf{Coeficiente de correlaci\'on de Pearson:} para analizar
+        la relaci\'on entre el nivel de oclusi\'on (\,\%) y la
+        degradaci\'on del mAP en cada arquitectura evaluada.
+
+  \item \textbf{Software e Infraestructura:} Python~3.11 con las 
+        bibliotecas PyTorch, torchmetrics, numpy, pandas, scipy y 
+        matplotlib para el entrenamiento, evaluaci\'on y visualizaci\'on 
+        de resultados. El entorno de desarrollo y el control de versiones 
+        se gestionar\'an localmente mediante Visual Studio Code integrado 
+        con GitHub. La fase de entrenamiento pesado se evaluar\'a bajo tres 
+        alternativas de infraestructura (instancias cloud en Google Colab 
+        Pro+, entornos NVIDIA Cloud en la plataforma Brev.dev utilizando 
+        arquitecturas avanzadas, o procesamiento local dedicado mediante una 
+        GPU RTX 5070 Ti de 16GB), mientras que la validaci\'on f\'isica de 
+        la velocidad de inferencia se ejecutar\'a sobre el dispositivo 
+        embebido Jetson Nano para la medici\'on precisa de FPS.
+\end{itemize}
+
+\subsection{Aspectos \'Eticos}
+
+Esta investigaci\'on es de car\'acter documental y experimental no
+invasivo; no involucra datos personales, participantes humanos ni
+animales. Los art\'iculos revisados en la RSL son de acceso p\'ublico
+a trav\'es de las licencias institucionales de la Universidad Peruana
+Uni\'on o de acceso abierto. Todos los estudios primarios son citados
+correctamente siguiendo el estilo IEEE. En consecuencia, seg\'un los
+lineamientos de la UPeU, este estudio no requiere
+evaluaci\'on por comit\'e de \'etica, dado que no incluye seres humanos
+ni animales en su dise\~no muestral.
+
+Los autores declaran no tener conflicto de intereses relacionado con
+esta investigaci\'on y que el financiamiento es exclusivamente
+institucional (asignatura Investigaci\'on III, Universidad Peruana
+Uni\'on). La originalidad del trabajo fue verificada con un \'indice de
+similitud al 10\,\% mediante Turnitin, en cumplimiento de las
+normas de integridad acad\'emica de la UPeU. Los conjuntos de datos
+p\'ublicos empleados (KAIST, FLIR, Caltech, CityPersons) poseen
+licencias de uso acad\'emico irrestricto.
