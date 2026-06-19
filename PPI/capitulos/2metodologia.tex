@@ -3,253 +3,281 @@
 
 \subsection{Dise\~no Metodol\'ogico}
 
-La presente investigaci\'on adopta un dise\~no de investigaci\'on
-secundaria de tipo Revisi\'on Sistem\'atica de Literatura (RSL),
-siguiendo el protocolo de Kitchenham y Charters~\cite{Kitchenham2007},
-adaptado al \'area de visi\'on por computadora aplicada a
-videovigilancia y complementado con los lineamientos de reporte PRISMA
-2020~\cite{Page2021}. Seg\'un Hern\'andez Sampieri \&
-Mendoza~\cite{Hernandez2018}, el enfoque es cuantitativo, de dise\~no
-no experimental y alcance descriptivo-exploratorio, dado que se
-sistematiza la evidencia existente sin manipular variables.
+La presente investigaci\'on adopta un enfoque cuantitativo de tipo
+aplicado-experimental, orientado al desarrollo y validaci\'on de un
+modelo de detecci\'on de personas basado en YOLOv11 con m\'odulos de
+atenci\'on cruzada para condiciones adversas simult\'aneas de oclusi\'on
+severa y baja visibilidad en entornos reales. Seg\'un Hern\'andez
+Sampieri \& Mendoza~\cite{Hernandez2018}, el dise\~no es
+cuasiexperimental de alcance explicativo, dado que se manipula
+deliberadamente la variable independiente (arquitectura del modelo) y
+se miden sus efectos sobre las variables dependientes (mAP y FPS) bajo
+condiciones controladas de oclusi\'on y baja visibilidad.
 
-El proceso metodol\'ogico comprende tres fases secuenciales:
+La metodolog\'ia se inspira directamente en tres estudios primarios
+identificados en la RSL ejecutada: Huang \& Liu~\cite{Huang2025}
+propusieron NP-YOLO como modelo nocturno para videovigilancia
+siguiendo un pipeline de adaptaci\'on sobre arquitectura YOLO base,
+entrenamiento sobre benchmark especializado y evaluaci\'on comparativa
+de mAP y FPS; Hu et al.~\cite{Hu2025} dise\~naron PYOLO incorporando
+m\'odulos espec\'ificos de manejo de oclusi\'on sobre la columna
+vertebral YOLO con validaci\'on sobre Caltech y CityPersons; y Shen
+et al.~\cite{Shen2025} construyeron EAFF-Net fusionando
+modalidades espectrales mediante atenci\'on cruzada, evaluada sobre
+KAIST y FLIR. El presente proyecto unifica estas tres estrategias
+metodol\'ogicas en una sola arquitectura basada en YOLOv11.
+
+El proceso metodol\'ogico comprende cuatro fases secuenciales:
 
 \begin{enumerate}
-  \item \textbf{Fase 1 --- Planificaci\'on:} formulaci\'on del protocolo
-        PICOC (Poblaci\'on, Intervenci\'on, Comparaci\'on, Resultado,
-        Contexto), definici\'on de preguntas de investigaci\'on (RQ1 a
-        RQ6) y criterios de selecci\'on.
+  \item \textbf{Fase 1 --- Revisi\'on y fundamentaci\'on:} ejecuci\'on
+        de la RSL (ya completada) sobre cuatro bases de datos indexadas
+        (ACM Digital Library, Scopus, ScienceDirect y Web of Science),
+        con selecci\'on de 35 estudios primarios que fundamentan la
+        arquitectura propuesta.
 
-  \item \textbf{Fase 2 --- Ejecuci\'on:} b\'usqueda en cuatro bases de
-        datos indexadas (ACM Digital Library, Scopus, ScienceDirect y
-        Web of Science), selecci\'on en cuatro pasos aplicando criterios
-        de inclusi\'on y exclusi\'on, evaluaci\'on de calidad mediante
-        instrumento CQI (cinco criterios, escala 0--5) y extracci\'on
-        estructurada de datos.
+  \item \textbf{Fase 2 --- Dise\~no e implementaci\'on:} dise\~no de
+        la arquitectura YOLOv11 extendida con m\'odulos de atenci\'on
+        cruzada y construcci\'on del benchmark multimodal combinado
+        (KAIST + FLIR + Caltech + CityPersons con anotaciones de
+        oclusi\'on severa y baja visibilidad simult\'aneas).
 
-  \item \textbf{Fase 3 --- Documentaci\'on:} s\'intesis narrativa,
-        construcci\'on del mapa de evidencia, reporte de resultados y
-        redacci\'on del art\'iculo de revisi\'on.
+  \item \textbf{Fase 3 --- Entrenamiento y experimentaci\'on:}
+        entrenamiento del modelo propuesto sobre el benchmark combinado,
+        comparaci\'on con los modelos de referencia (YOLOv8s, Faster
+        R-CNN, NP-YOLO) y medici\'on de m\'etricas (mAP, FPS,
+        log-average miss rate).
+
+  \item \textbf{Fase 4 --- An\'alisis y documentaci\'on:} an\'alisis
+        estad\'istico de resultados, redacci\'on del informe final y
+        preparaci\'on del art\'iculo cient\'ifico.
 \end{enumerate}
 
-La RSL se complementar\'a con una fase experimental de validaci\'on de
-la arquitectura unificada propuesta, en la que se comparar\'a su
-desempe\~no (mAP y FPS) frente a los modelos de referencia bajo el
-benchmark multimodal combinado desarrollado en la investigaci\'on.
-
-\subsection{Dise\~no de la Construcci\'on de la Propuesta de Ingenier\'ia}
+\subsection{Dise\~no de la Construcci\'on de la Propuesta de
+Ingenier\'ia}
 
 La propuesta de ingenier\'ia consiste en el dise\~no e implementaci\'on
-de una \textbf{arquitectura unificada de aprendizaje profundo} capaz
-de gestionar simult\'aneamente la oclusi\'on severa y la baja
-visibilidad en sistemas de videovigilancia en tiempo real. La
-construcci\'on de la propuesta sigue las etapas descritas a
-continuaci\'on:
+de un \textbf{modelo YOLOv11 extendido con m\'odulos de atenci\'on
+cruzada} capaz de gestionar simult\'aneamente la oclusi\'on severa y
+la baja visibilidad en entornos reales. La construcci\'on sigue las
+etapas que se describen a continuaci\'on, tom\'andose como referencia
+metodol\'ogica directa el pipeline propuesto por Huang \&
+Liu~\cite{Huang2025} para NP-YOLO y el mecanismo de fusi\'on de
+Shen et al.~\cite{Shen2025} para EAFF-Net:
 
 \begin{enumerate}
-  \item \textbf{Selecci\'on de arquitectura base:} a partir de los
-        modelos identificados en la RSL, se seleccionan los detectores
-        de referencia (YOLOv8s, Faster R-CNN, LF-DETR) como l\'inea
-        de base para la comparaci\'on.
 
-  \item \textbf{Dise\~no del m\'odulo de fusi\'on multiespectral:}
-        integraci\'on de canales RGB e infrarrojo/t\'ermico mediante
-        mecanismos de atenci\'on cruzada canal-espacial inspirados en
-        EAFF-Net~\cite{Shen2025} y LF-DETR~\cite{Qi2026}.
+  \item \textbf{Selecci\'on y configuraci\'on de la arquitectura base.}
+        Se tomar\'a YOLOv11 (Ultralytics, 2024) en su variante
+        compacta (YOLOv11s) como red troncal (\textit{backbone}), dado
+        que ofrece el mejor equilibrio entre precisi\'on y velocidad de
+        inferencia en la familia YOLO~\cite{Huang2025}. Se emplear\'a
+        como l\'inea de base comparativa YOLOv8s~\cite{ZhangF2025} y
+        Faster R-CNN~\cite{Ren2015}.
 
-  \item \textbf{Integraci\'on del m\'odulo de manejo de oclusi\'on:}
-        incorporaci\'on de razonamiento jer\'arquico adaptativo para
-        escenas de alta densidad peatonal, basado en los hallazgos de
-        Tang et al.~\cite{Tang2026} y Kim et al.~\cite{Kim2025}.
+  \item \textbf{Integraci\'on del m\'odulo de atenci\'on cruzada para
+        oclusi\'on.} Inspirado en el mecanismo de predicci\'on de
+        partes corporales de Hu et al.~\cite{Hu2025} (PYOLO), se
+        dise\~nar\'a un m\'odulo de atenci\'on canal-espacial que
+        ponderar\'a las regiones parcialmente visibles durante la
+        extracci\'on de caracter\'isticas, permitiendo al modelo
+        inferir la posici\'on global de la persona a partir de las
+        partes no ocluidas.
 
-  \item \textbf{Optimizaci\'on para edge computing:} reducci\'on del
-        tama\~no del modelo mediante t\'ecnicas de poda y
-        cuantizaci\'on para garantizar una tasa de inferencia superior
-        a 30 FPS en dispositivos embebidos con GPU de bajo consumo.
+  \item \textbf{Construcci\'on del benchmark multimodal combinado.}
+        Siguiendo la estrategia de Shen et al.~\cite{Shen2025}, se
+        fusionar\'an cuatro conjuntos de datos p\'ublicos (KAIST
+        Multispectral Pedestrian Dataset, FLIR Thermal Dataset, Caltech
+        Pedestrian Dataset y CityPersons), enriqueci\'endolos con
+        anotaciones de oclusi\'on severa (obstrucci\'on corporal
+        superior al 70\,\%) bajo condiciones de baja visibilidad
+        simult\'aneas (nocturno, niebla, lluvia). Este benchmark
+        constituye la principal contribuci\'on metodol\'ogica del
+        proyecto.
 
-  \item \textbf{Construcci\'on del benchmark combinado:} creaci\'on de
-        un dataset est\'andar que fusione KAIST Multispectral, FLIR
-        Thermal, Caltech y CityPersons, a\~nadiendo anotaciones de
-        oclusi\'on severa y condiciones meteorol\'ogicas adversas
-        simult\'aneas.
+  \item \textbf{Entrenamiento y ajuste fino (\textit{fine-tuning}).}
+        El modelo se pre-entrenar\'a sobre COCO~\cite{ZhangF2025} y
+        se ajustar\'a sobre el benchmark combinado propio. Se
+        emplear\'an t\'ecnicas de aumento de datos espec\'ificas
+        para condiciones adversas: simulaci\'on de niebla, variaci\'on
+        de iluminaci\'on y oclusi\'on sint\'etica aleatoria, siguiendo
+        el protocolo de Huang \& Liu~\cite{Huang2025}.
 
-  \item \textbf{Evaluaci\'on experimental:} entrenamiento de la
-        arquitectura propuesta sobre el benchmark combinado y
-        comparaci\'on de m\'etricas (mAP, FPS, log-average miss rate)
-        frente a los modelos de referencia del estado del arte.
+  \item \textbf{Optimizaci\'on para inferencia en tiempo real.}
+        Se aplicar\'an t\'ecnicas de poda de pesos (\textit{pruning})
+        y cuantizaci\'on INT8 para reducir el tama\~no del modelo y
+        garantizar una tasa de inferencia superior a 30 FPS sobre
+        dispositivo embebido Jetson Nano, garantizando su
+        aplicabilidad en entornos con hardware
+        limitado~\cite{Kim2025}.
+
+  \item \textbf{Evaluaci\'on experimental comparativa.} Se medir\'an
+        las m\'etricas mAP@0.5, mAP@0.5:0.95, log-average miss rate y
+        FPS sobre el benchmark combinado bajo los tres niveles de
+        severidad definidos (oclusi\'on ligera, moderada y severa),
+        comparando el modelo propuesto con YOLOv8s, Faster R-CNN y
+        NP-YOLO como l\'ineas de base~\cite{Huang2025, ZhangF2025,
+        Ren2015}.
+
 \end{enumerate}
 
 \subsection{Dise\~no Muestral}
 
-\textbf{Universo:} conjunto de publicaciones cient\'ificas indexadas en
-ACM Digital Library, Scopus, ScienceDirect y Web of Science en el
-per\'iodo 2022--2026, relacionadas con detecci\'on de personas bajo
-condiciones de oclusi\'on y baja visibilidad en sistemas de
-videovigilancia.
+\textbf{Universo:} conjunto de im\'agenes y secuencias de video de
+peatones y personas en entornos reales, provenientes de los datasets
+p\'ublicos KAIST Multispectral Pedestrian Dataset, FLIR Thermal
+Dataset, Caltech Pedestrian Dataset y CityPersons, cubriendo
+escenarios diurnos, nocturnos, con niebla, lluvia y diversos niveles
+de oclusi\'on.
 
 \bigskip
 
-\textbf{Muestra:} 35 estudios primarios seleccionados mediante muestreo
-no probabil\'istico por criterio, aplicando los protocolos de
-inclusi\'on y exclusi\'on del marco Kitchenham~\cite{Kitchenham2007}.
-La distribuci\'on por base de datos es la siguiente:
+\textbf{Muestra:} el benchmark combinado construido en la Fase~2
+constituir\'a la muestra de entrenamiento y evaluaci\'on. La
+distribuci\'on estimada es la siguiente:
 
-\bigskip
-
-% Cambiamos la propiedad a [!htbp] para que el texto fluya de forma natural rodeando la tabla
 \begin{table}[!htbp]
 \centering
-\caption{Resultados del proceso de selecci\'on de estudios primarios}
-\label{tab:seleccion}
+\caption{Distribuci\'on estimada del benchmark multimodal combinado}
+\label{tab:benchmark}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|l|c|c|c|c|c|}
+\resizebox{\textwidth}{!}{% <-- Ajusta la tabla automáticamente al ancho del texto
+\begin{tabular}{|l|c|c|c|}
 \hline
-\textbf{Base de datos} & \textbf{Inicial} & \textbf{P1} &
-\textbf{P2} & \textbf{P3} & \textbf{P4} \\
+\textbf{Dataset base} & \textbf{Im\'agenes aprox.} &
+\textbf{Condici\'on principal} & \textbf{Divisi\'on} \\
 \hline
-ACM Digital Library & 151 & 42 & 19 & 14 & 8 \\
+KAIST Multispectral & 95\,000 & Baja visibilidad (nocturno/IR) &
+70\,\% train / 30\,\% test \\
 \hline
-Scopus              & 162 & 115 & 104 & 103 & 12 \\
+FLIR Thermal & 14\,452 & Baja iluminaci\'on (t\'ermico) &
+70\,\% train / 30\,\% test \\
 \hline
-ScienceDirect       & 492 & 344 & 198 & 198 & 12 \\
+Caltech Pedestrian & 250\,000 & Oclusi\'on (urbano) &
+70\,\% train / 30\,\% test \\
 \hline
-Web of Science      & 302 & 181 & 158 & 158 & 3 \\
+CityPersons & 35\,016 & Oclusi\'on (ciudades reales) &
+70\,\% train / 30\,\% test \\
 \hline
-\textbf{Total}      & \textbf{1\,107} & \textbf{682} &
-\textbf{479} & \textbf{473} & \textbf{35} \\
+\textbf{Total combinado} & \textbf{$\approx$ 394\,468} &
+Oclusi\'on + baja visibilidad & \textbf{70\,\% / 30\,\%} \\
 \hline
-\end{tabular}
+\end{tabular}% <-- No olvides cerrar el corchete del resizebox
+}
 \end{table}
 
-% REMOVIMOS EL \clearpage de aquí para evitar que parta la hoja de manera artificial. 
-% Ahora permitimos que la "Unidad de análisis" suba a llenar los espacios en blanco.
-
-\noindent \textbf{Unidad de an\'alisis:} art\'iculo cient\'ifico (revista o
-conferencia indexada) que proponga o eval\'ue modelos de detecci\'on de
-personas bajo condiciones adversas en sistemas de videovigilancia,
-publicado entre 2022 y 2026.
+\noindent\textbf{Unidad de an\'alisis:} imagen o frame de video que
+contenga al menos una persona bajo alguna condici\'on de oclusi\'on
+(ligera, moderada o severa) combinada con alguna condici\'on de baja
+visibilidad (nocturno, niebla o lluvia).
 
 \bigskip
 
-\textbf{Criterios de inclusi\'on:}
+\textbf{Criterios de inclusi\'on de im\'agenes:}
 \begin{itemize}
-  \item CI-1: Art\'iculos que propongan o eval\'uen modelos de
-        detecci\'on de personas bajo condiciones de oclusi\'on y/o baja
-        visibilidad en sistemas de videovigilancia.
-  \item CI-2: Art\'iculos publicados entre 2022 y 2026.
-  \item CI-3: Art\'iculos provenientes de bases de datos digitales
-        indexadas.
-  \item CI-4: Art\'iculos del \'area de visi\'on por computadora,
-        aprendizaje profundo o sistemas de videovigilancia.
-  \item CI-5: Art\'iculos provenientes de revistas cient\'ificas y
-        conferencias indexadas.
+  \item Im\'agenes con al menos una persona anotada con cuadro
+        delimitador.
+  \item Im\'agenes con oclusi\'on documentada en alguno de los tres
+        niveles definidos.
+  \item Im\'agenes capturadas bajo condiciones de baja visibilidad
+        (nocturno, niebla simulada o lluvia).
+  \item Im\'agenes provenientes de los cuatro datasets base
+        seleccionados.
 \end{itemize}
 
-\textbf{Criterios de exclusi\'on:}
+\textbf{Criterios de exclusi\'on de im\'agenes:}
 \begin{itemize}
-  \item CE-1: Art\'iculos duplicados.
-  \item CE-2: Art\'iculos cuyo t\'itulo no guarda relaci\'on con el
-        objeto de estudio.
-  \item CE-3: Estudios secundarios, revisiones narrativas sin
-        evaluaci\'on emp\'irica y res\'umenes.
-  \item CE-4: Art\'iculos en idioma distinto al ingl\'es o espa\~nol.
-  \item CE-5: Art\'iculos de contenido similar; se conserva el de
-        mayor completitud.
+  \item Im\'agenes sin ninguna persona anotada.
+  \item Im\'agenes de calidad insuficiente (corrupci\'on de datos o
+        anotaciones inconsistentes).
+  \item Im\'agenes duplicadas entre datasets base.
 \end{itemize}
 
 \subsection{T\'ecnicas de Recolecci\'on de Datos}
 
-La recolecci\'on de datos se realiz\'o mediante b\'usqueda
-automatizada en cuatro bases de datos electr\'onicas indexadas,
-utilizando las siguientes cadenas de b\'usqueda:
+Los datos del proyecto provienen de dos fuentes principales:
+
+\textbf{Fuente 1 --- RSL (ya ejecutada):} la b\'usqueda sistem\'atica
+sobre ACM Digital Library (151 registros), Scopus (162), ScienceDirect
+(492) y Web of Science (302), con un total de 1\,107 registros y
+selecci\'on final de 35 estudios primarios, proporciona la
+fundamentaci\'on te\'orica y las referencias metodol\'ogicas del
+proyecto~\cite{Kitchenham2007}.
+
+\textbf{Fuente 2 --- Datasets p\'ublicos para experimentaci\'on:} los
+datos de entrenamiento y evaluaci\'on experimental se obtendr\'an de
+los siguientes repositorios p\'ublicos con licencia acad\'emica:
 
 \begin{itemize}
-  \item \textbf{ACM Digital Library:}
-        [[Title: ``person detection''] OR [Title: ``pedestrian
-        detection''] OR [Title: ``human detection'']] AND
-        [[Abstract: ``surveillance''] OR [Abstract: ``occlusion''] OR
-        [Abstract: ``low visibility''] OR [Abstract: ``infrared''] OR
-        [Abstract: ``nighttime'']] AND Publication Date:
-        (01/01/2022 TO 12/31/2026) --- \textbf{151 registros}.
-
-  \item \textbf{Scopus:}
-        TITLE-ABS-KEY((``person detection'' OR ``pedestrian detection''
-        OR ``human detection'' OR ``people detection'') AND (``video
-        surveillance'' OR ``surveillance'' OR ``CCTV'' OR ``security
-        camera'' OR ``monitoring'') AND (``occlusion'' OR ``low
-        visibility'' OR ``low illumination'' OR ``nighttime'' OR
-        ``fog'' OR ``rain'') AND (``deep learning'' OR ``neural
-        network'' OR ``convolutional'' OR ``object detection'' OR
-        ``feature extraction'')) AND PUBYEAR $>$ 2021 AND DOCTYPE IN
-        (``ar'',``cp'') AND LANGUAGE IN (``English'',``Spanish'') ---
-        \textbf{162 registros}.
-
-  \item \textbf{ScienceDirect:}
-        (``pedestrian detection'' OR ``person detection'') AND (``video
-        surveillance'' OR ``CCTV'') AND (``occlusion'' OR ``low
-        visibility'') AND (``deep learning'' OR ``neural network'') ---
-        \textbf{492 registros}.
-
-  \item \textbf{Web of Science:}
-        TS=((``person detection'' OR ``pedestrian detection'' OR
-        ``human detection'') AND (``video surveillance'' OR ``CCTV'')
-        AND (``occlusion'' OR ``low visibility'' OR ``low
-        illumination'') AND (``deep learning'' OR ``neural network'')
-        AND (``real-time'' OR ``accuracy'' OR ``performance'')) AND
-        PY=(2022--2026) --- \textbf{302 registros}.
+  \item \textbf{KAIST Multispectral Pedestrian Dataset}
+        (\url{https://soonminhwang.github.io/rgbt-ped-detection/}):
+        95\,000 pares de im\'agenes RGB-infrarrojo en escenarios
+        diurnos y nocturnos~\cite{Dao2022}.
+  \item \textbf{FLIR Thermal Dataset}
+        (\url{https://www.flir.com/oem/adas/adas-dataset-agree/}):
+        14\,452 im\'agenes t\'ermicas para detecci\'on con escasa
+        iluminaci\'on~\cite{Akshatha2022}.
+  \item \textbf{Caltech Pedestrian Dataset}
+        (\url{http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/}):
+        est\'andar de referencia con anotaciones de nivel de
+        oclusi\'on~\cite{Dollar2012}.
+  \item \textbf{CityPersons}
+        (\url{https://github.com/CharlesShang/Pedestron}): peatones en
+        entornos urbanos reales con diversas condiciones de
+        oclusi\'on~\cite{Guo2025}.
 \end{itemize}
 
-Los registros fueron exportados en formato BibTeX, consolidados y
-procesados en cuatro pasos secuenciales: Paso~1 (CI-3, CI-4, CI-5,
-CE-1, CE-3), Paso~2 (CE-2, CE-3, CE-4), Paso~3 (CE-3, CE-5) y
-Paso~4 (CI-1, CI-2). El instrumento de evaluaci\'on de calidad (CQI)
-asign\'o puntuaciones de 0 a 5 a cada estudio primario, con umbral
-m\'inimo de 2{,}5 para inclusi\'on final.
+El proceso de construcci\'on del benchmark combinado incluir\'a:
+(1)~descarga y verificaci\'on de integridad de los datasets base;
+(2)~estandarizaci\'on del formato de anotaciones a YOLO (.txt);
+(3)~clasificaci\'on de im\'agenes por nivel de oclusi\'on y condici\'on
+de visibilidad; (4)~aumento de datos sint\'etico (simulaci\'on de
+niebla, variaci\'on de brillo, oclusi\'on aleatoria); y
+(5)~divisi\'on train/val/test (70\,\%/10\,\%/20\,\%).
 
-Para la fase experimental, los datos de entrenamiento y evaluaci\'on
-se obtendr\'an de los benchmarks p\'ublicos KAIST Multispectral
-Pedestrian Dataset, FLIR Thermal Dataset, Caltech Pedestrian Dataset
-y CityPersons, fusionados en un nuevo benchmark combinado de elaboraci\'on
-propia.
-
-\subsection{T\'ecnicas Estad\'isticas para el Procesamiento de la Informaci\'on}
+\subsection{T\'ecnicas Estad\'isticas para el Procesamiento de la
+Informaci\'on}
 
 La s\'intesis de los datos extra\'idos de la RSL se realiz\'o mediante
-s\'intesis narrativa estructurada, siguiendo el marco de Popay et al.~\cite{Popay2006}. Para la fase experimental de validaci\'on de la arquitectura
-propuesta se emplear\'an las siguientes t\'ecnicas estad\'isticas:
+s\'intesis narrativa estructurada, siguiendo el marco de Popay et
+al.~\cite{Popay2006}. Para la fase experimental de validaci\'on del
+modelo YOLOv11 propuesto se emplear\'an las siguientes t\'ecnicas
+estad\'isticas:
 
 \begin{itemize}
-  \item \textbf{Prueba \textit{t} de Student (muestras independientes):} para comparar las distribuciones de mAP entre
-        la arquitectura unificada y los modelos de referencia (Faster
-        R-CNN, YOLOv8s), con nivel de significancia $\alpha = 0{,}05$.
-        Se emplear\'a el software Python (scipy.stats) o R.
+  \item \textbf{Prueba \textit{t} de Student (muestras
+        independientes):} para comparar las distribuciones de mAP entre
+        el modelo YOLOv11 propuesto y los modelos de referencia (Faster
+        R-CNN, YOLOv8s, NP-YOLO), con nivel de significancia
+        $\alpha = 0{,}05$~\cite{Huang2025}. Se emplear\'a el software
+        Python (scipy.stats) o R.
 
   \item \textbf{An\'alisis de varianza (ANOVA):} para comparar el
-        rendimiento entre tres niveles de severidad de oclusi\'on
-        (ligera, moderada, severa) y entre tres condiciones de
-        visibilidad (diurna, crep\'uscular, nocturna), con
-        post-hoc Tukey HSD cuando se detecten diferencias
-        significativas.
+        rendimiento entre los tres niveles de severidad de oclusi\'on
+        (ligera, moderada, severa) y las tres condiciones de
+        visibilidad (diurna, crep\'uscular, nocturna), con post-hoc
+        Tukey HSD cuando se detecten diferencias significativas.
 
   \item \textbf{Intervalo de confianza al 95\,\%:} para reportar la
         incertidumbre en las estimaciones de mAP y FPS.
 
   \item \textbf{Coeficiente de correlaci\'on de Pearson:} para analizar
         la relaci\'on entre el nivel de oclusi\'on (\,\%) y la
-        degradaci\'on del mAP en cada arquitectura evaluada.
+        degradaci\'on del mAP en cada arquitectura evaluada,
+        siguiendo la metodolog\'ia de Tang et al.~\cite{Tang2026}.
 
-  \item \textbf{Software e Infraestructura:} Python~3.11 con las 
-        bibliotecas PyTorch, torchmetrics, numpy, pandas, scipy y 
-        matplotlib para el entrenamiento, evaluaci\'on y visualizaci\'on 
-        de resultados. El entorno de desarrollo y el control de versiones 
-        se gestionar\'an localmente mediante Visual Studio Code integrado 
-        con GitHub. La fase de entrenamiento pesado se evaluar\'a bajo tres 
-        alternativas de infraestructura (instancias cloud en Google Colab 
-        Pro+, entornos NVIDIA Cloud en la plataforma Brev.dev utilizando 
-        arquitecturas avanzadas, o procesamiento local dedicado mediante una 
-        GPU RTX 5070 Ti de 16GB), mientras que la validaci\'on f\'isica de 
-        la velocidad de inferencia se ejecutar\'a sobre el dispositivo 
+  \item \textbf{Software e Infraestructura:} Python~3.11 con las
+        bibliotecas PyTorch, Ultralytics~YOLOv11, torchmetrics, numpy,
+        pandas, scipy y matplotlib para el entrenamiento, evaluaci\'on
+        y visualizaci\'on de resultados. El entorno de desarrollo y
+        control de versiones se gestionar\'a mediante Visual Studio Code
+        integrado con GitHub. La fase de entrenamiento pesado se
+        evaluar\'a bajo tres alternativas de infraestructura: (A)
+        instancias cloud en Google Colab Pro+, (B) entornos NVIDIA
+        Cloud en la plataforma Brev.dev utilizando arquitecturas RTX
+        Pro 6000, o (C) procesamiento local dedicado mediante una GPU
+        RTX 5070 Ti de 16\,GB. La validaci\'on f\'isica de la
+        velocidad de inferencia se ejecutar\'a sobre el dispositivo
         embebido Jetson Nano para la medici\'on precisa de FPS.
 \end{itemize}
 
@@ -261,15 +289,15 @@ animales. Los art\'iculos revisados en la RSL son de acceso p\'ublico
 a trav\'es de las licencias institucionales de la Universidad Peruana
 Uni\'on o de acceso abierto. Todos los estudios primarios son citados
 correctamente siguiendo el estilo IEEE. En consecuencia, seg\'un los
-lineamientos de la UPeU, este estudio no requiere
-evaluaci\'on por comit\'e de \'etica, dado que no incluye seres humanos
-ni animales en su dise\~no muestral.
+lineamientos de la UPeU, este estudio no requiere evaluaci\'on por
+comit\'e de \'etica, dado que no incluye seres humanos ni animales en
+su dise\~no muestral.
 
 Los autores declaran no tener conflicto de intereses relacionado con
 esta investigaci\'on y que el financiamiento es exclusivamente
 institucional (asignatura Investigaci\'on III, Universidad Peruana
 Uni\'on). La originalidad del trabajo fue verificada con un \'indice de
-similitud al 10\,\% mediante Turnitin, en cumplimiento de las
-normas de integridad acad\'emica de la UPeU. Los conjuntos de datos
-p\'ublicos empleados (KAIST, FLIR, Caltech, CityPersons) poseen
-licencias de uso acad\'emico irrestricto.
+similitud al 10\,\% mediante Turnitin, en cumplimiento de las normas de
+integridad acad\'emica de la UPeU. Los conjuntos de datos p\'ublicos
+empleados (KAIST, FLIR, Caltech, CityPersons) poseen licencias de uso
+acad\'emico irrestricto.

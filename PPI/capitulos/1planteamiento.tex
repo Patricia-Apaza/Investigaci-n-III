@@ -144,7 +144,7 @@ infrarrojos o t\'ermicos reduce significativamente la dependencia de
 la iluminaci\'on ambiental, con mejoras de hasta 12 puntos en mAP
 nocturno respecto a detectores RGB puros.
 
-\item \textbf{Variantes ligeras de YOLO.} Zhang et al.~\cite{Zhang2025}
+\item \textbf{Variantes ligeras de YOLO.} Zhang et al.~\cite{ZhangF2025}
 propusieron un YOLOv8s compacto para objetos de peque\~na escala; Hu
 et al.~\cite{Hu2025} desarrollaron PYOLO espec\'ificamente para
 oclusi\'on peatonal; y Huang \& Liu~\cite{Huang2025} dise\~naron
@@ -184,12 +184,11 @@ investigaci\'on.
 
 \subsubsection{Objetivo General}
 
-Determinar la medida en que el dise\~no de una arquitectura unificada
-de aprendizaje profundo y la integraci\'on de benchmarks multimodales
-combinados mitigan la degradaci\'on de la precisi\'on media (mAP) en
-la detecci\'on de personas, bajo condiciones simult\'aneas de
-oclusi\'on severa y baja visibilidad en sistemas de videovigilancia en
-tiempo real.
+Determinar la medida en que el dise\~no de un modelo basado en YOLOv11
+con m\'odulos de atenci\'on cruzada mitiga la degradaci\'on de la
+precisi\'on media (mAP) en la detecci\'on de personas bajo condiciones
+simult\'aneas de oclusi\'on severa y baja visibilidad en entornos
+reales.
 
 \subsubsection{Objetivos Espec\'ificos}
 
@@ -203,22 +202,21 @@ tiempo real.
       Web of Science.
 
 \item Integrar un benchmark multimodal combinado, fusionando conjuntos
-      de datos actualmente polarizados KAIST Multispectral, FLIR
-      Thermal, Caltech y CityPersons de modo que incluya
+      de datos actualmente polarizados ---KAIST Multispectral, FLIR
+      Thermal, Caltech y CityPersons--- de modo que incluya
       simult\'aneamente condiciones de oclusi\'on severa (superior al
       70\,\%) y meteorolog\'ia adversa (escasez de iluminaci\'on,
       niebla, lluvia).
 
-\item Desarrollar una arquitectura unificada y optimizada de
-      aprendizaje profundo, basada en fusi\'on multiespectral y
-      mecanismos de atenci\'on cruzada, orientada a resolver ca\'idas
-      de rendimiento bajo obstrucciones de silueta mayores al 70\,\%
-      y escenarios de baja visibilidad simult\'aneos.
+\item Desarrollar una arquitectura basada en YOLOv11 con m\'odulos de
+      atenci\'on cruzada, orientada a resolver ca\'idas de rendimiento
+      bajo obstrucciones de silueta mayores al 70\,\% y escenarios de
+      baja visibilidad simult\'aneos en entornos reales.
 
 \item Evaluar la capacidad de inferencia y la precisi\'on del modelo
-      midiendo la precisi\'on media (mAP) y los fotogramas por segundo
-      (FPS), comparando el modelo propuesto con los detectores de
-      referencia identificados en el estado del arte.
+      YOLOv11 propuesto midiendo la precisi\'on media (mAP) y los
+      fotogramas por segundo (FPS), comparando los resultados con los
+      detectores de referencia identificados en el estado del arte.
 
 \end{enumerate}
 
@@ -228,34 +226,44 @@ tiempo real.
 
 \textbf{Hip\'otesis de trabajo (H1):}
 
-El dise\~no de una arquitectura unificada de aprendizaje profundo
-evaluada sobre benchmarks multimodales combinados logra una menor
-degradaci\'on de la precisi\'on media (mAP) que los enfoques
+El dise\~no de un modelo basado en YOLOv11 con m\'odulos de atenci\'on
+cruzada, evaluado sobre benchmarks multimodales combinados, logra una
+menor degradaci\'on de la precisi\'on media (mAP) que los enfoques
 algor\'itmicos fragmentados actuales (YOLO, Faster R-CNN aplicados de
 forma independiente), cuando se aplican a la detecci\'on de personas
-en sistemas de videovigilancia bajo condiciones simult\'aneas de
-oclusi\'on severa (mayor al 70\,\% de la silueta obstruida) y baja
-visibilidad (escenario nocturno o con niebla).
+bajo condiciones simult\'aneas de oclusi\'on severa (mayor al 70\,\%
+de la silueta obstruida) y baja visibilidad (escenario nocturno o con
+niebla) en entornos reales.
 
 \bigskip
 \textbf{Hip\'otesis nula (H0):}
 
-El dise\~no de una arquitectura unificada de aprendizaje profundo
-evaluada sobre benchmarks multimodales combinados produce una
-degradaci\'on de la precisi\'on media (mAP) igual o mayor a la de los
-enfoques fragmentados, cuando se aplican en videovigilancia bajo
-condiciones simult\'aneas de oclusi\'on severa y baja visibilidad.
+El dise\~no de un modelo basado en YOLOv11 con m\'odulos de atenci\'on
+cruzada produce una degradaci\'on de la precisi\'on media (mAP) igual
+o mayor a la de los enfoques fragmentados, cuando se aplican bajo
+condiciones simult\'aneas de oclusi\'on severa y baja visibilidad en
+entornos reales.
 
 \bigskip
 \textbf{Sustento bibliogr\'afico de H1:}
 
 \begin{itemize}
+\item \textbf{Huang \& Liu~(2025)~\cite{Huang2025}} propusieron NP-YOLO,
+      una variante de YOLO optimizada para detecci\'on nocturna en
+      videovigilancia, demostrando que las adaptaciones sobre la
+      arquitectura YOLO mejoran significativamente el rendimiento ante
+      baja visibilidad. Este trabajo es la referencia metodol\'ogica
+      directa del presente proyecto, dado que comparte el mismo modelo
+      base (YOLOv11 como sucesor natural) y el mismo contexto de
+      aplicaci\'on.
+
 \item \textbf{Deng et al.~(2024)~\cite{Deng2024}} demuestran que la
       fusi\'on de canales RGB e infrarrojo mediante atenci\'on espacial
       cruzada supera a los detectores RGB puros en escenarios de baja
       iluminaci\'on, reportando mejoras de hasta 8 puntos en mAP.
-      Justifica H1 al evidenciar el potencial de la fusi\'on multimodal
-      para reducir la degradaci\'on ante baja visibilidad.
+      Justifica H1 al evidenciar el potencial de los m\'odulos de
+      atenci\'on multiespectral para reducir la degradaci\'on ante baja
+      visibilidad.
 
 \item \textbf{Tang et al.~(2026)~\cite{Tang2026}} proponen un
       razonamiento jer\'arquico adaptativo para oclusi\'on en multitudes
@@ -263,12 +271,6 @@ condiciones simult\'aneas de oclusi\'on severa y baja visibilidad.
       autores declaran expl\'icitamente que ning\'un dataset p\'ublico
       combina oclusi\'on severa y meteorolog\'ia adversa, respaldando
       directamente la brecha que H1 busca resolver.
-
-\item \textbf{He et al.~(2025)~\cite{He2025}} demuestran que la
-      interacci\'on diferencial entre modalidades espectrales mejora la
-      robustez del detector ante variaciones de iluminaci\'on,
-      validando la integraci\'on multimodal como estrategia central
-      de H1.
 \end{itemize}
 
 %---------------------------------------------------------------
@@ -279,8 +281,6 @@ A continuaci\'on, se presenta de forma estructurada la operacionalizaci\'on de l
 
 \bigskip
 
-% Usamos [H] en mayúscula para obligar a la tabla a quedarse exactamente AQUÍ
-% Si no compila con H, asegúrate de tener \usepackage{float} en tu main.tex
 \begin{table}[h!]
 \centering
 \caption{Tabla de operacionalizaci\'on de variables}
@@ -295,8 +295,8 @@ Arquitectura de aprendizaje profundo &
 VI &
 Tipo de modelo algor\'itmico empleado para la detecci\'on de personas
 en condiciones adversas. &
-Aplicaci\'on de arquitectura unificada vs.\ modelos fragmentados de 1
-o 2 etapas (YOLO, Faster R-CNN). &
+Aplicaci\'on de YOLOv11 con atenci\'on cruzada vs.\ modelos
+fragmentados de 1 o 2 etapas (YOLOv8s, Faster R-CNN). &
 Nominal (Discreta) \\
 \hline
 Precisi\'on Media (mAP) &
@@ -310,9 +310,9 @@ Raz\'on (Continua) \\
 Fotogramas por Segundo (FPS) &
 VD2 &
 Tasa de procesamiento del modelo en tiempo real, cr\'itica para
-videovigilancia. &
+aplicaciones de detecci\'on en entornos reales. &
 Cantidad de frames procesados y resueltos correctamente por segundo
-durante inferencia. &
+durante inferencia en dispositivo embebido. &
 Raz\'on (Continua) \\
 \hline
 Escenarios simult\'aneos adversos &
@@ -327,15 +327,27 @@ Ordinal (Discreta) \\
 \end{table}
 
 \bigskip
-\newpage % Colocamos un salto de página manual aquí para que las definiciones detalladas arranquen juntas y ordenadas en la siguiente hoja
+\newpage
 
-\noindent\textbf{Variable independiente (VI):} Arquitectura de aprendizaje profundo --- tipo de modelo algor\'itmico (unificado versus modelos fragmentados). Instrumento: c\'odigo fuente del modelo. Valores: \{Unificada, Aislada\}.
-
-\vspace{0.5cm}
-\noindent\textbf{Variable dependiente 1 (VD1):} Precisi\'on Media (mAP) --- c\'alculo del \'area bajo la curva Precision-Recall. Instrumento: evaluador de m\'etricas est\'andar (COCO API). Rango: $[0{,}0 - 1{,}0]$.
-
-\vspace{0.5cm}
-\noindent\textbf{Variable dependiente 2 (VD2):} Fotogramas por Segundo (FPS) --- cantidad de frames procesados por segundo. Instrumento: profiler de GPU (NVIDIA Nsight). Umbral m\'inimo: 30 FPS.
+\noindent\textbf{Variable independiente (VI):} Arquitectura de
+aprendizaje profundo --- modelo YOLOv11 con m\'odulos de atenci\'on
+cruzada (propuesto) versus modelos fragmentados de referencia
+(YOLOv8s, Faster R-CNN). Instrumento: c\'odigo fuente del modelo.
+Valores: \{YOLOv11 unificado, Modelo fragmentado\}.
 
 \vspace{0.5cm}
-\noindent\textbf{Variable de control (VC):} Escenarios simult\'aneos adversos --- entorno con oclusi\'on mayor al 70\,\% y baja visibilidad. Instrumento: dataset combinado (benchmark propio). Valores: \{Ligera ($\leq$30\,\%), Moderada (31--69\,\%), Severa ($\geq$70\,\%)\}.
+\noindent\textbf{Variable dependiente 1 (VD1):} Precisi\'on Media
+(mAP) --- c\'alculo del \'area bajo la curva Precision-Recall.
+Instrumento: evaluador de m\'etricas est\'andar (COCO API). Rango:
+$[0{,}0 - 1{,}0]$.
+
+\vspace{0.5cm}
+\noindent\textbf{Variable dependiente 2 (VD2):} Fotogramas por Segundo
+(FPS) --- cantidad de frames procesados por segundo. Instrumento:
+profiler de GPU (NVIDIA Nsight). Umbral m\'inimo: 30 FPS.
+
+\vspace{0.5cm}
+\noindent\textbf{Variable de control (VC):} Escenarios simult\'aneos
+adversos --- entorno con oclusi\'on mayor al 70\,\% y baja
+visibilidad. Instrumento: dataset combinado (benchmark propio). Valores:
+\{Ligera ($\leq$30\,\%), Moderada (31--69\,\%), Severa ($\geq$70\,\%)\}.
