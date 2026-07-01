@@ -3,66 +3,50 @@
 
 \subsection{Identificaci\'on del Problema}
 
-Los sistemas de videovigilancia autom\'atica en entornos urbanos e
-industriales dependen de la localizaci\'on precisa y en tiempo real de
-individuos para asegurar el correcto funcionamiento de plataformas
-inteligentes de alerta temprana. Aunque los detectores modernos de una
-y dos etapas como YOLO~\cite{Redmon2016} y Faster
-R-CNN~\cite{Ren2015} ofrecen resultados sobresalientes en
-condiciones controladas, su efectividad disminuye de forma dr\'astica
-ante factores ambientales adversos como la oclusi\'on (obstrucci\'on
-parcial o total de la silueta corporal) y la baja visibilidad (causada
-por iluminaci\'on nocturna escasa, niebla o lluvia).
+Los sistemas de detecci\'on autom\'atica de personas son componentes
+cr\'{i}ticos en aplicaciones de seguridad p\'{u}blica, monitoreo
+industrial, rob\'otica m\'ovil y asistencia m\'edica, entre otras.
+En estos contextos, los detectores modernos de una y dos etapas
+---como YOLO~\cite{Redmon2016} y Faster R-CNN~\cite{Ren2015}---
+logran resultados destacados bajo condiciones controladas de
+iluminaci\'on y visibilidad. Sin embargo, su efectividad disminuye
+dr\'asticamente al enfrentarse a dos factores adversos: la
+\textbf{oclusi\'on} ---obstrucci\'on parcial o total de la silueta
+corporal por otro objeto, persona o elemento del entorno--- y la
+\textbf{baja visibilidad} ---causada por escasa iluminaci\'on
+nocturna, niebla, humo o lluvia.
 
-Utilizando una declaraci\'on de insuficiencia te\'orica, la brecha del
-conocimiento radica en que los enfoques y algoritmos actuales abordan
-estas dos limitaciones visuales de manera fragmentada e independiente.
-Los detectores multispectrales se enfocan en la baja iluminaci\'on,
-los m\'odulos de atenci\'on en la oclusi\'on parcial y las variantes
-compactas de YOLO en optimizar el tiempo real, pero ninguno integra
-las tres necesidades simult\'aneamente. Existe una carencia cr\'itica
-de arquitecturas unificadas y de bancos de pruebas estandarizados
-capaces de gestionar y evaluar simult\'aneamente tanto la oclusi\'on
-severa como la baja visibilidad en entornos operativos
-reales~\cite{Deng2024, He2025, Qi2026}.
+La brecha radica en que los enfoques actuales abordan estas dos
+limitaciones visuales de forma \textbf{fragmentada e independiente}.
+Los modelos optimizados para baja iluminaci\'on no incorporan
+mecanismos robustos de manejo de oclusi\'on, y viceversa. Weng \&
+Niu~\cite{ElsYolo2025} demostraron que arquitecturas basadas en
+YOLOv11s pueden alcanzar un mAP@0.5 de 74{,}3\,\% en condiciones
+de baja visibilidad sobre el dataset ExDark, pero su modelo no
+integra ning\'un m\'odulo espec\'{i}fico para oclusi\'on parcial o
+severa. Esta carencia se traduce en ca\'{i}das significativas de
+rendimiento cuando la silueta humana queda parcialmente cubierta,
+situaci\'on com\'un en entornos reales como espacios concurridos,
+pasillos o escenas nocturnas con obst\'aculos.
 
-Para fundamentar rigurosamente el vac\'io detectado, se contrasta la
-brecha directamente con el estado del arte reciente (per\'iodo
-2022--2026). El an\'alisis de 35 estudios primarios identificados en
-ACM Digital Library, Scopus, ScienceDirect y Web of Science demuestra
-que la comunidad cient\'ifica responde a los problemas de forma
-separada. Los conjuntos de datos predominantes en el \'area se enfocan
-exclusivamente en una sola condici\'on: KAIST Multispectral Pedestrian
-Dataset y FLIR Thermal Dataset se especializan en baja visibilidad,
-mientras que Caltech Pedestrian Dataset y CityPersons se centran en
-niveles de oclusi\'on urbana. Investigadores clave como Deng et
-al.~(2024)~\cite{Deng2024}, He et al.~(2025)~\cite{He2025}, Qi et
-al.~(2026)~\cite{Qi2026} y Shen et al.~(2025)~\cite{Shen2025}
-ratifican en sus manuscritos que ning\'un dataset p\'ublico combina
-simult\'aneamente oclusi\'on severa y meteorolog\'ia adversa. Al
-carecer de este enfoque unificado, los modelos sufren una marcada
-brecha de generalizaci\'on y disminuyen su fiabilidad al migrar de
-los laboratorios al despliegue en escenarios reales.
-
-Actualmente, los detectores reportan ca\'idas severas de rendimiento
-cuando la silueta humana se obstruye m\'as del 70\,\%, u optan por
-incorporar modelos pesados de alta demanda computacional que superan
-los recursos de hardware disponibles en redes de c\'amaras
-descentralizadas~\cite{Kim2025, Tang2026}. Esta situaci\'on compromete
-la viabilidad de los sistemas de seguridad en infraestructuras
-cr\'iticas tales como puertos, obras de construcci\'on y espacios
-p\'ublicos nocturnos.
+Actualmente no existe una arquitectura unificada basada en
+YOLOv11 que gestione simult\'aneamente la baja visibilidad y la
+oclusi\'on severa en im\'agenes RGB convencionales, sin requerir
+sensores especializados como c\'amaras t\'ermicas o de infrarrojo.
+Esto limita la aplicabilidad de los detectores existentes en
+entornos reales donde se emplean c\'amaras est\'andar~\cite{Deng2024,
+Tang2026, He2025}.
 
 \bigskip
 \noindent\textbf{Pregunta de investigaci\'on:}
 
 \begin{quote}
-\textit{?`En qu\'e medida el dise\~no de una arquitectura unificada
-de aprendizaje profundo y la integraci\'on de benchmarks multimodales
-combinados mitigan la degradaci\'on de la precisi\'on media (mAP) en
-la detecci\'on de personas, bajo condiciones simult\'aneas de
-oclusi\'on severa y baja visibilidad en sistemas de videovigilancia en
-tiempo real?}
+\textit{?`En qu\'e medida el dise\~{n}o del modelo ARGOS-11, basado
+en YOLOv11s con un m\'odulo de atenci\'on cruzada y augmentaci\'on
+sint\'etica de oclusi\'on, mejora la precisi\'on media (mAP@0.5)
+en la detecci\'on de personas bajo condiciones simult\'aneas de
+oclusi\'on severa y baja visibilidad en im\'agenes RGB, respecto al
+modelo de referencia ELS-YOLO?}
 \end{quote}
 
 %---------------------------------------------------------------
@@ -70,113 +54,107 @@ tiempo real?}
 %---------------------------------------------------------------
 
 \textbf{Justificaci\'on te\'orica.}
-La revisi\'on sistem\'atica de literatura ejecutada (1\,107 registros de cuatro bases de datos, periodo 2022--2026) confirma que ning\'un estudio
-publicado propone un modelo unificado capaz de gestionar
-simult\'aneamente la oclusi\'on severa y la baja visibilidad. Esta
-brecha genera una laguna conceptual en el campo de la visi\'on por
-computadora aplicada a videovigilancia: los marcos te\'oricos actuales
-no ofrecen un paradigma integrador que permita evaluar y comparar
-arquitecturas bajo ambas condiciones de forma conjunta. La presente
-investigaci\'on aportar\'a un nuevo cuerpo de conocimiento que
-sistematiza los enfoques existentes, clasifica sus limitaciones y
-propone criterios para el dise\~no de arquitecturas
-unificadas~\cite{Kitchenham2007}.
+La literatura cient\'{i}fica reciente confirma que los modelos de
+detecci\'on de personas publicados entre 2022 y 2026 abordan la
+oclusi\'on y la baja visibilidad como problemas independientes.
+Ning\'un trabajo propone una arquitectura unificada que gestione
+ambas condiciones simult\'aneamente en im\'agenes RGB
+convencionales. El modelo ARGOS-11 aportar\'a un nuevo enfoque
+te\'orico que integra mecanismos de atenci\'on cruzada para
+oclusi\'on sobre la base de un detector YOLOv11s optimizado para
+baja iluminaci\'on, contribuyendo al avance del estado del arte en
+detecci\'on robusta de personas~\cite{ElsYolo2025, Deng2024}.
 
 \textbf{Justificaci\'on pr\'actica.}
-La detecci\'on de personas es el requisito m\'as exigente y cr\'itico
-de la videovigilancia automatizada. Si un detector es incapaz de
-operar ante individuos parcialmente encubiertos en escenarios oscuros
-o con niebla, la utilidad pr\'actica de la plataforma de monitoreo de
-infraestructuras cr\'iticas se ve completamente comprometida. Resolver
-esta brecha conceptual permitir\'a el dise\~no de arquitecturas
-unificadas y eficientes que habiliten el procesamiento en el borde de
-la red (\textit{edge computing}) sobre dispositivos embebidos
-econ\'omicos, ampliando el acceso a sistemas de vigilancia robustos en
-contextos con recursos limitados como el peruano~\cite{Zhang2025,
-Kim2025}.
+La detecci\'on de personas en condiciones adversas es un requisito
+exigente en m\'ultiples dominios: vigilancia de seguridad p\'ublica,
+monitoreo de obras de construcci\'on, sistemas de asistencia para
+personas mayores, rob\'otica de rescate y an\'alisis de flujo
+peatonal nocturno. Los detectores actuales reportan ca\'{i}das
+severas de rendimiento cuando la silueta humana se obstruye m\'as
+del 70\,\% en escenas de baja iluminaci\'on~\cite{Kim2025, Tang2026}.
+ARGOS-11 busca resolver esta limitaci\'on trabajando exclusivamente
+con im\'agenes RGB est\'andar, sin requerir hardware especializado,
+lo que lo hace deployable en cualquier c\'amara convencional.
 
 \textbf{Justificaci\'on metodol\'ogica.}
-Esta investigaci\'on aplica una Revisi\'on Sistem\'atica de Literatura
-siguiendo el protocolo consolidado de Kitchenham y
-Charters~\cite{Kitchenham2007}, adaptado al \'area de visi\'on por
-computadora. La RSL ejecutada sobre cuatro bases de datos indexadas
-(ACM Digital Library, Scopus, ScienceDirect, Web of Science)
-constituye en s\'i misma una contribuci\'on metodol\'ogica al proveer,
-por primera vez, una s\'intesis estructurada y reproducible del estado
-del arte en detecci\'on de personas bajo condiciones adversas
-combinadas para el per\'iodo 2022--2026. El protocolo PICOC definido,
-los criterios de inclusi\'on/exclusi\'on y el instrumento de
-evaluaci\'on de calidad (CQI) podr\'an ser reutilizados y extendidos
-por futuros investigadores.
+Esta investigaci\'on aplica el pipeline de entrenamiento
+establecido por Weng \& Niu~\cite{ElsYolo2025} en ELS-YOLO
+---optimizer SGD, 200 \'epocas, batch size 16, dataset ExDark---
+como base reproducible y comparable. A este pipeline se agregan dos
+contribuciones metodol\'ogicas propias: (1) un m\'odulo de
+atenci\'on cruzada canal-espacial para manejo de oclusi\'on, y
+(2) una estrategia de augmentaci\'on sint\'etica de oclusi\'on
+durante el entrenamiento. Esta combinaci\'on permite una
+comparaci\'on directa y justa con el modelo de referencia, dado
+que ambos comparten el mismo dataset, optimizador y
+configuraci\'on de entrenamiento.
 
 %---------------------------------------------------------------
 \subsection{Estado del Arte}
 %---------------------------------------------------------------
 
-La detecci\'on autom\'atica de personas ha sido ampliamente estudiada
-desde la aparici\'on de los detectores cl\'asicos basados en
-histogramas de gradientes orientados (HOG) hasta las arquitecturas
-profundas modernas. Doll\'ar et al.~\cite{Dollar2012} establecieron el
-benchmark de referencia para detecci\'on peatonal urbana el Caltech
-Pedestrian Dataset y demostraron formalmente que la oclusi\'on es
+La detecci\'on autom\'atica de personas ha evolucionado desde los
+detectores cl\'asicos basados en histogramas de gradientes
+orientados (HOG) hasta las arquitecturas profundas modernas.
+Doll\'ar et al.~\cite{Dollar2012} demostraron que la oclusi\'on es
 el factor que mayor degradaci\'on produce en el rendimiento de los
-detectores. Con la consolidaci\'on del aprendizaje profundo, Ren et
-al.~\cite{Ren2015} introdujeron Faster R-CNN, mientras que Redmon et
-al.~\cite{Redmon2016} propusieron YOLO como el paradigma de detecci\'on
-en una \'unica pasada orientado a la velocidad en tiempo real.
+detectores. Con el aprendizaje profundo, Ren et al.~\cite{Ren2015}
+introdujeron Faster R-CNN, mientras que Redmon et
+al.~\cite{Redmon2016} propusieron YOLO como el paradigma de
+detecci\'on en tiempo real.
 
-La revisi\'on sistem\'atica ejecutada en el presente trabajo
-identific\'o cuatro l\'ineas de investigaci\'on activas en el per\'iodo
-2022--2026 para afrontar la oclusi\'on y la baja visibilidad en
-videovigilancia:
+Los trabajos m\'as relevantes al presente proyecto son:
 
 \begin{enumerate}
 
-\item \textbf{Fusi\'on multiespectral (RGB + infrarrojo/t\'ermico).}
-Dao et al.~\cite{Dao2022} propusieron una red de detecci\'on en una
-etapa con supresi\'on de ruido multiespectral; Deng et
-al.~\cite{Deng2024} presentaron un m\'odulo de atenci\'on espacial
-cruzada ligero para detecci\'on peatonal; Qi et al.~\cite{Qi2026}
-desarrollaron LF-DETR para detecci\'on a\'erea RGB-infrarrojo; y Shen
-et al.~\cite{Shen2025} propusieron EAFF-Net con fusi\'on dual. Estos
-trabajos demuestran que la incorporaci\'on de canales espectrales
-infrarrojos o t\'ermicos reduce significativamente la dependencia de
-la iluminaci\'on ambiental, con mejoras de hasta 12 puntos en mAP
-nocturno respecto a detectores RGB puros.
+\item \textbf{ELS-YOLO~\cite{ElsYolo2025} (referencia metodol\'ogica
+principal).} Weng \& Niu propusieron ELS-YOLO, un modelo ligero
+basado en YOLOv11s dise\~{n}ado para condiciones de baja
+visibilidad. El modelo incorpora un backbone re-parametrizado
+(ER-HGNetV2) con mecanismos de atenci\'on de canal eficiente
+(ECA), una pir\'amide de selecci\'on de caracter\'{i}sticas
+ligera (LFSPN) y un cabezal con normalizaci\'on por lotes
+compartida (SCSHead). Evaluado en el dataset ExDark, alcanza un
+\textbf{mAP@0.5 de 74{,}3\,\%} manteniendo inferencia en tiempo
+real. Este resultado constituye la l\'{i}nea de base que
+ARGOS-11 debe superar.
 
-\item \textbf{Variantes ligeras de YOLO.} Zhang et al.~\cite{ZhangF2025}
-propusieron un YOLOv8s compacto para objetos de peque\~na escala; Hu
-et al.~\cite{Hu2025} desarrollaron PYOLO espec\'ificamente para
-oclusi\'on peatonal; y Huang \& Liu~\cite{Huang2025} dise\~naron
-NP-YOLO para vigilancia nocturna. Estas arquitecturas priorizan el
-equilibrio entre precisi\'on (mAP) y velocidad de inferencia (FPS)
-para despliegues en hardware embebido.
+\item \textbf{PYOLO~\cite{Hu2025}.} Hu et al. propusieron PYOLO,
+un modelo espec\'{i}ficamente dise\~{n}ado para oclusi\'on
+peatonal. Incorpora m\'odulos de predicci\'on de partes
+corporales visibles que permiten inferir la posici\'on global de
+la persona a partir de regiones parcialmente expuestas (cabeza,
+abdomen). Sus resultados sobre Caltech demuestran mejoras
+consistentes ante oclusi\'on moderada y severa.
 
-\item \textbf{Redes con m\'odulos de atenci\'on y transformers.} Guo et
-al.~\cite{Guo2025} integraron sem\'antica visual-ling\"u\'istica con
-ajuste global de atenci\'on; Gao et al.~\cite{Gao2025a} desarrollaron
-RC-DETR con aprendizaje contrastivo para multitudes; y He et
-al.~\cite{He2025} propusieron interacci\'on diferencial entre
-modalidades espectrales. La incorporaci\'on de mecanismos de atenci\'on
-canal-espacial mejora la localizaci\'on de regiones parcialmente
-ocluidas.
+\item \textbf{EAFF-Net~\cite{Shen2025}.} Shen et al. presentaron
+una red de fusi\'on dual con atenci\'on eficiente para detecci\'on
+peatonal bimodal. El m\'odulo EAFF (Efficient Attention Feature
+Fusion) sirve de inspiraci\'on para el dise\~{n}o del m\'odulo de
+atenci\'on cruzada de ARGOS-11, adaptado para im\'agenes RGB
+\'unicas en lugar de pares multimodales.
 
-\item \textbf{Enfoques multi-vista.} Qiu et al.~\cite{Qiu2024a}
-propusieron PPM como optimizador booleano para asociaci\'on de datos
-en detecci\'on multi-c\'amara; y Li et al.~\cite{Li2026} desarrollaron
-una red de fusi\'on de m\'ascaras residuales para sistemas de
-videovigilancia multi-vista. Estos enfoques resuelven las
-ambig\"uedades generadas por la oclusi\'on mutua entre personas al
-combinar perspectivas de m\'ultiples c\'amaras simult\'aneas.
+\item \textbf{Deng et al.~\cite{Deng2024}.} Propusieron un detector
+multiespectral ligero con atenci\'on espacial re-ponderada. Sus
+experimentos en KAIST confirman que la atenci\'on cruzada
+canal-espacial mejora la detecci\'on en escenas con baja
+iluminaci\'on, reportando mejoras de hasta 8 puntos en mAP
+respecto a detectores de referencia.
+
+\item \textbf{Tang et al.~\cite{Tang2026}.} Propusieron un
+razonamiento jer\'arquico adaptativo para oclusi\'on en entornos
+din\'amicos con recursos computacionales limitados. Sus
+experimentos confirman que los detectores actuales presentan
+ca\'{i}das significativas cuando la oclusi\'on supera el 70\,\%
+de la silueta, brecha que ARGOS-11 busca mitigar.
 
 \end{enumerate}
 
-Sin embargo, el an\'alisis conjunto de los 35 estudios primarios
-revela que ninguno propone una arquitectura unificada que gestione
-simult\'aneamente la oclusi\'on severa y la baja visibilidad, ni
-existe un benchmark que combine ambas condiciones de forma
-estandarizada. Esta es la brecha que motiva el presente trabajo de
-investigaci\'on.
+El an\'alisis del estado del arte revela que ning\'un trabajo
+combina un detector YOLOv11 con atenci\'on cruzada para oclusi\'on
+evaluado sobre im\'agenes RGB de baja visibilidad. Esta es la
+brecha espec\'{i}fica que ARGOS-11 aborda.
 
 %---------------------------------------------------------------
 \subsection{Objetivos}
@@ -184,39 +162,40 @@ investigaci\'on.
 
 \subsubsection{Objetivo General}
 
-Determinar la medida en que el dise\~no de un modelo basado en YOLOv11
-con m\'odulos de atenci\'on cruzada mitiga la degradaci\'on de la
-precisi\'on media (mAP) en la detecci\'on de personas bajo condiciones
-simult\'aneas de oclusi\'on severa y baja visibilidad en entornos
-reales.
+Desarrollar el modelo ARGOS-11, basado en YOLOv11s con un m\'odulo
+de atenci\'on cruzada canal-espacial y augmentaci\'on sint\'etica
+de oclusi\'on, que alcance una precisi\'on media (mAP@0.5) igual
+o superior al 74{,}3\,\% del modelo de referencia ELS-YOLO en la
+detecci\'on de personas bajo condiciones simult\'aneas de oclusi\'on
+severa y baja visibilidad en im\'agenes RGB convencionales.
 
-\subsubsection{Objetivos Espec\'ificos}
+\subsubsection{Objetivos Espec\'{i}ficos}
 
 \begin{enumerate}[label=OE\arabic*.]
 
-\item Identificar las soluciones y algoritmos actuales en el estado del
-      arte (2022--2026) que gestionan las problem\'aticas de oclusi\'on
-      y baja iluminaci\'on de manera fragmentada, mediante una
-      Revisi\'on Sistem\'atica de Literatura sobre cuatro bases de
-      datos indexadas: ACM Digital Library, Scopus, ScienceDirect y
-      Web of Science.
+\item Dise\~{n}ar e integrar un m\'odulo de atenci\'on cruzada
+      canal-espacial en la arquitectura YOLOv11s, inspirado en el
+      mecanismo EAFF de Shen et al.~\cite{Shen2025} y adaptado
+      para im\'agenes RGB en condiciones de baja iluminaci\'on y
+      oclusi\'on simult\'aneas.
 
-\item Integrar un benchmark multimodal combinado, fusionando conjuntos
-      de datos actualmente polarizados ---KAIST Multispectral, FLIR
-      Thermal, Caltech y CityPersons--- de modo que incluya
-      simult\'aneamente condiciones de oclusi\'on severa (superior al
-      70\,\%) y meteorolog\'ia adversa (escasez de iluminaci\'on,
-      niebla, lluvia).
+\item Implementar una estrategia de augmentaci\'on sint\'etica de
+      oclusi\'on sobre el dataset ExDark, cubriendo entre el 30\,\%
+      y el 70\,\% de las siluetas de personas con parches opacos
+      aleatorios durante el entrenamiento, para incrementar la
+      robustez del modelo ante oclusi\'on severa.
 
-\item Desarrollar una arquitectura basada en YOLOv11 con m\'odulos de
-      atenci\'on cruzada, orientada a resolver ca\'idas de rendimiento
-      bajo obstrucciones de silueta mayores al 70\,\% y escenarios de
-      baja visibilidad simult\'aneos en entornos reales.
+\item Entrenar el modelo ARGOS-11 siguiendo el pipeline de Weng \&
+      Niu~\cite{ElsYolo2025}: optimizador SGD con tasa de
+      aprendizaje inicial de 0{,}01, momentum de 0{,}937, weight
+      decay de 0{,}0005, 200 \'epocas y batch size de 16, sin pesos
+      preentrenados, sobre el dataset ExDark.
 
-\item Evaluar la capacidad de inferencia y la precisi\'on del modelo
-      YOLOv11 propuesto midiendo la precisi\'on media (mAP) y los
-      fotogramas por segundo (FPS), comparando los resultados con los
-      detectores de referencia identificados en el estado del arte.
+\item Evaluar el modelo ARGOS-11 midiendo mAP@0.5, mAP@0.5:0.95 y
+      FPS sobre el conjunto de prueba de ExDark, comparando los
+      resultados con ELS-YOLO como baseline, para demostrar que
+      ARGOS-11 es igual o superior en precisi\'on manteniendo
+      capacidad de inferencia en tiempo real.
 
 \end{enumerate}
 
@@ -226,101 +205,101 @@ reales.
 
 \textbf{Hip\'otesis de trabajo (H1):}
 
-El dise\~no de un modelo basado en YOLOv11 con m\'odulos de atenci\'on
-cruzada, evaluado sobre benchmarks multimodales combinados, logra una
-menor degradaci\'on de la precisi\'on media (mAP) que los enfoques
-algor\'itmicos fragmentados actuales (YOLO, Faster R-CNN aplicados de
-forma independiente), cuando se aplican a la detecci\'on de personas
-bajo condiciones simult\'aneas de oclusi\'on severa (mayor al 70\,\%
-de la silueta obstruida) y baja visibilidad (escenario nocturno o con
-niebla) en entornos reales.
+El modelo ARGOS-11, que integra un m\'odulo de atenci\'on cruzada
+canal-espacial y augmentaci\'on sint\'etica de oclusi\'on sobre la
+arquitectura YOLOv11s, alcanza una precisi\'on media (mAP@0.5)
+igual o superior al 74{,}3\,\% obtenido por ELS-YOLO en el dataset
+ExDark, bajo condiciones simult\'aneas de oclusi\'on severa (entre
+el 30\,\% y el 70\,\% de la silueta obstruida) y baja visibilidad
+(escenas nocturnas, interiores oscuros, niebla y lluvia), trabajando
+exclusivamente con im\'agenes RGB convencionales.
 
 \bigskip
 \textbf{Hip\'otesis nula (H0):}
 
-El dise\~no de un modelo basado en YOLOv11 con m\'odulos de atenci\'on
-cruzada produce una degradaci\'on de la precisi\'on media (mAP) igual
-o mayor a la de los enfoques fragmentados, cuando se aplican bajo
-condiciones simult\'aneas de oclusi\'on severa y baja visibilidad en
-entornos reales.
+El modelo ARGOS-11 obtiene una precisi\'on media (mAP@0.5) inferior
+al 74{,}3\,\% de ELS-YOLO en el dataset ExDark bajo las mismas
+condiciones de oclusi\'on severa y baja visibilidad, indicando que
+las modificaciones propuestas no aportan mejora significativa
+respecto al modelo de referencia.
 
 \bigskip
 \textbf{Sustento bibliogr\'afico de H1:}
 
 \begin{itemize}
-\item \textbf{Huang \& Liu~(2025)~\cite{Huang2025}} propusieron NP-YOLO,
-      una variante de YOLO optimizada para detecci\'on nocturna en
-      videovigilancia, demostrando que las adaptaciones sobre la
-      arquitectura YOLO mejoran significativamente el rendimiento ante
-      baja visibilidad. Este trabajo es la referencia metodol\'ogica
-      directa del presente proyecto, dado que comparte el mismo modelo
-      base (YOLOv11 como sucesor natural) y el mismo contexto de
-      aplicaci\'on.
+\item \textbf{Weng \& Niu~(2025)~\cite{ElsYolo2025}} establecen
+      que YOLOv11s, con modificaciones arquitect\'onicas ligeras,
+      puede alcanzar mAP@0.5 de 74{,}3\,\% en baja visibilidad sobre
+      ExDark manteniendo tiempo real. Nuestro m\'odulo de atenci\'on
+      adicional deber\'{i}a mejorar ese resultado al agregar
+      robustez ante oclusi\'on, sin sacrificar velocidad de
+      inferencia.
 
-\item \textbf{Deng et al.~(2024)~\cite{Deng2024}} demuestran que la
-      fusi\'on de canales RGB e infrarrojo mediante atenci\'on espacial
-      cruzada supera a los detectores RGB puros en escenarios de baja
-      iluminaci\'on, reportando mejoras de hasta 8 puntos en mAP.
-      Justifica H1 al evidenciar el potencial de los m\'odulos de
-      atenci\'on multiespectral para reducir la degradaci\'on ante baja
-      visibilidad.
+\item \textbf{Shen et al.~(2025)~\cite{Shen2025}} demuestran que
+      los mecanismos de atenci\'on cruzada canal-espacial mejoran
+      significativamente la localizaci\'on de regiones parcialmente
+      ocluidas. Este principio, aplicado a RGB, justifica la mejora
+      esperada en mAP de ARGOS-11 sobre ELS-YOLO.
 
-\item \textbf{Tang et al.~(2026)~\cite{Tang2026}} proponen un
-      razonamiento jer\'arquico adaptativo para oclusi\'on en multitudes
-      y reportan mejoras consistentes ante oclusi\'on severa. Los
-      autores declaran expl\'icitamente que ning\'un dataset p\'ublico
-      combina oclusi\'on severa y meteorolog\'ia adversa, respaldando
-      directamente la brecha que H1 busca resolver.
+\item \textbf{Deng et al.~(2024)~\cite{Deng2024}} reportan mejoras
+      de hasta 8 puntos en mAP al agregar atenci\'on espacial
+      cruzada sobre detectores base en escenas de baja iluminaci\'on,
+      respaldando directamente la hip\'otesis de que ARGOS-11
+      superar\'a el 74{,}3\,\% de la l\'{i}nea base.
 \end{itemize}
 
 %---------------------------------------------------------------
 \subsection{Variables}
 %---------------------------------------------------------------
 
-A continuaci\'on, se presenta de forma estructurada la operacionalizaci\'on de las variables que intervienen en el estudio, detallando su rol, naturaleza y escalas de medici\'on.
+A continuaci\'on se presenta la operacionalizaci\'on de las
+variables que intervienen en el estudio.
 
 \bigskip
 
 \begin{table}[h!]
 \centering
-\caption{Tabla de operacionalizaci\'on de variables}
+\caption{Tabla de operacionalizaci\'on de variables de ARGOS-11}
 \label{tab:variables}
 \renewcommand{\arraystretch}{1.4}
-\begin{tabular}{|p{3cm}|c|p{3.5cm}|p{3.5cm}|p{1.5cm}|}
+\begin{tabular}{|p{3cm}|c|p{3.3cm}|p{3.3cm}|p{1.6cm}|}
 \hline
-\textbf{Variable} & \textbf{Rol} & \textbf{Definici\'on conceptual} &
+\textbf{Variable} & \textbf{Rol} &
+\textbf{Definici\'on conceptual} &
 \textbf{Definici\'on operacional} & \textbf{Escala} \\
 \hline
-Arquitectura de aprendizaje profundo &
+Arquitectura del modelo (ARGOS-11 vs.\ ELS-YOLO) &
 VI &
-Tipo de modelo algor\'itmico empleado para la detecci\'on de personas
-en condiciones adversas. &
-Aplicaci\'on de YOLOv11 con atenci\'on cruzada vs.\ modelos
-fragmentados de 1 o 2 etapas (YOLOv8s, Faster R-CNN). &
+Configuraci\'on del detector: YOLOv11s base (ELS-YOLO) versus
+YOLOv11s con m\'odulo de atenci\'on cruzada y augmentaci\'on de
+oclusi\'on (ARGOS-11). &
+Presencia o ausencia del m\'odulo de atenci\'on cruzada y la
+augmentaci\'on sint\'etica de oclusi\'on en el pipeline de
+entrenamiento. &
 Nominal (Discreta) \\
 \hline
-Precisi\'on Media (mAP) &
+Precisi\'on Media (mAP@0.5) &
 VD1 &
 M\'etrica est\'andar de exactitud del detector en detecci\'on de
-objetos. &
-C\'alculo del \'area bajo la curva Precision-Recall durante pruebas
-de inferencia sobre el benchmark combinado. &
+objetos al umbral IoU = 0{,}5. &
+C\'alculo del \'area bajo la curva Precision-Recall evaluado sobre
+el conjunto de prueba del dataset ExDark, umbral IoU = 0{,}5. &
 Raz\'on (Continua) \\
 \hline
 Fotogramas por Segundo (FPS) &
 VD2 &
-Tasa de procesamiento del modelo en tiempo real, cr\'itica para
-aplicaciones de detecci\'on en entornos reales. &
-Cantidad de frames procesados y resueltos correctamente por segundo
-durante inferencia en dispositivo embebido. &
+Tasa de procesamiento del modelo en tiempo real. &
+N\'umero de frames procesados correctamente por segundo durante
+inferencia sobre hardware de referencia (GPU Jetson Nano /
+RTX 5070 Ti). &
 Raz\'on (Continua) \\
 \hline
-Escenarios simult\'aneos adversos &
+Nivel de oclusi\'on sint\'etica &
 VC &
-Entorno de evaluaci\'on que combina condiciones de oclusi\'on severa
-y baja iluminaci\'on de forma simult\'anea. &
-Uso de benchmarks multimodales combinados con obstrucci\'on corporal
-superior al 70\,\% bajo iluminaci\'on nocturna o con niebla. &
+Grado de obstrucci\'on aplicado sobre las anotaciones de personas
+en ExDark durante el entrenamiento. &
+Porcentaje del bounding box de cada persona cubierto por parches
+opacos aleatorios durante la augmentaci\'on de entrenamiento. &
 Ordinal (Discreta) \\
 \hline
 \end{tabular}
@@ -329,25 +308,28 @@ Ordinal (Discreta) \\
 \bigskip
 \newpage
 
-\noindent\textbf{Variable independiente (VI):} Arquitectura de
-aprendizaje profundo --- modelo YOLOv11 con m\'odulos de atenci\'on
-cruzada (propuesto) versus modelos fragmentados de referencia
-(YOLOv8s, Faster R-CNN). Instrumento: c\'odigo fuente del modelo.
-Valores: \{YOLOv11 unificado, Modelo fragmentado\}.
+\noindent\textbf{Variable independiente (VI):} Arquitectura del
+modelo --- YOLOv11s con m\'odulo de atenci\'on cruzada
+canal-espacial y augmentaci\'on sint\'etica de oclusi\'on
+(ARGOS-11) versus YOLOv11s base sin modificaciones (ELS-YOLO).
+Instrumento: c\'odigo fuente del modelo (Python/PyTorch).
+Valores: \{ARGOS-11, ELS-YOLO baseline\}.
 
 \vspace{0.5cm}
 \noindent\textbf{Variable dependiente 1 (VD1):} Precisi\'on Media
-(mAP) --- c\'alculo del \'area bajo la curva Precision-Recall.
-Instrumento: evaluador de m\'etricas est\'andar (COCO API). Rango:
-$[0{,}0 - 1{,}0]$.
+(mAP@0.5) --- \'area bajo la curva Precision-Recall al umbral
+IoU = 0{,}5. Instrumento: COCO evaluation API (pycocotools).
+Meta: $\geq 74{,}3\,\%$ (resultado de referencia de ELS-YOLO).
 
 \vspace{0.5cm}
-\noindent\textbf{Variable dependiente 2 (VD2):} Fotogramas por Segundo
-(FPS) --- cantidad de frames procesados por segundo. Instrumento:
-profiler de GPU (NVIDIA Nsight). Umbral m\'inimo: 30 FPS.
+\noindent\textbf{Variable dependiente 2 (VD2):} Fotogramas por
+Segundo (FPS) --- cantidad de frames procesados por segundo.
+Instrumento: profiler de GPU. Umbral m\'{i}nimo: 30 FPS para
+viabilidad en tiempo real.
 
 \vspace{0.5cm}
-\noindent\textbf{Variable de control (VC):} Escenarios simult\'aneos
-adversos --- entorno con oclusi\'on mayor al 70\,\% y baja
-visibilidad. Instrumento: dataset combinado (benchmark propio). Valores:
-\{Ligera ($\leq$30\,\%), Moderada (31--69\,\%), Severa ($\geq$70\,\%)\}.
+\noindent\textbf{Variable de control (VC):} Nivel de oclusi\'on
+sint\'etica --- porcentaje de la silueta cubierta durante
+augmentaci\'on. Valores: \{Ligera ($\leq$30\,\%), Moderada
+(31--69\,\%), Severa ($\geq$70\,\%)\}. Instrumento: script de
+augmentaci\'on propio implementado en Python/Albumentations.

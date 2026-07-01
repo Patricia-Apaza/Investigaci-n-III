@@ -1,303 +1,349 @@
 % capitulos/2metodologia.tex
 \section{Metodolog\'ia}
 
-\subsection{Dise\~no Metodol\'ogico}
+\subsection{Dise\~{n}o Metodol\'ogico}
 
-La presente investigaci\'on adopta un enfoque cuantitativo de tipo
-aplicado-experimental, orientado al desarrollo y validaci\'on de un
-modelo de detecci\'on de personas basado en YOLOv11 con m\'odulos de
-atenci\'on cruzada para condiciones adversas simult\'aneas de oclusi\'on
-severa y baja visibilidad en entornos reales. Seg\'un Hern\'andez
-Sampieri \& Mendoza~\cite{Hernandez2018}, el dise\~no es
-cuasiexperimental de alcance explicativo, dado que se manipula
-deliberadamente la variable independiente (arquitectura del modelo) y
-se miden sus efectos sobre las variables dependientes (mAP y FPS) bajo
-condiciones controladas de oclusi\'on y baja visibilidad.
+La presente investigaci\'on adopta un enfoque
+\textbf{cuantitativo experimental}, orientado al dise\~{n}o,
+implementaci\'on y validaci\'on del modelo ARGOS-11 para la
+detecci\'on de personas bajo condiciones simult\'aneas de
+oclusi\'on severa y baja visibilidad en im\'agenes RGB
+convencionales. Seg\'un Hern\'andez Sampieri \&
+Mendoza~\cite{Hernandez2018}, el dise\~{n}o es
+\textbf{cuasiexperimental de alcance explicativo}, ya que se
+manipula deliberadamente la variable independiente (arquitectura
+del modelo) y se miden sus efectos sobre las variables dependientes
+(mAP@0.5 y FPS) bajo condiciones controladas de oclusi\'on y
+baja visibilidad.
 
-La metodolog\'ia se inspira directamente en tres estudios primarios
-identificados en la RSL ejecutada: Huang \& Liu~\cite{Huang2025}
-propusieron NP-YOLO como modelo nocturno para videovigilancia
-siguiendo un pipeline de adaptaci\'on sobre arquitectura YOLO base,
-entrenamiento sobre benchmark especializado y evaluaci\'on comparativa
-de mAP y FPS; Hu et al.~\cite{Hu2025} dise\~naron PYOLO incorporando
-m\'odulos espec\'ificos de manejo de oclusi\'on sobre la columna
-vertebral YOLO con validaci\'on sobre Caltech y CityPersons; y Shen
-et al.~\cite{Shen2025} construyeron EAFF-Net fusionando
-modalidades espectrales mediante atenci\'on cruzada, evaluada sobre
-KAIST y FLIR. El presente proyecto unifica estas tres estrategias
-metodol\'ogicas en una sola arquitectura basada en YOLOv11.
+La metodolog\'ia se basa directamente en el pipeline establecido
+por Weng \& Niu~\cite{ElsYolo2025} en ELS-YOLO, adoptando su
+misma configuraci\'on de entrenamiento ---optimizador, \'epocas,
+batch size y dataset--- para garantizar una comparaci\'on
+reproducible y justa. Sobre esa base se integran dos
+contribuciones propias: un m\'odulo de atenci\'on cruzada
+canal-espacial para oclusi\'on, inspirado en el mecanismo EAFF de
+Shen et al.~\cite{Shen2025}, y una estrategia de augmentaci\'on
+sint\'etica de oclusi\'on durante el entrenamiento.
 
 El proceso metodol\'ogico comprende cuatro fases secuenciales:
 
 \begin{enumerate}
-  \item \textbf{Fase 1 --- Revisi\'on y fundamentaci\'on:} ejecuci\'on
-        de la RSL (ya completada) sobre cuatro bases de datos indexadas
-        (ACM Digital Library, Scopus, ScienceDirect y Web of Science),
-        con selecci\'on de 35 estudios primarios que fundamentan la
-        arquitectura propuesta.
+  \item \textbf{Fase 1 --- Preparaci\'on del entorno y dataset:}
+        descarga y verificaci\'on del dataset ExDark~\cite{Loh2019},
+        conversi\'on de anotaciones a formato YOLO (.txt),
+        implementaci\'on del script de augmentaci\'on sint\'etica
+        de oclusi\'on, y divisi\'on del dataset en conjuntos de
+        entrenamiento (70\,\%), validaci\'on (10\,\%) y prueba
+        (20\,\%).
 
-  \item \textbf{Fase 2 --- Dise\~no e implementaci\'on:} dise\~no de
-        la arquitectura YOLOv11 extendida con m\'odulos de atenci\'on
-        cruzada y construcci\'on del benchmark multimodal combinado
-        (KAIST + FLIR + Caltech + CityPersons con anotaciones de
-        oclusi\'on severa y baja visibilidad simult\'aneas).
+  \item \textbf{Fase 2 --- Dise\~{n}o e implementaci\'on de
+        ARGOS-11:} modificaci\'on de la arquitectura YOLOv11s
+        integrando el m\'odulo de atenci\'on cruzada canal-espacial
+        en el cuello de la red (\textit{neck}), configuraci\'on de
+        la pipeline de augmentaci\'on con Albumentations, y
+        verificaci\'on de la integridad del modelo antes del
+        entrenamiento.
 
-  \item \textbf{Fase 3 --- Entrenamiento y experimentaci\'on:}
-        entrenamiento del modelo propuesto sobre el benchmark combinado,
-        comparaci\'on con los modelos de referencia (YOLOv8s, Faster
-        R-CNN, NP-YOLO) y medici\'on de m\'etricas (mAP, FPS,
-        log-average miss rate).
+  \item \textbf{Fase 3 --- Entrenamiento y ajuste:} entrenamiento
+        del modelo ARGOS-11 siguiendo el pipeline de ELS-YOLO con
+        los hiperpar\'ametros definidos en la
+        Tabla~\ref{tab:hiperparametros}. Se ejecutar\'an tres
+        corridas independientes para garantizar estabilidad de los
+        resultados.
 
-  \item \textbf{Fase 4 --- An\'alisis y documentaci\'on:} an\'alisis
-        estad\'istico de resultados, redacci\'on del informe final y
-        preparaci\'on del art\'iculo cient\'ifico.
+  \item \textbf{Fase 4 --- Evaluaci\'on y an\'alisis:} inferencia
+        sobre el conjunto de prueba de ExDark, c\'alculo de m\'etricas
+        (mAP@0.5, mAP@0.5:0.95, FPS), comparaci\'on directa contra
+        ELS-YOLO como baseline, y an\'alisis estad\'{i}stico de los
+        resultados.
 \end{enumerate}
 
-\subsection{Dise\~no de la Construcci\'on de la Propuesta de
+\subsection{Dise\~{n}o de la Construcci\'on de la Propuesta de
 Ingenier\'ia}
 
-La propuesta de ingenier\'ia consiste en el dise\~no e implementaci\'on
-de un \textbf{modelo YOLOv11 extendido con m\'odulos de atenci\'on
-cruzada} capaz de gestionar simult\'aneamente la oclusi\'on severa y
-la baja visibilidad en entornos reales. La construcci\'on sigue las
-etapas que se describen a continuaci\'on, tom\'andose como referencia
-metodol\'ogica directa el pipeline propuesto por Huang \&
-Liu~\cite{Huang2025} para NP-YOLO y el mecanismo de fusi\'on de
-Shen et al.~\cite{Shen2025} para EAFF-Net:
+La propuesta de ingenier\'ia consiste en el modelo \textbf{ARGOS-11}
+(\textit{Adverse-condition Robust person detectiOn System}), una
+arquitectura basada en YOLOv11s que extiende el modelo ELS-YOLO
+con dos componentes adicionales para el manejo simult\'aneo de
+oclusi\'on y baja visibilidad. A continuaci\'on se detallan las
+etapas de construcci\'on:
+
+\subsubsection{Arquitectura base: YOLOv11s}
+
+Se utiliza YOLOv11s (Ultralytics, 2024) como red troncal, en su
+variante peque\~{n}a (\textit{small}), por ofrecer el mejor
+equilibrio entre precisi\'on y velocidad de inferencia en la
+familia YOLOv11. Siguiendo a Weng \&
+Niu~\cite{ElsYolo2025}, no se utilizan pesos preentrenados
+(\textit{from scratch}), lo que asegura que los resultados
+reflejan exclusivamente el aporte de la arquitectura y los datos,
+y no de transferencia de aprendizaje.
+
+\subsubsection{M\'odulo de atenci\'on cruzada canal-espacial
+(contribuci\'on 1)}
+
+Se integra un m\'odulo de atenci\'on cruzada canal-espacial en el
+cuello (\textit{neck}) de YOLOv11s, entre el FPN y el cabezal de
+detecci\'on. Este m\'odulo est\'a inspirado en el mecanismo EAFF
+(\textit{Efficient Attention Feature Fusion}) de Shen et
+al.~\cite{Shen2025}, adaptado para im\'agenes RGB en lugar de
+pares multimodales. Su funcionamiento es el siguiente:
 
 \begin{enumerate}
-
-  \item \textbf{Selecci\'on y configuraci\'on de la arquitectura base.}
-        Se tomar\'a YOLOv11 (Ultralytics, 2024) en su variante
-        compacta (YOLOv11s) como red troncal (\textit{backbone}), dado
-        que ofrece el mejor equilibrio entre precisi\'on y velocidad de
-        inferencia en la familia YOLO~\cite{Huang2025}. Se emplear\'a
-        como l\'inea de base comparativa YOLOv8s~\cite{ZhangF2025} y
-        Faster R-CNN~\cite{Ren2015}.
-
-  \item \textbf{Integraci\'on del m\'odulo de atenci\'on cruzada para
-        oclusi\'on.} Inspirado en el mecanismo de predicci\'on de
-        partes corporales de Hu et al.~\cite{Hu2025} (PYOLO), se
-        dise\~nar\'a un m\'odulo de atenci\'on canal-espacial que
-        ponderar\'a las regiones parcialmente visibles durante la
-        extracci\'on de caracter\'isticas, permitiendo al modelo
-        inferir la posici\'on global de la persona a partir de las
-        partes no ocluidas.
-
-  \item \textbf{Construcci\'on del benchmark multimodal combinado.}
-        Siguiendo la estrategia de Shen et al.~\cite{Shen2025}, se
-        fusionar\'an cuatro conjuntos de datos p\'ublicos (KAIST
-        Multispectral Pedestrian Dataset, FLIR Thermal Dataset, Caltech
-        Pedestrian Dataset y CityPersons), enriqueci\'endolos con
-        anotaciones de oclusi\'on severa (obstrucci\'on corporal
-        superior al 70\,\%) bajo condiciones de baja visibilidad
-        simult\'aneas (nocturno, niebla, lluvia). Este benchmark
-        constituye la principal contribuci\'on metodol\'ogica del
-        proyecto.
-
-  \item \textbf{Entrenamiento y ajuste fino (\textit{fine-tuning}).}
-        El modelo se pre-entrenar\'a sobre COCO~\cite{ZhangF2025} y
-        se ajustar\'a sobre el benchmark combinado propio. Se
-        emplear\'an t\'ecnicas de aumento de datos espec\'ificas
-        para condiciones adversas: simulaci\'on de niebla, variaci\'on
-        de iluminaci\'on y oclusi\'on sint\'etica aleatoria, siguiendo
-        el protocolo de Huang \& Liu~\cite{Huang2025}.
-
-  \item \textbf{Optimizaci\'on para inferencia en tiempo real.}
-        Se aplicar\'an t\'ecnicas de poda de pesos (\textit{pruning})
-        y cuantizaci\'on INT8 para reducir el tama\~no del modelo y
-        garantizar una tasa de inferencia superior a 30 FPS sobre
-        dispositivo embebido Jetson Nano, garantizando su
-        aplicabilidad en entornos con hardware
-        limitado~\cite{Kim2025}.
-
-  \item \textbf{Evaluaci\'on experimental comparativa.} Se medir\'an
-        las m\'etricas mAP@0.5, mAP@0.5:0.95, log-average miss rate y
-        FPS sobre el benchmark combinado bajo los tres niveles de
-        severidad definidos (oclusi\'on ligera, moderada y severa),
-        comparando el modelo propuesto con YOLOv8s, Faster R-CNN y
-        NP-YOLO como l\'ineas de base~\cite{Huang2025, ZhangF2025,
-        Ren2015}.
-
+  \item \textbf{Rama de atenci\'on de canal:} aplica
+        \textit{Global Average Pooling} sobre cada mapa de
+        caracter\'{i}sticas para obtener un vector de pesos por
+        canal, que pondera las caracter\'{i}sticas m\'as informativas
+        de las regiones visibles de la persona.
+  \item \textbf{Rama de atenci\'on espacial:} genera un mapa de
+        activaci\'on espacial mediante convoluciones 7$\times$7
+        que localiza las regiones del mapa de caracter\'{i}sticas
+        con mayor probabilidad de contener siluetas parcialmente
+        ocluidas.
+  \item \textbf{Fusi\'on cruzada:} los mapas de las dos ramas se
+        multiplican elemento a elemento (\textit{element-wise
+        multiplication}) para producir un mapa de
+        caracter\'{i}sticas refinado que atenua el ruido de fondo
+        y enfatiza las regiones de inter\'es.
 \end{enumerate}
 
-\subsection{Dise\~no Muestral}
+Este mecanismo incrementa la sensibilidad del detector ante
+siluetas parcialmente cubiertas sin aumentar significativamente
+la complejidad computacional del modelo, lo que es
+cr\'{i}tico para mantener el requisito de inferencia en tiempo
+real ($>$30 FPS).
 
-\textbf{Universo:} conjunto de im\'agenes y secuencias de video de
-peatones y personas en entornos reales, provenientes de los datasets
-p\'ublicos KAIST Multispectral Pedestrian Dataset, FLIR Thermal
-Dataset, Caltech Pedestrian Dataset y CityPersons, cubriendo
-escenarios diurnos, nocturnos, con niebla, lluvia y diversos niveles
-de oclusi\'on.
+\subsubsection{Augmentaci\'on sint\'etica de oclusi\'on
+(contribuci\'on 2)}
 
-\bigskip
+Durante el entrenamiento se aplica una estrategia de augmentaci\'on
+sint\'etica de oclusi\'on sobre las im\'agenes de ExDark, inspirada
+en el protocolo de ocultamiento aleatorio (\textit{random erasing})
+utilizado en trabajos de oclusi\'on peatonal~\cite{Hu2025, Kim2025}.
+El procedimiento es el siguiente:
 
-\textbf{Muestra:} el benchmark combinado construido en la Fase~2
-constituir\'a la muestra de entrenamiento y evaluaci\'on. La
-distribuci\'on estimada es la siguiente:
+\begin{enumerate}
+  \item Para cada imagen de entrenamiento, con probabilidad
+        $p = 0{,}5$, se selecciona aleatoriamente entre 1 y 3
+        personas anotadas.
+  \item Sobre el bounding box de cada persona seleccionada, se
+        coloca un parche opaco rectangular de color aleatorio
+        (negro, gris o con textura de fondo) que cubre entre el
+        30\,\% y el 70\,\% del \'area del bounding box.
+  \item La posici\'on del parche dentro del bounding box es
+        aleatoria, cubriendo distintas partes del cuerpo (cabeza,
+        torso, piernas) para simular diferentes tipos de oclusi\'on
+        real.
+  \item Las anotaciones originales se mantienen sin modificar, de
+        forma que el modelo aprende a detectar la persona a partir
+        de la fracci\'on visible de la silueta.
+\end{enumerate}
 
-\begin{table}[!htbp]
+Esta estrategia incrementa artificialmente la diversidad de los
+datos de entrenamiento en t\'erminos de oclusi\'on, sin necesidad
+de recopilar im\'agenes adicionales, y ha demostrado mejorar
+consistentemente la robustez de los detectores ante oclusi\'on
+real~\cite{Tang2026}.
+
+\subsubsection{Configuraci\'on de entrenamiento}
+
+La Tabla~\ref{tab:hiperparametros} detalla la configuraci\'on
+completa de entrenamiento, replicando fielmente el pipeline de
+ELS-YOLO~\cite{ElsYolo2025} para garantizar comparabilidad directa
+de resultados.
+
+\begin{table}[h!]
 \centering
-\caption{Distribuci\'on estimada del benchmark multimodal combinado}
-\label{tab:benchmark}
+\caption{Hiperpar\'ametros de entrenamiento de ARGOS-11 (basados
+en ELS-YOLO~\cite{ElsYolo2025})}
+\label{tab:hiperparametros}
 \renewcommand{\arraystretch}{1.3}
-\resizebox{\textwidth}{!}{% <-- Ajusta la tabla automáticamente al ancho del texto
-\begin{tabular}{|l|c|c|c|}
+\begin{tabular}{|l|c|l|}
 \hline
-\textbf{Dataset base} & \textbf{Im\'agenes aprox.} &
-\textbf{Condici\'on principal} & \textbf{Divisi\'on} \\
+\textbf{Hiperpar\'ametro} & \textbf{Valor} & \textbf{Justificaci\'on} \\
 \hline
-KAIST Multispectral & 95\,000 & Baja visibilidad (nocturno/IR) &
-70\,\% train / 30\,\% test \\
+Arquitectura base & YOLOv11s & Mismo que ELS-YOLO \\
 \hline
-FLIR Thermal & 14\,452 & Baja iluminaci\'on (t\'ermico) &
-70\,\% train / 30\,\% test \\
+Optimizador & SGD & Mismo que ELS-YOLO \\
 \hline
-Caltech Pedestrian & 250\,000 & Oclusi\'on (urbano) &
-70\,\% train / 30\,\% test \\
+Tasa de aprendizaje inicial & 0{,}01 & Mismo que ELS-YOLO \\
 \hline
-CityPersons & 35\,016 & Oclusi\'on (ciudades reales) &
-70\,\% train / 30\,\% test \\
+Momentum & 0{,}937 & Mismo que ELS-YOLO \\
 \hline
-\textbf{Total combinado} & \textbf{$\approx$ 394\,468} &
-Oclusi\'on + baja visibilidad & \textbf{70\,\% / 30\,\%} \\
+Weight decay & 0{,}0005 & Mismo que ELS-YOLO \\
 \hline
-\end{tabular}% <-- No olvides cerrar el corchete del resizebox
-}
+\'Epocas & 200 & Mismo que ELS-YOLO \\
+\hline
+Batch size & 16 & Mismo que ELS-YOLO \\
+\hline
+Pesos iniciales & Sin preentrenar & Mismo que ELS-YOLO \\
+\hline
+Tama\~{n}o de entrada & 640$\times$640 px & Est\'andar YOLO \\
+\hline
+Dataset & ExDark & Mismo que ELS-YOLO \\
+\hline
+Divisi\'on & 70 / 10 / 20\,\% & Train / Val / Test \\
+\hline
+Augmentaci\'on sint\'etica & $p = 0{,}5$, oclusi\'on 30--70\,\% & Contribuci\'on propia \\
+\hline
+Corridas independientes & 3 & Estabilidad estad\'{i}stica \\
+\hline
+\end{tabular}
 \end{table}
 
-\noindent\textbf{Unidad de an\'alisis:} imagen o frame de video que
-contenga al menos una persona bajo alguna condici\'on de oclusi\'on
-(ligera, moderada o severa) combinada con alguna condici\'on de baja
-visibilidad (nocturno, niebla o lluvia).
+\subsubsection{Modelo de comparaci\'on (baseline)}
+
+El modelo de referencia es \textbf{ELS-YOLO}~\cite{ElsYolo2025},
+entrenado bajo exactamente los mismos hiperpar\'ametros y dataset
+que ARGOS-11. La comparaci\'on es justa porque ambos modelos
+comparten la misma arquitectura base (YOLOv11s), el mismo
+optimizador, las mismas \'epocas y el mismo conjunto de datos.
+La \'unica diferencia es la presencia del m\'odulo de atenci\'on
+cruzada y la augmentaci\'on sint\'etica de oclusi\'on en ARGOS-11.
+
+La meta establecida es que ARGOS-11 alcance un
+\textbf{mAP@0.5 $\geq$ 74{,}3\,\%} (resultado reportado por
+ELS-YOLO) manteniendo una tasa de inferencia superior a 30 FPS.
+
+\subsection{Dise\~{n}o Muestral}
+
+\textbf{Dataset:} \textbf{ExDark}~\cite{Loh2019} (\textit{Exclusively
+Dark Image Dataset}), un conjunto de datos p\'ublico y de acceso
+libre compuesto por \textbf{7{,}363 im\'agenes} capturadas
+exclusivamente en condiciones de baja iluminaci\'on real: interiores
+oscuros, noche urbana, niebla, lluvia, luz de velas y entornos
+subexpuestos. Todas las im\'agenes son \textbf{solo RGB}, sin
+sensores especializados, lo que garantiza la aplicabilidad del
+modelo en cualquier c\'amara convencional.
+
+\begin{table}[h!]
+\centering
+\caption{Caracter\'{i}sticas del dataset ExDark}
+\label{tab:exdark}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Caracter\'{i}stica} & \textbf{Valor} \\
+\hline
+Total de im\'agenes & 7{,}363 \\
+\hline
+Clases de objetos & 12 (incluye \textit{person}) \\
+\hline
+Tipo de sensor & Solo RGB (c\'amaras convencionales) \\
+\hline
+Condiciones de iluminaci\'on & Baja (noche, interior, niebla, lluvia) \\
+\hline
+Formato de anotaci\'on & Bounding box (convertido a YOLO .txt) \\
+\hline
+Divisi\'on train / val / test & 5{,}154 / 737 / 1{,}472 im\'agenes \\
+\hline
+Acceso & P\'ublico y libre \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Unidad de an\'alisis:} imagen RGB de baja
+iluminaci\'on que contenga al menos una persona anotada, con o sin
+augmentaci\'on sint\'etica de oclusi\'on aplicada.
 
 \bigskip
-
 \textbf{Criterios de inclusi\'on de im\'agenes:}
 \begin{itemize}
-  \item Im\'agenes con al menos una persona anotada con cuadro
-        delimitador.
-  \item Im\'agenes con oclusi\'on documentada en alguno de los tres
-        niveles definidos.
-  \item Im\'agenes capturadas bajo condiciones de baja visibilidad
-        (nocturno, niebla simulada o lluvia).
-  \item Im\'agenes provenientes de los cuatro datasets base
-        seleccionados.
+  \item Im\'agenes con al menos una persona anotada con bounding
+        box.
+  \item Im\'agenes capturadas en condiciones de baja iluminaci\'on
+        real (todas las im\'agenes de ExDark cumplen este criterio).
+  \item Im\'agenes de formato RGB est\'andar (.jpg, .png).
 \end{itemize}
 
 \textbf{Criterios de exclusi\'on de im\'agenes:}
 \begin{itemize}
-  \item Im\'agenes sin ninguna persona anotada.
-  \item Im\'agenes de calidad insuficiente (corrupci\'on de datos o
-        anotaciones inconsistentes).
-  \item Im\'agenes duplicadas entre datasets base.
+  \item Im\'agenes corruptas o con anotaciones inconsistentes.
+  \item Im\'agenes sin ninguna persona en la escena.
 \end{itemize}
 
 \subsection{T\'ecnicas de Recolecci\'on de Datos}
 
-Los datos del proyecto provienen de dos fuentes principales:
+Los datos experimentales provienen de dos fuentes:
 
-\textbf{Fuente 1 --- RSL (ya ejecutada):} la b\'usqueda sistem\'atica
-sobre ACM Digital Library (151 registros), Scopus (162), ScienceDirect
-(492) y Web of Science (302), con un total de 1\,107 registros y
-selecci\'on final de 35 estudios primarios, proporciona la
-fundamentaci\'on te\'orica y las referencias metodol\'ogicas del
-proyecto~\cite{Kitchenham2007}.
+\textbf{Fuente 1 --- Dataset ExDark:}
+El dataset se obtendr\'a del repositorio oficial de
+Loh \& Chan~\cite{Loh2019}
+(\url{https://github.com/cs-chan/Exclusively-Dark-Image-Dataset}).
+Las anotaciones originales se convertir\'an a formato YOLO (.txt)
+mediante un script Python propio. El proceso incluye:
+(1)~descarga y verificaci\'on de integridad (MD5);
+(2)~conversi\'on de coordenadas de bounding box al formato
+normalizado YOLO;
+(3)~verificaci\'on de que todas las categor\'{i}as de persona est\'en
+correctamente etiquetadas;
+(4)~divisi\'on aleatoria estratificada en conjuntos de
+entrenamiento (70\,\%), validaci\'on (10\,\%) y prueba (20\,\%).
 
-\textbf{Fuente 2 --- Datasets p\'ublicos para experimentaci\'on:} los
-datos de entrenamiento y evaluaci\'on experimental se obtendr\'an de
-los siguientes repositorios p\'ublicos con licencia acad\'emica:
+\textbf{Fuente 2 --- M\'etricas de entrenamiento:}
+Durante el entrenamiento se registrar\'an autom\'aticamente mediante
+Ultralytics YOLO las siguientes m\'etricas por \'epoca:
+p\'erdida de localizaci\'on (\textit{box loss}), p\'erdida de
+clasificaci\'on (\textit{cls loss}), mAP@0.5 y mAP@0.5:0.95 en el
+conjunto de validaci\'on. Estos datos se exportar\'an en formato CSV
+para su posterior an\'alisis estad\'{i}stico.
 
-\begin{itemize}
-  \item \textbf{KAIST Multispectral Pedestrian Dataset}
-        (\url{https://soonminhwang.github.io/rgbt-ped-detection/}):
-        95\,000 pares de im\'agenes RGB-infrarrojo en escenarios
-        diurnos y nocturnos~\cite{Dao2022}.
-  \item \textbf{FLIR Thermal Dataset}
-        (\url{https://www.flir.com/oem/adas/adas-dataset-agree/}):
-        14\,452 im\'agenes t\'ermicas para detecci\'on con escasa
-        iluminaci\'on~\cite{Akshatha2022}.
-  \item \textbf{Caltech Pedestrian Dataset}
-        (\url{http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/}):
-        est\'andar de referencia con anotaciones de nivel de
-        oclusi\'on~\cite{Dollar2012}.
-  \item \textbf{CityPersons}
-        (\url{https://github.com/CharlesShang/Pedestron}): peatones en
-        entornos urbanos reales con diversas condiciones de
-        oclusi\'on~\cite{Guo2025}.
-\end{itemize}
+\subsection{T\'ecnicas Estad\'{i}sticas para el Procesamiento de
+la Informaci\'on}
 
-El proceso de construcci\'on del benchmark combinado incluir\'a:
-(1)~descarga y verificaci\'on de integridad de los datasets base;
-(2)~estandarizaci\'on del formato de anotaciones a YOLO (.txt);
-(3)~clasificaci\'on de im\'agenes por nivel de oclusi\'on y condici\'on
-de visibilidad; (4)~aumento de datos sint\'etico (simulaci\'on de
-niebla, variaci\'on de brillo, oclusi\'on aleatoria); y
-(5)~divisi\'on train/val/test (70\,\%/10\,\%/20\,\%).
-
-\subsection{T\'ecnicas Estad\'isticas para el Procesamiento de la
-Informaci\'on}
-
-La s\'intesis de los datos extra\'idos de la RSL se realiz\'o mediante
-s\'intesis narrativa estructurada, siguiendo el marco de Popay et
-al.~\cite{Popay2006}. Para la fase experimental de validaci\'on del
-modelo YOLOv11 propuesto se emplear\'an las siguientes t\'ecnicas
-estad\'isticas:
+Para la evaluaci\'on y comparaci\'on de ARGOS-11 contra ELS-YOLO
+se emplear\'an las siguientes t\'ecnicas estad\'{i}sticas:
 
 \begin{itemize}
   \item \textbf{Prueba \textit{t} de Student (muestras
-        independientes):} para comparar las distribuciones de mAP entre
-        el modelo YOLOv11 propuesto y los modelos de referencia (Faster
-        R-CNN, YOLOv8s, NP-YOLO), con nivel de significancia
-        $\alpha = 0{,}05$~\cite{Huang2025}. Se emplear\'a el software
-        Python (scipy.stats) o R.
+        independientes):} para comparar la distribuci\'on de
+        mAP@0.5 entre ARGOS-11 y ELS-YOLO a lo largo de las tres
+        corridas independientes, con nivel de significancia
+        $\alpha = 0{,}05$.
 
-  \item \textbf{An\'alisis de varianza (ANOVA):} para comparar el
-        rendimiento entre los tres niveles de severidad de oclusi\'on
-        (ligera, moderada, severa) y las tres condiciones de
-        visibilidad (diurna, crep\'uscular, nocturna), con post-hoc
-        Tukey HSD cuando se detecten diferencias significativas.
+  \item \textbf{Intervalo de confianza al 95\,\%:} para reportar
+        la incertidumbre en las estimaciones de mAP@0.5 y FPS,
+        expresando los resultados como media $\pm$ desviaci\'on
+        est\'andar sobre las tres corridas.
 
-  \item \textbf{Intervalo de confianza al 95\,\%:} para reportar la
-        incertidumbre en las estimaciones de mAP y FPS.
+  \item \textbf{Curvas Precision-Recall:} para visualizar el
+        comportamiento del detector en distintos umbrales de
+        confianza y calcular el \'area bajo la curva (mAP).
 
-  \item \textbf{Coeficiente de correlaci\'on de Pearson:} para analizar
-        la relaci\'on entre el nivel de oclusi\'on (\,\%) y la
-        degradaci\'on del mAP en cada arquitectura evaluada,
-        siguiendo la metodolog\'ia de Tang et al.~\cite{Tang2026}.
+  \item \textbf{An\'alisis de ablaci\'on:} para cuantificar el
+        aporte individual de cada componente de ARGOS-11 mediante
+        tres variantes de entrenamiento:
+        \begin{enumerate}
+          \item YOLOv11s base (= ELS-YOLO, sin modificaciones)
+          \item YOLOv11s + m\'odulo de atenci\'on (sin augmentaci\'on)
+          \item YOLOv11s + augmentaci\'on (sin m\'odulo)
+          \item ARGOS-11 completo (ambos componentes)
+        \end{enumerate}
+        Esto permite aislar la contribuci\'on de cada aporte y
+        determinar cu\'al tiene mayor impacto en el mAP@0.5.
 
-  \item \textbf{Software e Infraestructura:} Python~3.11 con las
-        bibliotecas PyTorch, Ultralytics~YOLOv11, torchmetrics, numpy,
-        pandas, scipy y matplotlib para el entrenamiento, evaluaci\'on
-        y visualizaci\'on de resultados. El entorno de desarrollo y
-        control de versiones se gestionar\'a mediante Visual Studio Code
-        integrado con GitHub. La fase de entrenamiento pesado se
-        evaluar\'a bajo tres alternativas de infraestructura: (A)
-        instancias cloud en Google Colab Pro+, (B) entornos NVIDIA
-        Cloud en la plataforma Brev.dev utilizando arquitecturas RTX
-        Pro 6000, o (C) procesamiento local dedicado mediante una GPU
-        RTX 5070 Ti de 16\,GB. La validaci\'on f\'isica de la
-        velocidad de inferencia se ejecutar\'a sobre el dispositivo
-        embebido Jetson Nano para la medici\'on precisa de FPS.
+  \item \textbf{Software:} Python 3.11 con Ultralytics YOLOv11,
+        PyTorch, Albumentations (augmentaci\'on), pycocotools
+        (m\'etricas COCO), numpy, pandas, matplotlib y
+        scipy.stats. El entrenamiento se ejecutar\'a bajo tres
+        alternativas de infraestructura: (A)~Google Colab Pro+,
+        (B)~NVIDIA Cloud en Brev.dev con RTX Pro 6000, o
+        (C)~GPU local RTX 5070 Ti de 16\,GB. La validaci\'on de
+        FPS se realizar\'a sobre dispositivo embebido Jetson Nano.
 \end{itemize}
 
 \subsection{Aspectos \'Eticos}
 
-Esta investigaci\'on es de car\'acter documental y experimental no
-invasivo; no involucra datos personales, participantes humanos ni
-animales. Los art\'iculos revisados en la RSL son de acceso p\'ublico
-a trav\'es de las licencias institucionales de la Universidad Peruana
-Uni\'on o de acceso abierto. Todos los estudios primarios son citados
-correctamente siguiendo el estilo IEEE. En consecuencia, seg\'un los
-lineamientos de la UPeU, este estudio no requiere evaluaci\'on por
-comit\'e de \'etica, dado que no incluye seres humanos ni animales en
-su dise\~no muestral.
-
-Los autores declaran no tener conflicto de intereses relacionado con
-esta investigaci\'on y que el financiamiento es exclusivamente
-institucional (asignatura Investigaci\'on III, Universidad Peruana
-Uni\'on). La originalidad del trabajo fue verificada con un \'indice de
-similitud al 10\,\% mediante Turnitin, en cumplimiento de las normas de
-integridad acad\'emica de la UPeU. Los conjuntos de datos p\'ublicos
-empleados (KAIST, FLIR, Caltech, CityPersons) poseen licencias de uso
-acad\'emico irrestricto.
+Esta investigaci\'on es de car\'acter experimental no invasivo y
+no involucra datos personales, participantes humanos ni animales.
+El dataset ExDark es p\'ublico y de acceso libre bajo licencia
+acad\'emica, sin restricciones de uso para investigaci\'on
+cient\'{i}fica~\cite{Loh2019}. Todos los art\'{i}culos referenciados
+son citados correctamente siguiendo el estilo IEEE. Los autores
+declaran no tener conflicto de intereses y que el financiamiento
+es exclusivamente institucional (asignatura Investigaci\'on III,
+Universidad Peruana Uni\'on, Juliaca). La originalidad del trabajo
+fue verificada con un \'{i}ndice de similitud del 10\,\% mediante
+Turnitin, en cumplimiento de las normas de integridad acad\'emica
+de la UPeU.
